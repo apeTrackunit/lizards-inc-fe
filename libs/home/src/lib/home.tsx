@@ -1,12 +1,8 @@
-import styles from './home.module.css';
 import {TestComponent} from "@lizards-inc-fe/shared-components";
 
-/* eslint-disable-next-line */
-export interface HomeProps {}
-
-export function Home(props: HomeProps) {
+export function Home() {
   return (
-    <div className={styles['container']}>
+    <div>
         <h1>Welcome to Home!</h1>
         <TestComponent/>
     </div>
