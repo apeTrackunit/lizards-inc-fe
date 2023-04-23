@@ -1,6 +1,3 @@
 export const TestComponent = () => {
-
-    return (
-        <>Test Component</>
-    )
-}
+  return <>Test Component</>;
+};
