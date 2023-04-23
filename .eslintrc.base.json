@@ -18,6 +18,13 @@
               }
             ]
           }
+        ],
+        "no-unused-vars": "off",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
+          }
         ]
       }
     },

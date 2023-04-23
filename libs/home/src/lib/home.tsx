@@ -1,10 +1,10 @@
-import {TestComponent} from "@lizards-inc-fe/shared-components";
+import { TestComponent } from '@lizards-inc-fe/shared-components';
 
 export function Home() {
   return (
     <div>
-        <h1>Welcome to Home!</h1>
-        <TestComponent/>
+      <h1>Welcome to Home!</h1>
+      <TestComponent />
     </div>
   );
 }
