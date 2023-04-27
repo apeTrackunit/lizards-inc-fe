@@ -10,7 +10,8 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": [],
+            "allowCircularSelfDependency": true,
+            "allow": [""],
             "depConstraints": [
               {
                 "sourceTag": "*",
