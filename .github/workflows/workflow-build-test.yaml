@@ -27,7 +27,7 @@ jobs:
         run: npm install nx
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build application
         run: npm run build
