@@ -6,4 +6,4 @@ on:
 
 jobs:
   call-workflow-build-and-test:
-    uses: ./.github/workflows/workflow-build-test.yaml
+    uses: ./.github/workflows/workflow_bases/workflow-build-test.yaml
