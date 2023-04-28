@@ -9,7 +9,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,26 +20,36 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Restore cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
       - name: Build application
-        id: build
         run: npm run build
-#        continue-on-error: true
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Restore cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
 
       - name: Run tests
-        id: test
         run: npm run test
-#        continue-on-error: true
-
-
-#      - name: Notify if build or test failed
-#        if: ${{ job.status != 'success' }}
-#        uses: appleboy/slack-action@master
-#        with:
-#          status: ${{ job.status }}
-#          text: "The ${{ job.statuses.test == 'failure' && job.statuses.build == 'success' ? 'test' : 'build' }} job failed for ${{ github.repository }}."
-#          channel: "#notifications"
-#          username: "GitHub Actions"
-#          icon_emoji: ":octocat:"
