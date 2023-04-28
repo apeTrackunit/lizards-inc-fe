@@ -6,7 +6,7 @@ export function Home() {
 
   return (
     <div>
-      <h1>Welcome to Home!</h1>
+      <h1>Home</h1>
       {JSON.stringify(data)}
       <TestComponent />
     </div>
