@@ -1,4 +1,4 @@
-name: build-and-test
+name: Build and Test
 
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows
 on:
@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: pre-build
+
     steps:
       - uses: actions/checkout@v2
 
