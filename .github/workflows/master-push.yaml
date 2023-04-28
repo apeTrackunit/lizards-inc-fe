@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-workflow-build-and-test:
-    uses: ./.github/workflows/workflow_bases/workflow-build-test.yaml
+    uses: ./.github/workflows/workflow-build-test.yaml
   call-workflow-deploy:
     needs: call-workflow-build-and-test
-    uses: ./.github/workflows/workflow_bases/workflow-deploy.yaml
+    uses: ./.github/workflows/workflow-deploy.yaml
