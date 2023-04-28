@@ -10,13 +10,21 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": [],
+            "allowCircularSelfDependency": true,
+            "allow": [""],
             "depConstraints": [
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
               }
             ]
+          }
+        ],
+        "no-unused-vars": "off",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
           }
         ]
       }

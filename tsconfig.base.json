@@ -15,10 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@lizards-inc-fe/fetcher": ["libs/fetcher/src/index.ts"],
       "@lizards-inc-fe/home": ["libs/home/src/index.ts"],
-      "@lizards-inc-fe/shared-components": [
-        "libs/shared-components/src/index.ts"
-      ]
+      "@lizards-inc-fe/shared-components": ["libs/shared-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
