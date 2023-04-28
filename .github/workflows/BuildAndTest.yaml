@@ -3,10 +3,9 @@ name: Build and Test
 on:
   push:
     branches:
-#      - main
-      - docker-local-development
+      - *
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Build application
-        run: npm run build
+        run: nx build
 
   test:
     runs-on: ubuntu-latest
@@ -53,4 +52,4 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
 
       - name: Run tests
-        run: npm run test
+        run: nx run-many --target test --all
