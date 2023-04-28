@@ -16,8 +16,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Setting Up Workflow
-        uses: actions/
       - name: Restore cached dependencies
         uses: actions/cache@v2
         with:
