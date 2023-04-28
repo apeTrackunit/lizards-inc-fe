@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Build application
-        run: npx nx build
+        run: npm run build
 
   test:
     runs-on: ubuntu-latest
