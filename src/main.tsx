@@ -3,17 +3,38 @@ import * as ReactDOM from 'react-dom/client';
 
 import App from './app/app';
 import { SWRConfig } from 'swr';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
+import { Home } from '@lizards-inc-fe/home';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path={RoutingTable.root} element={<App />}>
+      <Route index element={<Home />} />
+
+      <Route path={RoutingTable.home.root}>
+        <Route index element={<Home />} />
+      </Route>
+
+      <Route path={RoutingTable.animals.root}>
+        <Route index element={<h1>Animals</h1>} />
+        <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
+    </Route>
+  )
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
     <SWRConfig
       value={{
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json()),
         revalidateOnFocus: false,
       }}
     >
-      <App />
+      <RouterProvider router={router} />
     </SWRConfig>
   </StrictMode>
 );
