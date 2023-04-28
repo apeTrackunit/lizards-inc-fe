@@ -2,7 +2,7 @@
 
 The project is about SEP4 where we create an app for lizards management.
 
-## GIT rules
+## GIT rules 
 
 Always use the name of the story (eg: "SFE-6/redesign-login-button").
 

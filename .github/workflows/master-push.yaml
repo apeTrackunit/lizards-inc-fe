@@ -1,0 +1,12 @@
+name: Push to Master
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  call-workflow-build-and-test:
+    uses: ./.github/workflows/workflow-build-test.yaml
+  call-workflow-deploy:
+    needs: call-workflow-build-and-test
+    uses: ./.github/workflows/workflow-deploy.yaml
