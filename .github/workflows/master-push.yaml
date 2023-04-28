@@ -2,8 +2,7 @@ name: Push to Master
 
 on:
   push:
-    #branches: [master]
-    branches: [docker-local-development]
+    branches: [master]
 
 jobs:
   call-workflow-build-and-test:
