@@ -34,4 +34,4 @@ jobs:
       - name: Deploy Site to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth $NETLIFY_AUTH_TOKEN
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}"
