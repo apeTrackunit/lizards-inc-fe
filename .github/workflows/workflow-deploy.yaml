@@ -15,5 +15,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Fake deploy
-        run: echo Hi
+      - name: Install Netlify CLI
+        run: npm install netlify-cli --save-dev
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy Site to Netlify
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod

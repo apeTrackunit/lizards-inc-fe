@@ -1,0 +1,9 @@
+name: Testing deployment to netlify
+
+on:
+  push:
+    branches: [feature/deployment-setup]
+
+jobs:
+  call-workflow-deploy:
+    uses: ./.github/workflows/workflow-deploy.yaml
