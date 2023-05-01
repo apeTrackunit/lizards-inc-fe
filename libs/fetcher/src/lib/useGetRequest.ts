@@ -7,7 +7,7 @@ interface IGetRequest {
 
 export const useGetRequest = <Data = unknown, Error = unknown>({ url }: IGetRequest) => {
   const getRequestConfig: AxiosRequestConfig = {
-    baseURL: 'https://pokeapi.co/api/v2',
+    baseURL: 'https://localhost:7253/',
     url: url,
     method: 'GET',
   };

@@ -1,8 +1,17 @@
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { Col, Divider, Row, Statistic } from 'antd';
 
+interface IMeasurement {
+  id: string;
+  temperature: number;
+  humidity: number;
+  co2: number;
+  date: string;
+  time: string;
+}
+
 export function Home() {
-  const { data } = useGetRequest<object>({ url: '/pokemon' });
+  const { data, isLoading } = useGetRequest<IMeasurement>({ url: '/Measurements/latest' });
 
   return (
     <div>
@@ -10,15 +19,28 @@ export function Home() {
       <Divider />
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h4>Cage status</h4>
+        {isLoading && <div>Loading...</div>}
 
-        <Row gutter={16}>
-          <Col span={4}>
-            <Statistic title="Temperature" value={'32 °C'} />
+        {!isLoading && (
+          <Col>
+            <Row style={{ marginBottom: '10px' }}>
+              <span style={{ paddingRight: '4px' }}>
+                Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
+              </span>
+            </Row>
+            <Row gutter={16}>
+              <Col span={4}>
+                <Statistic title="Temperature" value={`${data?.temperature} °C`} />
+              </Col>
+              <Col span={4}>
+                <Statistic title="Humidity" value={`${data?.humidity} %`} />
+              </Col>
+              <Col span={4}>
+                <Statistic title="CO2" value={`${data?.co2} %`} />
+              </Col>
+            </Row>
           </Col>
-          <Col span={4}>
-            <Statistic title="Humidity" value={'84 %'} />
-          </Col>
-        </Row>
+        )}
       </div>
     </div>
   );
