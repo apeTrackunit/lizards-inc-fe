@@ -15,6 +15,7 @@ jobs:
     env:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
@@ -24,7 +25,6 @@ jobs:
           node-version: '20'
 
       - name: Check is MY_SECRET exists
-        if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
         run: 'echo "auth_token length: ${#NETLIFY_AUTH_TOKEN}"'
 
       #- name: Restore cached dependencies

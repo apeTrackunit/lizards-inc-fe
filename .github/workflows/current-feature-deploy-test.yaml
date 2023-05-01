@@ -7,3 +7,4 @@ on:
 jobs:
   call-workflow-deploy:
     uses: ./.github/workflows/workflow-deploy.yaml
+    secrets: inherit
