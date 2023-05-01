@@ -22,10 +22,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
-      - name: Test Environment Variable
+      - name: Check is MY_SECRET exists
         env:
-          TEST_VAR: aaaaa
-        run: echo "${TEST_VAR}"
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
+        run: 'echo "echo the secret \"NETLIFY_AUTH_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
 
       - name: Install Node Dependencies
         run: npm ci
@@ -36,7 +37,8 @@ jobs:
       - name: Build site
         run: npm run build
 
+
       - name: Deploy Site to Netlify
-       # env:
-        #  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${{ secrets.NETLIFY_AUTH_TOKEN }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}"
