@@ -1,7 +1,12 @@
 # LizardsIncFe
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b3e490de-974d-43bb-b26a-fb08b225c05e/deploy-status)](https://app.netlify.com/sites/effervescent-kelpie-f6a229/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f029723-5c0d-4190-a3d6-a04ef2b8e277/deploy-status)](https://app.netlify.com/sites/reptimate/deploys)
 
+Website available on: https://reptimate.netlify.app/
+
+<br/>
+<br/>
+<br/>
 The project is about SEP4 where we create an app for lizards management.
 
 ## GIT rules 
