@@ -3,15 +3,17 @@ name: Build and Test
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows
 on:
   workflow_call:
-    inputs:
-      netlify_token:
-        description: 'The Netlify token to deploy the application to'
-        default: 'hello'
-        required: true
-        type: string
+    #inputs:
+    #  netlify_token:
+    #    description: 'The Netlify token to deploy the application to'
+    #    default: 'hello'
+    #    required: true
+    #    type: string
 
 jobs:
   deploy:
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,8 +24,6 @@ jobs:
           node-version: '20'
 
       - name: Check is MY_SECRET exists
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ inputs.netlify_token }}
         if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
         run: 'echo "auth_token length: ${#NETLIFY_AUTH_TOKEN}"'
 
