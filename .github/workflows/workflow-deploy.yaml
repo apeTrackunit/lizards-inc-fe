@@ -26,7 +26,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
-        run: 'echo "echo the secret \"NETLIFY_AUTH_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"'
+        run: echo "echo the secret \"NETLIFY_AUTH_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
 
       - name: Install Node Dependencies
         run: npm ci
