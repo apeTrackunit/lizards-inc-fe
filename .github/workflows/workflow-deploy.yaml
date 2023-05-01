@@ -3,17 +3,9 @@ name: Build and Test
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows
 on:
   workflow_call:
-    #inputs:
-    #  netlify_token:
-    #    description: 'The Netlify token to deploy the application to'
-    #    default: 'hello'
-    #    required: true
-    #    type: string
 
 jobs:
   deploy:
-    env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     runs-on: ubuntu-latest
 
     steps:
@@ -24,27 +16,23 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check is MY_SECRET exists
-        run: 'echo "auth_token length: ${#NETLIFY_AUTH_TOKEN}"'
+      - name: Restore cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
 
-      #- name: Restore cached dependencies
-      #  uses: actions/cache@v2
-      #  with:
-      #    path: node_modules
-      #    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #    restore-keys: ${{ runner.os }}-node-
-#
-      #- name: Install Node Dependencies
-      #  run: npm ci
-#
-      #- name: Install Netlify CLI
-      #  run: npm install netlify-cli --save-dev
-#
-      #- name: Build site
-      #  run: npm run build
-#
-#
-      #- name: Deploy Site to Netlify
-      #  env:
-      #    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #  run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}"
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Install Netlify CLI
+        run: npm install netlify-cli --save-dev
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy Site to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --prod --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}"
