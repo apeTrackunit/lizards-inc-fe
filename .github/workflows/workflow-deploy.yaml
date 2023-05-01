@@ -22,6 +22,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
+      - name: Test Environment Variable
+        env:
+          TEST_VAR: aaaaa
+        run: echo "${TEST_VAR}"
+
       - name: Install Node Dependencies
         run: npm ci
 
