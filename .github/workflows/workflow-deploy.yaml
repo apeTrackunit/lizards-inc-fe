@@ -23,6 +23,7 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
 
       - name: Install Node Dependencies
+        run: npm ci
 
       - name: Install Netlify CLI
         run: npm install netlify-cli --save-dev
