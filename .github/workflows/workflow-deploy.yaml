@@ -15,18 +15,18 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Check is MY_SECRET exists
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
+        run: 'echo "auth_token length: ${#NETLIFY_AUTH_TOKEN}"'
+
       - name: Restore cached dependencies
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-
-      - name: Check is MY_SECRET exists
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        if: ${{ env.NETLIFY_AUTH_TOKEN == '' }}
-        run: echo "echo the secret \"NETLIFY_AUTH_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
 
       - name: Install Node Dependencies
         run: npm ci
