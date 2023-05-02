@@ -10,3 +10,4 @@ jobs:
   call-workflow-deploy:
     needs: call-workflow-build-and-test
     uses: ./.github/workflows/workflow-deploy.yaml
+    secrets: inherit
