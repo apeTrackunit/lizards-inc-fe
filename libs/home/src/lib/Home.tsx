@@ -13,7 +13,7 @@ export function Home() {
 
         <Row gutter={16}>
           <Col span={4}>
-            <Statistic title="Temperature" value={'32 °C'} />
+            <Statistic title="Temperature" value={'34 °C'} />
           </Col>
           <Col span={4}>
             <Statistic title="Humidity" value={'84 %'} />
