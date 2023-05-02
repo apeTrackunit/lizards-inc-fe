@@ -7,7 +7,7 @@ interface IGetRequest {
 
 export const useGetRequest = <Data = unknown, Error = unknown>({ url }: IGetRequest) => {
   const getRequestConfig: AxiosRequestConfig = {
-    baseURL: 'https://localhost:7253/',
+    baseURL: 'https://localhost:44308/',
     url: url,
     method: 'GET',
   };
