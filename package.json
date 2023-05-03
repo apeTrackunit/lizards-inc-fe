@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve --host=0.0.0.0",
+    "start": "nx serve",
+    "start-cont": "nx serve --host=0.0.0.0",
     "build": "nx build",
     "test": "nx run-many --target test --all",
     "test-coverage": "nx run-many --target test --all --collect-coverage --config jest.config.ts"
