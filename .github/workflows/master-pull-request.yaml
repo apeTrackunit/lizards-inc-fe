@@ -1,9 +1,0 @@
-name: Pull Request on Master
-
-on:
-  pull_request:
-    branches: [master]
-
-jobs:
-  call-workflow-build-and-test:
-    uses: ./.github/workflows/workflow-build-test.yaml
