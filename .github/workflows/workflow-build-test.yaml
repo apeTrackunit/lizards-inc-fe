@@ -17,7 +17,7 @@ jobs:
           node-version: '20'
 
       - name: Restore cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -45,11 +45,11 @@ jobs:
           node-version: '20'
 
       - name: Restore cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
       - name: Run tests
-        run: npx nx run-many --target test --all
+        run: npm run test

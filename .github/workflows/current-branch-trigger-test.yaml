@@ -1,0 +1,17 @@
+name: Push to Test branch
+
+on:
+  push:
+    branches: [SFE-34/test-coverage]
+
+jobs:
+  call-workflow-build-and-test:
+    uses: ./.github/workflows/workflow-build-test.yaml
+  call-workflow-deploy:
+    needs: call-workflow-build-and-test
+    secrets: inherit
+    uses: ./.github/workflows/workflow-deploy.yaml
+  call-workflow-test-coverage:
+    needs: call-workflow-build-and-test
+    secrets: inherit
+    uses: ./.github/workflows/workflow-test-coverage.yaml
