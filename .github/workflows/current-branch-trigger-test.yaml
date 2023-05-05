@@ -9,6 +9,8 @@ jobs:
     name: Build and Test
     uses: ./.github/workflows/workflow-build-test.yaml
   call-workflow-test-coverage:
+    permissions:
+      pages: write
     name: Test Coverage
     needs: call-workflow-build-and-test
     secrets: inherit
