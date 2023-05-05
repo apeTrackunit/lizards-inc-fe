@@ -6,12 +6,15 @@ on:
 
 jobs:
   call-workflow-build-and-test:
+    name: Build and Test
     uses: ./.github/workflows/workflow-build-test.yaml
   call-workflow-deploy:
+    name: Netlify Deploy
     needs: call-workflow-build-and-test
     secrets: inherit
     uses: ./.github/workflows/workflow-deploy.yaml
   call-workflow-test-coverage:
+    name: Test Coverage
     needs: call-workflow-build-and-test
     secrets: inherit
     uses: ./.github/workflows/workflow-test-coverage.yaml
