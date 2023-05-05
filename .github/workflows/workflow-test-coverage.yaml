@@ -22,10 +22,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
-      - name: Build Application
+      - name: Creating Test Coverage Report
         run: npm run test-coverage
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
