@@ -1,29 +1,33 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import { Content, Header } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { HomeOutlined, TwitterOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
-import useBreadcrumbs from 'use-react-router-breadcrumbs';
+import {RoutingTable} from "@lizards-inc-fe/shared-components";
 
 export const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
-  const breadcrumbs = useBreadcrumbs();
 
   const items: ItemType[] = [
     {
-      key: `home`,
+      key: RoutingTable.home.root,
       icon: <HomeOutlined />,
       label: `Home`,
     },
     {
-      key: `animals`,
+      key: RoutingTable.animals.root,
       icon: <TwitterOutlined />,
       label: `Animals`,
     },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <HomeOutlined />,
+      label: 'Limits and Boundaries'
+    }
   ];
 
   return (
@@ -42,12 +46,7 @@ export const App = () => {
             onClick={obj => navigate(obj.key)}
           />
         </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {breadcrumbs.slice(1, breadcrumbs.length).map(x => (
-              <Breadcrumb.Item>{x.breadcrumb}</Breadcrumb.Item>
-            ))}
-          </Breadcrumb>
+        <Layout style={{ padding: '24px' }}>
           <Content
             style={{
               padding: 24,
