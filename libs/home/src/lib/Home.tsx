@@ -1,5 +1,6 @@
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
-import { Col, Divider, Row, Statistic } from 'antd';
+import { Card, Col, Divider, Row, Statistic } from 'antd';
+import colors from 'tailwindcss/colors';
 
 interface IMeasurement {
   id: string;
@@ -22,24 +23,20 @@ export function Home() {
         {isLoading && <div>Loading...</div>}
 
         {!isLoading && (
-          <Col>
-            <Row style={{ marginBottom: '10px' }}>
-              <span style={{ paddingRight: '4px' }}>
-                Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
-              </span>
-            </Row>
-            <Row gutter={16}>
-              <Col span={4}>
+          <>
+            <span style={{ paddingRight: '4px' }}>Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}</span>
+            <div className="flex gap-4 justify-around sm:flex-row flex-col">
+              <Card className={'bg-red-300'}>
                 <Statistic title="Temperature" value={`${data?.temperature} °C`} />
-              </Col>
-              <Col span={4}>
+              </Card>
+              <Card className={'bg-blue-300'}>
                 <Statistic title="Humidity" value={`${data?.humidity} %`} />
-              </Col>
-              <Col span={4}>
+              </Card>
+              <Card className={'bg-green-300'}>
                 <Statistic title="CO2" value={`${data?.co2} %`} />
-              </Col>
-            </Row>
-          </Col>
+              </Card>
+            </div>
+          </>
         )}
       </div>
     </div>
