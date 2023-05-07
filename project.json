@@ -15,7 +15,7 @@
         "baseHref": "/",
         "main": "src/main.tsx",
         "tsConfig": "tsconfig.app.json",
-        "assets": ["src/favicon.ico", "src/assets", "src/mockServiceWorker.js"],
+        "assets": ["src/assets", "src/mockServiceWorker.js"],
         "styles": ["src/styles.css"],
         "scripts": [],
         "isolatedConfig": true,
