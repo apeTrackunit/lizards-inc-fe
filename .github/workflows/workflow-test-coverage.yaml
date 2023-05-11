@@ -28,7 +28,7 @@ jobs:
       - name: Deploy Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.G_PAGES_TOKEN }}
           publish_dir: ./coverage
           publish_branch: gh-pages
           keep_files: true # for keeping the README.md in the gh-pages branch
