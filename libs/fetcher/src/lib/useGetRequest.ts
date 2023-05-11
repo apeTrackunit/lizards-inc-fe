@@ -1,5 +1,6 @@
 import { useRequest } from './useRequest';
 import { AxiosRequestConfig } from 'axios';
+import { ApiUrl } from "./ApiUrl";
 
 interface IGetRequest {
   url: string;
@@ -7,7 +8,7 @@ interface IGetRequest {
 
 export const useGetRequest = <Data = unknown, Error = unknown>({ url }: IGetRequest) => {
   const getRequestConfig: AxiosRequestConfig = {
-    baseURL: 'https://localhost:44308/',
+    baseURL: ApiUrl,
     url: url,
     method: 'GET',
   };
