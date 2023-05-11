@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -124,9 +124,7 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,11 +141,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,10 +186,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useGetRequest } from '@lizards-inc-fe/fetcher';
-import { Card, Divider, Statistic } from 'antd';
+import { Divider, Skeleton } from 'antd';
 import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
+import { MeasurementCard } from './components/MeasurementCard';
 &nbsp;
 interface IMeasurement {
   id: string;
@@ -204,7 +201,7 @@ interface IMeasurement {
   time: string;
 }
 &nbsp;
-export function Home() {
+export const Home = () =&gt; {
   const { data, isLoading } = useGetRequest&lt;IMeasurement&gt;({ url: '/Measurements/latest' });
 &nbsp;
   return (
@@ -213,45 +210,42 @@ export function Home() {
       &lt;Divider /&gt;
       &lt;div className={'flex flex-col'}&gt;
         &lt;h1 className={'font-medium text-lg'}&gt;Current status&lt;/h1&gt;
-        {isLoading &amp;&amp; &lt;div&gt;Loading...&lt;/div&gt;}
-&nbsp;
-        {!isLoading &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;div className={'flex flex-col gap-4'}&gt;</span>
-            &lt;span className={'grid justify-items-end text-gray-500'}&gt;
-              Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
-            &lt;/span&gt;
-            &lt;div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col"&gt;
-              &lt;Card className={'bg-red-100 w-full lg:w-60 h-fit'}&gt;
-                &lt;Statistic
-                  title="Temperature"
-                  value={`${data?.temperature} °C`}
-                  prefix={&lt;img src={TemperatureIcon} alt={'temperature-logo'} className={'h-8 mr-2'} /&gt;}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                /&gt;
-              &lt;/Card&gt;
-              &lt;Card className={'bg-blue-100 w-full lg:w-60 h-fit'}&gt;
-                &lt;Statistic
-                  title="Humidity"
-                  value={`${data?.humidity} %`}
-                  prefix={&lt;img src={HumidityIcon} alt={'humidity-logo'} className={'h-8 mr-2'} /&gt;}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                /&gt;
-              &lt;/Card&gt;
-              &lt;Card className={'bg-green-100 w-full lg:w-60 h-fit'}&gt;
-                &lt;Statistic
-                  title="CO2"
-                  value={`${data?.co2} ppm`}
-                  prefix={&lt;img src={Co2Icon} alt={'co2-logo'} className={'h-8 mr-2'} /&gt;}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                /&gt;
-              &lt;/Card&gt;
-            &lt;/div&gt;
+        &lt;div className={'flex flex-col gap-4'}&gt;
+          &lt;span className={'grid justify-items-end text-gray-500'}&gt;
+            {isLoading ? (
+              &lt;Skeleton active={true} paragraph={false} className={'max-w-md'} /&gt;
+            ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;span&gt;Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}&lt;/span&gt;</span>
+            )}
+          &lt;/span&gt;
+          &lt;div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col"&gt;
+            &lt;MeasurementCard
+              isLoading={isLoading}
+              title={'Temperature'}
+              icon={TemperatureIcon}
+              value={`${data?.temperature} °C`}
+              cardClassName={'bg-red-100 w-full lg:w-60 h-fit'}
+            /&gt;
+            &lt;MeasurementCard
+              isLoading={isLoading}
+              title={'Humidity'}
+              icon={HumidityIcon}
+              value={`${data?.humidity} %`}
+              cardClassName={'bg-blue-100 w-full lg:w-60 h-fit'}
+            /&gt;
+            &lt;MeasurementCard
+              isLoading={isLoading}
+              title={'CO2'}
+              icon={Co2Icon}
+              value={`${data?.co2} ppm`}
+              cardClassName={'bg-green-100 w-full lg:w-60 h-fit'}
+            /&gt;
           &lt;/div&gt;
-        )}
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   );
-}
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -259,7 +253,7 @@ export function Home() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-11T15:29:18.700Z
+                at 2023-05-11T16:30:19.706Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
