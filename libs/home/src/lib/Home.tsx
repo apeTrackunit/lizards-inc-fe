@@ -1,8 +1,9 @@
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
-import { Card, Divider, Statistic } from 'antd';
+import { Divider, Skeleton } from 'antd';
 import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
+import { MeasurementCard } from './components/MeasurementCard';
 
 interface IMeasurement {
   id: string;
@@ -13,7 +14,7 @@ interface IMeasurement {
   time: string;
 }
 
-export function Home() {
+export const Home = () => {
   const { data, isLoading } = useGetRequest<IMeasurement>({ url: '/Measurements/latest' });
 
   return (
@@ -22,42 +23,39 @@ export function Home() {
       <Divider />
       <div className={'flex flex-col'}>
         <h1 className={'font-medium text-lg'}>Current status</h1>
-        {isLoading && <div>Loading...</div>}
-
-        {!isLoading && (
-          <div className={'flex flex-col gap-4'}>
-            <span className={'grid justify-items-end text-gray-500'}>
-              Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
-            </span>
-            <div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col">
-              <Card className={'bg-red-100 w-full lg:w-60 h-fit'}>
-                <Statistic
-                  title="Temperature"
-                  value={`${data?.temperature} °C`}
-                  prefix={<img src={TemperatureIcon} alt={'temperature-logo'} className={'h-8 mr-2'} />}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                />
-              </Card>
-              <Card className={'bg-blue-100 w-full lg:w-60 h-fit'}>
-                <Statistic
-                  title="Humidity"
-                  value={`${data?.humidity} %`}
-                  prefix={<img src={HumidityIcon} alt={'humidity-logo'} className={'h-8 mr-2'} />}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                />
-              </Card>
-              <Card className={'bg-green-100 w-full lg:w-60 h-fit'}>
-                <Statistic
-                  title="CO2"
-                  value={`${data?.co2} ppm`}
-                  prefix={<img src={Co2Icon} alt={'co2-logo'} className={'h-8 mr-2'} />}
-                  valueStyle={{ alignItems: 'center', display: 'flex' }}
-                />
-              </Card>
-            </div>
+        <div className={'flex flex-col gap-4'}>
+          <span className={'grid justify-items-end text-gray-500'}>
+            {isLoading ? (
+              <Skeleton active={true} paragraph={false} className={'max-w-md'} />
+            ) : (
+              <span>Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}</span>
+            )}
+          </span>
+          <div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col">
+            <MeasurementCard
+              isLoading={isLoading}
+              title={'Temperature'}
+              icon={TemperatureIcon}
+              value={`${data?.temperature} °C`}
+              cardClassName={'bg-red-100 w-full lg:w-60 h-fit'}
+            />
+            <MeasurementCard
+              isLoading={isLoading}
+              title={'Humidity'}
+              icon={HumidityIcon}
+              value={`${data?.humidity} %`}
+              cardClassName={'bg-blue-100 w-full lg:w-60 h-fit'}
+            />
+            <MeasurementCard
+              isLoading={isLoading}
+              title={'CO2'}
+              icon={Co2Icon}
+              value={`${data?.co2} ppm`}
+              cardClassName={'bg-green-100 w-full lg:w-60 h-fit'}
+            />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
-}
+};
