@@ -1,14 +1,12 @@
 # LizardsIncFe
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5f029723-5c0d-4190-a3d6-a04ef2b8e277/deploy-status)](https://app.netlify.com/sites/reptimate/deploys)
-
-Website available on: https://reptimate.netlify.app/
-
-<br/>
-<br/>
-<br/>
+[![Master workflow](https://github.com/apeTrackunit/lizards-inc-fe/actions/workflows/master-push.yaml/badge.svg?branch=master)](https://github.com/apeTrackunit/lizards-inc-fe/actions/workflows/master-push.yaml)
 
 The project is about SEP4 where we create an app for lizards management.
+
+## Links
+- Website available on: https://reptimate.netlify.app/
+- Test coverage available on: https://apetrackunit.github.io/lizards-inc-fe/
 
 ## GIT rules 
 
