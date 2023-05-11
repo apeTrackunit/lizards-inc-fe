@@ -28,13 +28,15 @@ export const App = () => {
       label: `Animals`,
     },
   ];
+  const handleResize = () => {
+    setPageWidth(window.innerWidth);
+  };
+
+  const handleSideBarCollapseClick = () => {
+    setCollapsed(prevState => !prevState);
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      console.log('rerenderd');
-      setPageWidth(window.innerWidth);
-    };
-
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -46,7 +48,7 @@ export const App = () => {
     <Layout style={{ height: '100vh' }}>
       <div className={'flex flex-row h-14 items-center bg-white drop-shadow p-4'}>
         {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
-        <div className={'sm:mb-1 mb-0.5'} onClick={() => setCollapsed(prevState => !prevState)}>
+        <div className={'sm:mb-1 mb-0.5'} onClick={handleSideBarCollapseClick}>
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </div>
       </div>
