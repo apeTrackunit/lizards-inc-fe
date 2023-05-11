@@ -1,4 +1,4 @@
-name: Build and Test
+name: Deploy to Netlify
 
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows
 on:
@@ -17,14 +17,11 @@ jobs:
           node-version: '20'
 
       - name: Restore cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache/restore@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-
-      - name: Install Node Dependencies
-        run: npm ci
 
       - name: Install Netlify CLI
         run: npm install netlify-cli --save-dev

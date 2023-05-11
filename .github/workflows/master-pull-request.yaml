@@ -6,4 +6,5 @@ on:
 
 jobs:
   call-workflow-build-and-test:
+    name: Build and Test
     uses: ./.github/workflows/workflow-build-test.yaml
