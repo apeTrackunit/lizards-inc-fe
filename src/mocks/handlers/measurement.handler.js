@@ -1,7 +1,8 @@
 import { rest } from 'msw'
+import {ApiUrl} from "../ApiUrl";
 
 const handlers = [
-    rest.get('/Measurements/latest', (req, res, context) => {
+    rest.get(ApiUrl + '/Measurements/latest', (req, res, context) => {
         return res(
             context.status(200),
             context.json({
