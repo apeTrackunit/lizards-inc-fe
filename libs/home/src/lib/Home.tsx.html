@@ -110,7 +110,26 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,6 +145,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,7 +190,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useGetRequest } from '@lizards-inc-fe/fetcher';
-import { Col, Divider, Row, Statistic } from 'antd';
+import { Card, Divider, Statistic } from 'antd';
+import TemperatureIcon from './assets/temperature-icon.png';
+import Co2Icon from './assets/co2-icon.png';
+import HumidityIcon from './assets/humidity-icon.png';
 &nbsp;
 interface IMeasurement {
   id: string;
@@ -174,31 +209,44 @@ export function Home() {
 &nbsp;
   return (
     &lt;div&gt;
-      &lt;h1&gt;Home&lt;/h1&gt;
+      &lt;h1 className={'text-2xl'}&gt;Home&lt;/h1&gt;
       &lt;Divider /&gt;
-      &lt;div style={{ display: 'flex', flexDirection: 'column' }}&gt;
-        &lt;h4&gt;Cage status&lt;/h4&gt;
+      &lt;div className={'flex flex-col'}&gt;
+        &lt;h1 className={'font-medium text-lg'}&gt;Current status&lt;/h1&gt;
         {isLoading &amp;&amp; &lt;div&gt;Loading...&lt;/div&gt;}
 &nbsp;
         {!isLoading &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;Col&gt;</span>
-            &lt;Row style={{ marginBottom: '10px' }}&gt;
-              &lt;span style={{ paddingRight: '4px' }}&gt;
-                Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
-              &lt;/span&gt;
-            &lt;/Row&gt;
-            &lt;Row gutter={16}&gt;
-              &lt;Col span={4}&gt;
-                &lt;Statistic title="Temperature" value={`${data?.temperature} °C`} /&gt;
-              &lt;/Col&gt;
-              &lt;Col span={4}&gt;
-                &lt;Statistic title="Humidity" value={`${data?.humidity} %`} /&gt;
-              &lt;/Col&gt;
-              &lt;Col span={4}&gt;
-                &lt;Statistic title="CO2" value={`${data?.co2} %`} /&gt;
-              &lt;/Col&gt;
-            &lt;/Row&gt;
-          &lt;/Col&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;div className={'flex flex-col gap-4'}&gt;</span>
+            &lt;span className={'grid justify-items-end text-gray-500'}&gt;
+              Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
+            &lt;/span&gt;
+            &lt;div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col"&gt;
+              &lt;Card className={'bg-red-100 w-full lg:w-60 h-fit'}&gt;
+                &lt;Statistic
+                  title="Temperature"
+                  value={`${data?.temperature} °C`}
+                  prefix={&lt;img src={TemperatureIcon} alt={'temperature-logo'} className={'h-8 mr-2'} /&gt;}
+                  valueStyle={{ alignItems: 'center', display: 'flex' }}
+                /&gt;
+              &lt;/Card&gt;
+              &lt;Card className={'bg-blue-100 w-full lg:w-60 h-fit'}&gt;
+                &lt;Statistic
+                  title="Humidity"
+                  value={`${data?.humidity} %`}
+                  prefix={&lt;img src={HumidityIcon} alt={'humidity-logo'} className={'h-8 mr-2'} /&gt;}
+                  valueStyle={{ alignItems: 'center', display: 'flex' }}
+                /&gt;
+              &lt;/Card&gt;
+              &lt;Card className={'bg-green-100 w-full lg:w-60 h-fit'}&gt;
+                &lt;Statistic
+                  title="CO2"
+                  value={`${data?.co2} ppm`}
+                  prefix={&lt;img src={Co2Icon} alt={'co2-logo'} className={'h-8 mr-2'} /&gt;}
+                  valueStyle={{ alignItems: 'center', display: 'flex' }}
+                /&gt;
+              &lt;/Card&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
         )}
       &lt;/div&gt;
     &lt;/div&gt;
@@ -211,7 +259,7 @@ export function Home() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-05T12:47:45.111Z
+                at 2023-05-11T13:57:53.322Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
