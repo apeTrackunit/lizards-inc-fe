@@ -9,10 +9,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 export const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
   const {
     token: { colorBgContainer },
@@ -34,24 +31,27 @@ export const App = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
+      console.log('rerenderd');
+      setPageWidth(window.innerWidth);
     };
+
     window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
   return (
     <Layout style={{ height: '100vh' }}>
       <div className={'flex flex-row h-14 items-center bg-white drop-shadow p-4'}>
-        {dimensions.width > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
+        {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
         <div className={'sm:mb-1 mb-0.5'} onClick={() => setCollapsed(prevState => !prevState)}>
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </div>
       </div>
       <Layout>
-        {dimensions.width > 576 ? (
+        {pageWidth > 576 ? (
           <Sider className={'drop-shadow'} trigger={null} collapsible collapsed={collapsed}>
             <Menu
               mode="inline"

@@ -29,8 +29,8 @@ export function Home() {
             <span className={'grid justify-items-end text-gray-500'}>
               Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}
             </span>
-            <div className="flex gap-4 sm:justify-around items-center sm:flex-row flex-col">
-              <Card className={'bg-red-100 w-full sm:w-60 h-fit'}>
+            <div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col">
+              <Card className={'bg-red-100 w-full lg:w-60 h-fit'}>
                 <Statistic
                   title="Temperature"
                   value={`${data?.temperature} °C`}
@@ -38,7 +38,7 @@ export function Home() {
                   valueStyle={{ alignItems: 'center', display: 'flex' }}
                 />
               </Card>
-              <Card className={'bg-blue-100 w-full sm:w-60 h-fit'}>
+              <Card className={'bg-blue-100 w-full lg:w-60 h-fit'}>
                 <Statistic
                   title="Humidity"
                   value={`${data?.humidity} %`}
@@ -46,7 +46,7 @@ export function Home() {
                   valueStyle={{ alignItems: 'center', display: 'flex' }}
                 />
               </Card>
-              <Card className={'bg-green-100 w-full sm:w-60 h-fit'}>
+              <Card className={'bg-green-100 w-full lg:w-60 h-fit'}>
                 <Statistic
                   title="CO2"
                   value={`${data?.co2} ppm`}
