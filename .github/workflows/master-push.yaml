@@ -14,6 +14,9 @@ jobs:
     secrets: inherit
     uses: ./.github/workflows/workflow-deploy.yaml
   call-workflow-test-coverage:
+    permissions:
+      pages: write
+      contents: write
     name: Test Coverage
     needs: call-workflow-build-and-test
     secrets: inherit
