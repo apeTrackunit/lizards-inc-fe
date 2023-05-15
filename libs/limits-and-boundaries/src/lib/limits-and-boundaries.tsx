@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
-import { Button, Divider, Space, notification, Tooltip } from 'antd';
+import { Button, Divider, Space, notification, Tooltip, Skeleton } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Slider } from 'antd';
 import type { SliderMarks } from 'antd/es/slider';
 import Notification from './components/Notification';
 import { NotificationPlacement } from 'antd/es/notification/interface';
+import { useGetRequest } from '@lizards-inc-fe/fetcher';
 
 /* eslint-disable-next-line */
 export interface LimitsAndBoundariesProps {}
@@ -42,7 +43,18 @@ const marksCO2: SliderMarks = {
   },
 };
 
-export function LimitsAndBoundaries(props: LimitsAndBoundariesProps) {
+interface IBoundaries {
+  id: string;
+  tempMax: number;
+  tempMin: number;
+  humidityMax: number;
+  humidityMin: number;
+  co2Max: number;
+  co2Min: number;
+}
+export const LimitsAndBoundaries = (props: LimitsAndBoundariesProps) => {
+  const { data, isLoading } = useGetRequest<IBoundaries>({ url: 'Terrarium/boundaries' });
+
   return (
     <div>
       <div className="flex flex-row-reverse">
@@ -119,8 +131,9 @@ export function LimitsAndBoundaries(props: LimitsAndBoundariesProps) {
           </div>
         </div>
       </div>
+      <div>{isLoading ? <span> Loading </span> : <span> Loaded {data?.co2Max} </span>}</div>
     </div>
   );
-}
+};
 
 export default LimitsAndBoundaries;

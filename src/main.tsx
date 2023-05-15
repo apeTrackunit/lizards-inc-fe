@@ -6,7 +6,7 @@ import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
-import {LimitsAndBoundaries} from "@lizards-inc-fe/limits-and-boundaries";
+import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,9 +22,9 @@ const router = createBrowserRouter(
         <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
       </Route>
 
-       <Route path={RoutingTable.limitsAndBoundaries.root}>
-           <Route index element={<LimitsAndBoundaries/>} />
-       </Route>
+      <Route path={RoutingTable.limitsAndBoundaries.root}>
+        <Route index element={<LimitsAndBoundaries />} />
+      </Route>
 
       <Route path="*" element={<NotFoundPage />} />
     </Route>
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
 );
 
 // Mock
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { worker } = require('./mocks/browser');
   worker.start();
