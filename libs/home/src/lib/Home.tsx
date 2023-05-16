@@ -74,7 +74,7 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.dd'),
+                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
                         data: measurement.temperature,
                       })),
                 measurementData: latestMeasurement?.temperature,
@@ -100,7 +100,7 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.dd'),
+                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
                         data: measurement.humidity,
                       })),
                 measurementData: latestMeasurement?.humidity,
@@ -126,7 +126,7 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.dd'),
+                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
                         data: measurement.co2,
                       })),
                 measurementData: latestMeasurement?.co2,

@@ -2,17 +2,6 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { Skeleton } from 'antd';
 
-const data = [
-  {
-    name: '2022.05.12',
-    data: 14,
-  },
-  {
-    name: '2022.05.13',
-    data: 17,
-  },
-];
-
 export interface DiagramLine {
   y: number;
   color: string;

@@ -1,8 +1,7 @@
 import { MeasurementCard } from './MeasurementCard';
 import { DiagramData, DiagramLine, MeasurementDiagramWithReferenceLine } from './MeasurementDiagramWithReferenceLine';
-import { Button, Card, Collapse } from 'antd';
+import { Button, Card } from 'antd';
 import { useState } from 'react';
-const { Panel } = Collapse;
 
 // card configuration
 interface CardConfig {
@@ -91,7 +90,10 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
         <Button onClick={toggleDiagram} className={'xl:hidden'}>
           Diagram
         </Button>
-        <div className={'xl:block -translate-x-4' + (diagramVisible ? ' block' : ' hidden')}>
+        <div
+          data-testid={'measurement-diagram'}
+          className={'xl:block -translate-x-4' + (diagramVisible ? ' block' : ' hidden')}
+        >
           <MeasurementDiagramWithReferenceLine
             height={250}
             width={350}
