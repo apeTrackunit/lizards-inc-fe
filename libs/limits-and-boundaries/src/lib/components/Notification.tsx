@@ -16,12 +16,17 @@ function Notification() {
   const contextValue = useMemo(() => ({ text: 'Changes successfully saved!' }), []);
 
   return (
-    <Context.Provider value={contextValue}>
-      {contextHolder}
-      <Button className="rounded-none bg-[#91caff] px-6" onClick={() => openNotification('bottomRight', 'success')}>
-        <div className="mx-6 my-1 text-xl">Save</div>
-      </Button>
-    </Context.Provider>
+    <div className="flex flex-row-reverse">
+      <Context.Provider value={contextValue}>
+        {contextHolder}
+        <Button
+          className="rounded-none bg-[#91caff] px-6 h-min"
+          onClick={() => openNotification('bottomRight', 'success')}
+        >
+          <div className="mx-6 my-1 text-xl">Save</div>
+        </Button>
+      </Context.Provider>
+    </div>
   );
 }
 
