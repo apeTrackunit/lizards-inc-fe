@@ -9,4 +9,7 @@ export const RoutingTable = {
       edit: 'edit',
     },
   },
+  login: {
+    root: 'login',
+  },
 } as const;

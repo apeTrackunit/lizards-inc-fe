@@ -6,6 +6,7 @@ import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
+import { Login } from '@lizards-inc-fe/login';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,10 @@ const router = createBrowserRouter(
       <Route path={RoutingTable.animals.root}>
         <Route index element={<h1>Animals</h1>} />
         <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
+      </Route>
+
+      <Route path={RoutingTable.login.root}>
+        <Route index element={<Login />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
