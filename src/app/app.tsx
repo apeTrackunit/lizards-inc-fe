@@ -48,7 +48,7 @@ export const App = () => {
   return (
     <Layout style={{ height: '100vh' }}>
       <div className={'flex flex-row h-14 items-center bg-white drop-shadow p-4'}>
-        <div className={'flex justify-between w-full mr-2'}>
+        <div className={'flex justify-between w-full mr-4'}>
           <div className={'flex'}>
             {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
             <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>

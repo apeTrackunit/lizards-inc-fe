@@ -1,58 +1,37 @@
 import { Badge, Button, Popover } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import React, { useMemo } from 'react';
+import { useGetRequest } from '@lizards-inc-fe/fetcher';
+import moment from 'moment/moment';
+
+interface INotification {
+  id: string;
+  dateTime: Date;
+  message: string;
+  status: true;
+}
 
 export const NotificationCenter = () => {
-  const data = [
-    {
-      message: 'The temperature exceeded the limits by 5°C.',
-      dateTime: new Date('August 19, 2022 23:15:30 GMT+00:00'),
-      isRead: false,
-    },
-    {
-      message: 'The temperature exceeded the limits by 21°C.',
-      dateTime: new Date('August 4, 2022 19:03:30 GMT+00:00'),
-      isRead: true,
-    },
-    {
-      message: 'The temperature exceeded the limits by 3°C.',
-      dateTime: new Date('August 1, 2022 10:43:30 GMT+00:00'),
-      isRead: true,
-    },
-    {
-      message: 'The temperature exceeded the limits by 3°C.',
-      dateTime: new Date('August 1, 2022 10:43:30 GMT+00:00'),
-      isRead: true,
-    },
-    {
-      message: 'The temperature exceeded the limits by 3°C.',
-      dateTime: new Date('August 1, 2022 10:43:30 GMT+00:00'),
-      isRead: true,
-    },
-    {
-      message: 'The temperature exceeded the limits by 3°C.',
-      dateTime: new Date('August 1, 2022 10:43:30 GMT+00:00'),
-      isRead: true,
-    },
-    {
-      message: 'The temperature exceeded the limits by 3°C.',
-      dateTime: new Date('August 1, 2022 10:43:30 GMT+00:00'),
-      isRead: true,
-    },
-  ];
+  const { data, isLoading } = useGetRequest<INotification[]>({ url: '/Notifications' });
 
   const notificationCount = useMemo(() => {
-    return data.filter(x => !x.isRead).length;
+    return data?.filter(x => !x.status).length ?? 0;
   }, [data]);
 
   return (
     <Popover
       content={
-        <div className={'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col'}>
-          {data.map((value, index) => {
-            return <Notification key={index} dateTime={value.dateTime} message={value.message} isRead={value.isRead} />;
-          })}
-        </div>
+        !isLoading ? (
+          <div className={'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col'}>
+            {data?.map(value => {
+              return (
+                <Notification key={value.id} dateTime={value.dateTime} message={value.message} status={value.status} />
+              );
+            })}
+          </div>
+        ) : (
+          <span>Loading...</span>
+        )
       }
       trigger="click"
       placement="bottomRight"
@@ -77,21 +56,20 @@ export const NotificationCenter = () => {
   );
 };
 
-interface INotification {
-  message: string;
+interface NotificationProps {
   dateTime: Date;
-  isRead: boolean;
+  message: string;
+  status: true;
 }
-const Notification = ({ message, dateTime, isRead }: INotification) => {
+
+const Notification = ({ message, dateTime, status }: NotificationProps) => {
   return (
     <div className={'flex items-center justify-between h-fit gap-4 w-full p-4 hover:bg-slate-100'}>
       <div className={'flex flex-col gap-1'}>
         <span className={'grow'}>{message}</span>
-        <span className={'text-xs text-slate-700'}>
-          {dateTime.toLocaleDateString() + ' ' + dateTime.toLocaleTimeString()}
-        </span>
+        <span className={'text-xs text-slate-700'}>{moment(dateTime).fromNow()}</span>
       </div>
-      {!isRead && <Badge color={'blue'} />}
+      {!status && <Badge color={'blue'} />}
     </div>
   );
 };
