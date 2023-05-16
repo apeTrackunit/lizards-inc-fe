@@ -1,11 +1,48 @@
 import { Button, Card } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
+import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
+import { usePostRequest } from '@lizards-inc-fe/fetcher';
+import { AuthServerResponse, useAuthContext } from './AuthProvider';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutingTable } from '@lizards-inc-fe/shared-components';
 
+interface IAuthServerRequest {
+  code: string;
+}
 export const Login = () => {
-  const handleButtonClick = () => {
-    window.location.href = 'https://www.youtube.com/watch?v=vUXzn-xTeA0';
-  };
+  const [codeResponse, setCodeResponse] = useState<CodeResponse>();
+
+  const { login: authLogin } = useAuthContext();
+  const navigate = useNavigate();
+
+  const login = useGoogleLogin({
+    onSuccess: response => {
+      setCodeResponse(response);
+    },
+    flow: 'auth-code',
+    include_granted_scopes: false,
+    ux_mode: 'popup',
+  });
+
+  const { data, isMutating, trigger } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
+    url: '/Authentication',
+    data: { code: codeResponse?.code ?? '' },
+  });
+
+  useEffect(() => {
+    if (codeResponse?.code) {
+      trigger();
+    }
+  }, [codeResponse, trigger]);
+
+  useEffect(() => {
+    if (data) {
+      authLogin(data);
+      navigate(RoutingTable.root);
+    }
+  }, [data, authLogin, navigate]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-white relative">
@@ -65,9 +102,9 @@ export const Login = () => {
           onMouseLeave={e => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2fbb2f';
           }}
-          onClick={handleButtonClick}
+          onClick={login}
         >
-          LOGIN WITH GOOGLE
+          {!isMutating ? 'LOGIN WITH GOOGLE' : 'Loading...'}
         </Button>
       </Card>
     </div>

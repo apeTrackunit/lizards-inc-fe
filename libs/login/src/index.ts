@@ -1,1 +1,2 @@
-export * from './lib/Login';
+export * from './lib/AuthProvider';
+export * from './lib/RequestAuth';
