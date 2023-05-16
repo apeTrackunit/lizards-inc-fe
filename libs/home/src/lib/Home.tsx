@@ -4,14 +4,14 @@ import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
 import { MeasurementCard } from './components/MeasurementCard';
+import moment from 'moment';
 
 interface IMeasurement {
   id: string;
   temperature: number;
   humidity: number;
   co2: number;
-  date: string;
-  time: string;
+  dateTime: Date;
 }
 
 export const Home = () => {
@@ -28,7 +28,7 @@ export const Home = () => {
             {isLoading ? (
               <Skeleton active={true} paragraph={false} className={'max-w-md'} />
             ) : (
-              <span>Measured at {data?.time.substring(0, 8) + ' on ' + data?.date}</span>
+              <span>Measured at {moment(data?.dateTime).format('h:mm:ss DD.MM.YYYY')}</span>
             )}
           </span>
           <div className="flex gap-4 lg:justify-around items-center lg:flex-row flex-col">
