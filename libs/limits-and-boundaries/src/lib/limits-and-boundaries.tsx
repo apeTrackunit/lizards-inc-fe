@@ -6,8 +6,21 @@ import type { SliderMarks } from 'antd/es/slider';
 import Notification from './components/Notification';
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
 
-/* eslint-disable-next-line */
-export interface LimitsAndBoundariesProps {}
+interface IBoundaries {
+  id: string;
+  temperatureBoundaryMax: number;
+  temperatureBoundaryMin: number;
+  humidityBoundaryMax: number;
+  humidityBoundaryMin: number;
+  cO2BoundaryMax: number;
+  cO2BoundaryMin: number;
+}
+
+interface ILimits {
+  id: string;
+  temperatureLimitMax: number;
+  temperatureLimitMin: number;
+}
 
 const style: React.CSSProperties = {
   marginLeft: 70,
@@ -45,23 +58,59 @@ const marksCO2: SliderMarks = {
   },
 };
 
-interface IBoundaries {
-  id: string;
-  temperatureBoundaryMax: number;
-  temperatureBoundaryMin: number;
-  humidityBoundaryMax: number;
-  humidityBoundaryMin: number;
-  cO2BoundaryMax: number;
-  cO2BoundaryMin: number;
-}
+const Limits = ({ limitsData, limitsLoading }: { limitsData: ILimits | undefined; limitsLoading: boolean }) => (
+  <div>
+    <p className="text-2xl text-zinc-500">Temperature</p>
+    <div style={style}>
+      {!limitsLoading ? (
+        <Slider
+          range
+          marks={marksTemp}
+          defaultValue={limitsData ? [limitsData.temperatureLimitMin, limitsData.temperatureLimitMax] : [0, 50]}
+          onAfterChange={value => null}
+          max={100}
+        />
+      ) : (
+        <span>Loading...</span>
+      )}
+    </div>
+  </div>
+);
 
-interface ILimits {
-  id: string;
-  temperatureLimitMax: number;
-  temperatureLimitMin: number;
-}
+const BoundariesSlider = ({
+  title,
+  marks,
+  boundariesData,
+  boundariesLoading,
+}: {
+  title: string;
+  marks: SliderMarks;
+  boundariesData: IBoundaries | undefined;
+  boundariesLoading: boolean;
+}) => (
+  <div className="basis-1/3">
+    <p className="text-2xl text-zinc-500">{title}</p>
+    <div>
+      <div className="w-5/6">
+        {!boundariesLoading ? (
+          <Slider
+            range
+            marks={marks}
+            defaultValue={
+              boundariesData ? [boundariesData.temperatureBoundaryMin, boundariesData.temperatureBoundaryMax] : [0, 50]
+            }
+            onAfterChange={value => null}
+            max={100}
+          />
+        ) : (
+          <span>Loading...</span>
+        )}
+      </div>
+    </div>
+  </div>
+);
 
-export const LimitsAndBoundaries = () => {
+const LimitsAndBoundaries = () => {
   const { data: boundariesData, isLoading: boundariesLoading } = useGetRequest<IBoundaries>({
     url: 'Terrarium/boundaries',
   });
@@ -88,22 +137,7 @@ export const LimitsAndBoundaries = () => {
           </div>
         </div>
         <Divider />
-        <div>
-          <p className="text-2xl text-zinc-500">Temperature</p>
-          <div style={style}>
-            {!limitsLoading ? (
-              <Slider
-                range
-                marks={marksTemp}
-                defaultValue={limitsData ? [limitsData.temperatureLimitMin, limitsData.temperatureLimitMax] : [0, 50]}
-                onAfterChange={value => null}
-                max={100}
-              />
-            ) : (
-              <span>Loading...</span>
-            )}
-          </div>
-        </div>
+        <Limits limitsData={limitsData} limitsLoading={limitsLoading} />
       </div>
       <div>
         <div className="flex pt-7">
@@ -112,7 +146,7 @@ export const LimitsAndBoundaries = () => {
             <Tooltip
               title={
                 <div className="text-black">
-                  Used for selecting the temperature, humidity or levels of CO at which you want to receive
+                  Used for selecting the temperature, humidity, or levels of CO at which you want to receive
                   notifications.
                 </div>
               }
@@ -125,74 +159,28 @@ export const LimitsAndBoundaries = () => {
         </div>
         <Divider />
         <div className="flex flex-row">
-          <div className="basis-1/3">
-            <p className="text-2xl text-zinc-500">Temperature</p>
-            <div>
-              <div className="w-5/6">
-                {!boundariesLoading ? (
-                  <Slider
-                    range
-                    marks={marksTemp}
-                    defaultValue={
-                      boundariesData
-                        ? [boundariesData.temperatureBoundaryMin, boundariesData.temperatureBoundaryMax]
-                        : [0, 50]
-                    }
-                    onAfterChange={value => null}
-                    max={100}
-                  />
-                ) : (
-                  <span>Loading...</span>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="basis-1/3">
-            <p className="text-2xl text-zinc-500">Humidity</p>
-            <div>
-              <div className="w-5/6">
-                {!boundariesLoading ? (
-                  <Slider
-                    range
-                    marks={marksHum}
-                    defaultValue={
-                      boundariesData
-                        ? [boundariesData.humidityBoundaryMin, boundariesData.humidityBoundaryMax]
-                        : [0, 50]
-                    }
-                    onAfterChange={value => null}
-                    max={100}
-                  />
-                ) : (
-                  <span>Loading...</span>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="basis-1/3">
-            <p className="text-2xl text-zinc-500">C02</p>
-            <div>
-              <div className="w-5/6">
-                {!boundariesLoading ? (
-                  <Slider
-                    range
-                    marks={marksCO2}
-                    defaultValue={
-                      boundariesData ? [boundariesData.cO2BoundaryMin, boundariesData.cO2BoundaryMax] : [0, 50]
-                    }
-                    onAfterChange={value => null}
-                    max={100}
-                  />
-                ) : (
-                  <span>Loading...</span>
-                )}
-              </div>
-            </div>
-          </div>
+          <BoundariesSlider
+            title="Temperature"
+            marks={marksTemp}
+            boundariesData={boundariesData}
+            boundariesLoading={boundariesLoading}
+          />
+          <BoundariesSlider
+            title="Humidity"
+            marks={marksHum}
+            boundariesData={boundariesData}
+            boundariesLoading={boundariesLoading}
+          />
+          <BoundariesSlider
+            title="CO2"
+            marks={marksCO2}
+            boundariesData={boundariesData}
+            boundariesLoading={boundariesLoading}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default LimitsAndBoundaries;
+export { LimitsAndBoundaries };
