@@ -44,7 +44,7 @@ export const MeasurementDiagramWithReferenceLine = ({
   dataName,
 }: MeasurementDiagramWithReferenceLineProps) => {
   return isLoading ? (
-    <Skeleton.Avatar active={true} size={Math.min(width, height)} shape={'square'} />
+    <Skeleton.Avatar active={true} size={Math.min(width, height)} shape={'square'} className={'translate-x-4'} />
   ) : (
     <LineChart width={width} height={height} data={data}>
       <CartesianGrid strokeDasharray="3 3" />

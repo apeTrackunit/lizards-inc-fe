@@ -1,6 +1,6 @@
 import { MeasurementCard } from './MeasurementCard';
 import { DiagramData, DiagramLine, MeasurementDiagramWithReferenceLine } from './MeasurementDiagramWithReferenceLine';
-import { Button, Collapse } from 'antd';
+import { Button, Card, Collapse } from 'antd';
 import { useState } from 'react';
 const { Panel } = Collapse;
 
@@ -71,34 +71,38 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
   const toggleDiagram = () => setDiagramVisible(prevState => !prevState);
 
   return (
-    <div className={'flex flex-col items-center justify-center gap-4'}>
-      <MeasurementCard
-        isLoading={userData.measurementData == null}
-        title={title}
-        icon={cardConfig.icon}
-        value={userData.measurementDisplayData ?? ''}
-        cardClassName={cardConfig.cardColor + ' w-80 xl:w-60 h-fit'}
-      />
-      {warningText == null ? (
-        <div className={'hidden xl:block'}>
-          <br />
-        </div>
-      ) : (
-        <div className={'font-bold text-rose-500'}>{warningText}</div>
-      )}
-
-      <Button onClick={toggleDiagram}>Diagram</Button>
-      <div className={'xl:block -translate-x-4' + (diagramVisible ? ' block' : ' hidden')}>
-        <MeasurementDiagramWithReferenceLine
-          height={250}
-          width={350}
-          dataName={title}
-          dataColor={diagramConfig.hexColor}
-          isLoading={userData.historyMeasurements == null}
-          data={userData.historyMeasurements}
-          lines={boundaryLines}
+    <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 w-96'}>
+      <div className={'flex flex-col items-center justify-center gap-4'}>
+        <MeasurementCard
+          isLoading={userData.measurementData == null}
+          title={title}
+          icon={cardConfig.icon}
+          value={userData.measurementDisplayData ?? ''}
+          cardClassName={cardConfig.cardColor + ' w-80 h-fit border-box'}
         />
+        {warningText == null ? (
+          <div className={'hidden xl:block'}>
+            <br />
+          </div>
+        ) : (
+          <div className={'font-bold text-rose-500'}>{warningText}</div>
+        )}
+
+        <Button onClick={toggleDiagram} className={'xl:hidden'}>
+          Diagram
+        </Button>
+        <div className={'xl:block -translate-x-4' + (diagramVisible ? ' block' : ' hidden')}>
+          <MeasurementDiagramWithReferenceLine
+            height={250}
+            width={350}
+            dataName={title}
+            dataColor={diagramConfig.hexColor}
+            isLoading={userData.historyMeasurements == null}
+            data={userData.historyMeasurements}
+            lines={boundaryLines}
+          />
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
