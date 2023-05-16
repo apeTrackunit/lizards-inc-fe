@@ -1,7 +1,7 @@
 import { Badge, Button, Popover } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import React, { useMemo } from 'react';
-import { useGetRequest } from '@lizards-inc-fe/fetcher';
+import { useGetRequest, usePutRequest } from '@lizards-inc-fe/fetcher';
 import moment from 'moment/moment';
 
 interface INotification {
@@ -11,30 +11,56 @@ interface INotification {
   status: true;
 }
 
+interface NotificationSeen {
+  ids: string[];
+}
+
 export const NotificationCenter = () => {
-  const { data, isLoading } = useGetRequest<INotification[]>({ url: '/Notifications' });
+  const { data, isLoading, mutate } = useGetRequest<INotification[]>({ url: '/Notifications' });
+  const { trigger, response } = usePutRequest<unknown, NotificationSeen>({
+    url: '/Notifications',
+    data: {
+      ids: data?.filter(x => !x.status).map(x => x.id) ?? [],
+    },
+  });
 
   const notificationCount = useMemo(() => {
     return data?.filter(x => !x.status).length ?? 0;
   }, [data]);
 
+  const handleOpen = (visible: boolean) => {
+    if (visible) {
+      trigger();
+      if (response?.status === 200) {
+        mutate();
+      }
+    }
+  };
+
   return (
     <Popover
       content={
-        !isLoading ? (
-          <div className={'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col'}>
-            {data?.map(value => {
+        <div className={'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col'}>
+          {!isLoading ? (
+            data?.map(value => {
               return (
-                <Notification key={value.id} dateTime={value.dateTime} message={value.message} status={value.status} />
+                <Notification
+                  key={value.id}
+                  id={value.id}
+                  dateTime={value.dateTime}
+                  message={value.message}
+                  status={value.status}
+                />
               );
-            })}
-          </div>
-        ) : (
-          <span>Loading...</span>
-        )
+            })
+          ) : (
+            <span>Loading...</span>
+          )}
+        </div>
       }
       trigger="click"
       placement="bottomRight"
+      onOpenChange={handleOpen}
     >
       <Button
         shape="circle"
@@ -56,11 +82,7 @@ export const NotificationCenter = () => {
   );
 };
 
-interface NotificationProps {
-  dateTime: Date;
-  message: string;
-  status: true;
-}
+type NotificationProps = INotification;
 
 const Notification = ({ message, dateTime, status }: NotificationProps) => {
   return (
