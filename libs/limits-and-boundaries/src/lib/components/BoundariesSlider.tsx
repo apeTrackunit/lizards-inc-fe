@@ -1,6 +1,7 @@
 import { SliderMarks } from 'antd/es/slider';
 import { Slider } from 'antd';
 import React from 'react';
+import { IBoundaries } from './Interfaces';
 
 const BoundariesSlider = ({
   title,
@@ -34,3 +35,5 @@ const BoundariesSlider = ({
     </div>
   </div>
 );
+
+export { BoundariesSlider };
