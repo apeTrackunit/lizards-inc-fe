@@ -5,10 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  #call-workflow-build-and-test:
-  #  name: Build and Test
-  #  uses: ./.github/workflows/workflow-build-test.yaml
-  comment:
+  comment-workflow:
     - name: Create a comment
       uses: actions/github-script@v5
       with:
@@ -20,3 +17,9 @@ jobs:
             repo: context.repo.repo,
             body: '👋 Thanks for reporting!'
           })
+          
+          
+          
+          #call-workflow-build-and-test:
+          #  name: Build and Test
+          #  uses: ./.github/workflows/workflow-build-test.yaml
