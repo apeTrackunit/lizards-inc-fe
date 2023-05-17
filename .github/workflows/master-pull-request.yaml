@@ -11,6 +11,10 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Run a command and save the output
+        id: command-step
+        run: |
+          echo "Command output"
       - name: Create a comment
         uses: actions/github-script@v5
         with:
@@ -20,7 +24,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
+              body: '${{ steps.command-step.outputs.output }}'
             })
           
           
