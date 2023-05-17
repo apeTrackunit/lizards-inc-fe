@@ -1,7 +1,9 @@
 import { FilterFilled } from '@ant-design/icons';
-import { Card, DatePicker, Divider, Tabs } from 'antd';
-import { useEffect, useState } from 'react';
+import { Card, DatePicker, Divider, Table, TableProps, Tabs } from 'antd';
+import React, { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import { ColumnsType } from 'antd/lib/table';
+import moment from 'moment';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -11,6 +13,76 @@ interface TimeSpanState {
 const initialState: TimeSpanState = {
   from: dayjs().subtract(10, 'day'),
   to: dayjs(),
+};
+
+interface DataType {
+  key: React.Key;
+  displayDate: string;
+  dayjs: Dayjs;
+  temperature: number;
+  humidity: number;
+  co2: number;
+}
+
+const data = [
+  {
+    key: '1',
+    displayDate: '16.10.2022 10:10:10',
+    dayjs: dayjs('16.10.2022 10:10:10', 'DD.MM.YYYY HH:mm:ss'),
+    temperature: 1,
+    humidity: 2,
+    co2: 3,
+  },
+  {
+    key: '2',
+    displayDate: '18.10.2022 20:20:20',
+    dayjs: dayjs('18.10.2022 20:20:20', 'DD.MM.YYYY HH:mm:ss'),
+    temperature: 2,
+    humidity: 4,
+    co2: 6,
+  },
+  {
+    key: '3',
+    displayDate: '18.10.2022 21:20:20',
+    dayjs: dayjs('18.10.2022 21:20:20', 'DD.MM.YYYY HH:mm:ss'),
+    temperature: 2,
+    humidity: 4,
+    co2: 6,
+  },
+];
+
+const columns: ColumnsType<DataType> = [
+  {
+    title: 'Date',
+    dataIndex: 'displayDate',
+    filters: [...new Set(data.map(d => d.dayjs.format('DD-MM-YYYY')))].map(d => ({ text: d, value: d })),
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
+    sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
+  },
+  {
+    title: 'Temperature',
+    dataIndex: 'temperature',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.temperature - b.temperature,
+  },
+  {
+    title: 'Humidity',
+    dataIndex: 'humidity',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.humidity - b.humidity,
+  },
+  {
+    title: 'CO2',
+    dataIndex: 'co2',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.co2 - b.co2,
+  },
+];
+
+const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra);
 };
 
 export const MeasurementHistory = () => {
@@ -69,7 +141,9 @@ export const MeasurementHistory = () => {
           <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
         </div>
         <div>
-          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
+          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}>
+            <Table columns={columns} dataSource={data} onChange={onChange} />
+          </Card>
         </div>
       </div>
     </>
