@@ -29,7 +29,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ${{ needs.call-workflow-preview-deploy.outputs.preview-deploy-result }}
+              body: "${{ needs.call-workflow-preview-deploy.outputs.preview-deploy-result }}"
             })
           
           

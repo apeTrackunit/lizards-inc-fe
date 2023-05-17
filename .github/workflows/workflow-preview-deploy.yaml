@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: 18
 
       - name: Restore cached dependencies
         uses: actions/cache/restore@v3
@@ -40,5 +40,5 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" >> "$GITHUB_WORKSPACE/deploy-output.txt"
+          npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" | grep -E "^Website Draft Url" >> "$GITHUB_WORKSPACE/deploy-output.txt"
           echo "::set-output name=deploy-output::$(cat $GITHUB_WORKSPACE/deploy-output.txt)"
