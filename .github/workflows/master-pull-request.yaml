@@ -5,10 +5,15 @@ on:
     branches: [master]
 
 jobs:
+  call-workflow-build-and-test:
+    name: Build and Test
+    uses: ./.github/workflows/workflow-build-test.yaml
+
   call-workflow-preview-deploy:
     name: Pre Deploy
     uses: ./.github/workflows/workflow-preview-deploy.yaml
     secrets: inherit
+    needs: call-workflow-build-and-test
 
   comment-workflow:
     runs-on: ubuntu-latest
@@ -17,9 +22,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Write out output
-        run: echo ${{ needs.call-workflow-preview-deploy.outputs.preview-deploy-result }}
-
       - name: Create a comment
         uses: actions/github-script@v5
         with:
@@ -31,9 +33,3 @@ jobs:
               repo: context.repo.repo,
               body: "${{ needs.call-workflow-preview-deploy.outputs.preview-deploy-result }}"
             })
-          
-          
-          
-          #call-workflow-build-and-test:
-          #  name: Build and Test
-          #  uses: ./.github/workflows/workflow-build-test.yaml
