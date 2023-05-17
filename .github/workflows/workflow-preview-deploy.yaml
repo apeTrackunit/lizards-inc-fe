@@ -42,5 +42,5 @@ jobs:
 
       - name: Set Output
         id: preview-deploy-netlify
-        run: echo -n "deploy-url=" | cat - $GITHUB_WORKSPACE/deploy-output.txt >> $GITHUB_OUTPUT
+        run: echo -n "deploy-output=" | cat - $GITHUB_WORKSPACE/deploy-output.txt >> $GITHUB_OUTPUT
         #run: echo "::set-output name=deploy-output::$(cat $GITHUB_WORKSPACE/deploy-output.txt | grep -E "^Website Draft Url")"
