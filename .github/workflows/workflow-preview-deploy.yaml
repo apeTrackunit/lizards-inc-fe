@@ -1,0 +1,42 @@
+name: Preview Deploy to Netlify
+
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows
+on:
+  workflow_call:
+    outputs:
+      preview-deploy-result:
+        description: "The result of the deploy preview process"
+        value: ${{ jobs.preview-deploy.outputs.deploy-output }}
+
+jobs:
+  preview-deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy-output: ${{ join(steps.preview-deploy-netlify.outputs.*, '\n') }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Restore cached dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Install Netlify CLI
+        run: npm install netlify-cli --save-dev
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy Preview Site to Netlify
+        id: preview-deploy-netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" >> "$GITHUB_OUTPUT"
