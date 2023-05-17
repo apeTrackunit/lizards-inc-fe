@@ -2,7 +2,7 @@ import { Drawer, Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { HomeOutlined, TwitterOutlined } from '@ant-design/icons';
+import { HomeOutlined, TwitterOutlined, TableOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
@@ -26,6 +26,11 @@ export const App = () => {
       key: `animals`,
       icon: <TwitterOutlined />,
       label: `Animals`,
+    },
+    {
+      key: 'history',
+      icon: <TableOutlined />,
+      label: 'History',
     },
   ];
   const handleResize = () => {
