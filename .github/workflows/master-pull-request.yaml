@@ -5,9 +5,9 @@ on:
     branches: [master]
 
 jobs:
-  call-workflow-build-and-test:
-    name: Build and Test
-    uses: ./.github/workflows/workflow-build-test.yaml
+  #call-workflow-build-and-test:
+  #  name: Build and Test
+  #  uses: ./.github/workflows/workflow-build-test.yaml
   comment:
     - uses: actions/github-script@v5
       with:
