@@ -15,30 +15,32 @@ jobs:
       deploy-output: ${{ steps.preview-deploy-netlify.outputs.deployoutput }}
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-
-      - name: Restore cached dependencies
-        uses: actions/cache/restore@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-
-      - name: Install Netlify CLI
-        run: npm install netlify-cli --save-dev
-
-      - name: Build site
-        run: npm run build
-
-      - name: Deploy Preview Site to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" | tee "$GITHUB_WORKSPACE/deploy-output.txt"
+      #- uses: actions/checkout@v2
+#
+      #- name: Use Node.js
+      #  uses: actions/setup-node@v2
+      #  with:
+      #    node-version: 18
+#
+      #- name: Restore cached dependencies
+      #  uses: actions/cache/restore@v3
+      #  with:
+      #    path: node_modules
+      #    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #    restore-keys: ${{ runner.os }}-node-
+#
+      #- name: Install Netlify CLI
+      #  run: npm install netlify-cli --save-dev
+#
+      #- name: Build site
+      #  run: npm run build
+#
+      #- name: Deploy Preview Site to Netlify
+      #  env:
+      #    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #  run: npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" | tee "$GITHUB_WORKSPACE/deploy-output.txt"
+      - name: Create Test Output
+        run: echo -e "Hello\nWebsite Draft Url 12" > $GITHUB_WORKSPACE/deploy-output.txt
 
       - name: Filter Deploy Output
         run: sed -n '/^Website Draft Url/p' "$GITHUB_WORKSPACE/deploy-output.txt" > "$GITHUB_WORKSPACE/deploy-output-filtered.txt"
