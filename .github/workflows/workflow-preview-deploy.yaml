@@ -12,7 +12,7 @@ jobs:
   preview-deploy:
     runs-on: ubuntu-latest
     outputs:
-      deploy-output: ${{ steps.preview-deploy-netlify.outputs.deploy-output }}
+      deploy-output: ${{ steps.preview-deploy-netlify.outputs.deployoutput }}
 
     steps:
       - uses: actions/checkout@v2
@@ -42,9 +42,7 @@ jobs:
 
       - name: Filter Deploy Output
         run: sed -n '/^Website Draft Url/p' "$GITHUB_WORKSPACE/deploy-output.txt" > "$GITHUB_WORKSPACE/deploy-output-filtered.txt"
-        #run: grep -E "Website Draft Url" "$GITHUB_WORKSPACE/deploy-output.txt" > "$GITHUB_WORKSPACE/deploy-output-filtered.txt"
 
-      - name: Set Output
+      - name: Return Output
         id: preview-deploy-netlify
-        run: echo -n "deploy-output=" | cat - $GITHUB_WORKSPACE/deploy-output-filtered.txt >> $GITHUB_OUTPUT
-        #run: echo "::set-output name=deploy-output::$(cat $GITHUB_WORKSPACE/deploy-output.txt | grep -E "^Website Draft Url")"
+        run: echo -n "deployoutput=" | cat - $GITHUB_WORKSPACE/deploy-output-filtered.txt >> $GITHUB_OUTPUT
