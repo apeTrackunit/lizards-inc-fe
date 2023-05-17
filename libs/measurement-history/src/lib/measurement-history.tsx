@@ -1,5 +1,5 @@
 import { FilterFilled } from '@ant-design/icons';
-import { Card, DatePicker, Divider } from 'antd';
+import { Card, DatePicker, Divider, Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -42,7 +42,28 @@ export const MeasurementHistory = () => {
       </div>
       <div className={'w-full grid gap-2'}>
         <div className={'lg:col-span-2'}>
-          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
+          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}>
+            <Tabs
+              items={[
+                {
+                  key: 'temperature',
+                  label: 'Temperature',
+                  children: 'Hello',
+                },
+                {
+                  key: 'humidity',
+                  label: 'Humidity',
+                  children: 'Wassup',
+                },
+                {
+                  key: 'co2',
+                  label: 'CO2',
+                  children: 'Yeee',
+                },
+              ]}
+              defaultActiveKey="1"
+            />
+          </Card>
         </div>
         <div>
           <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
