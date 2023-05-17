@@ -48,6 +48,22 @@ const data = [
     humidity: 4,
     co2: 6,
   },
+  {
+    key: '4',
+    displayDate: '18.10.2022 22:20:20',
+    dayjs: dayjs('18.10.2022 22:20:20', 'DD.MM.YYYY HH:mm:ss'),
+    temperature: 2,
+    humidity: 4,
+    co2: 6,
+  },
+  {
+    key: '5',
+    displayDate: '18.10.2022 23:20:20',
+    dayjs: dayjs('18.10.2022 23:20:20', 'DD.MM.YYYY HH:mm:ss'),
+    temperature: 2,
+    humidity: 4,
+    co2: 6,
+  },
 ];
 
 const columns: ColumnsType<DataType> = [
@@ -59,29 +75,48 @@ const columns: ColumnsType<DataType> = [
     // here is that finding the name started with `value`
     onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
     sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
+    fixed: 'left',
+    width: 150,
   },
   {
     title: 'Temperature',
     dataIndex: 'temperature',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.temperature - b.temperature,
+    width: 100,
   },
   {
     title: 'Humidity',
     dataIndex: 'humidity',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.humidity - b.humidity,
+    width: 100,
   },
   {
     title: 'CO2',
     dataIndex: 'co2',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.co2 - b.co2,
+    width: 100,
   },
 ];
 
 const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
+};
+
+interface CardProps {
+  children?: string | JSX.Element | JSX.Element[];
+}
+
+const CardElement = (props: CardProps) => {
+  return (
+    <Card
+      className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 max-w-full overflow-x-auto'}
+    >
+      {props.children}
+    </Card>
+  );
 };
 
 export const MeasurementHistory = () => {
@@ -113,7 +148,7 @@ export const MeasurementHistory = () => {
       </div>
       <div className={'w-full grid gap-2'}>
         <div className={'lg:col-span-2'}>
-          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}>
+          <CardElement>
             <Tabs
               items={[
                 {
@@ -134,15 +169,18 @@ export const MeasurementHistory = () => {
               ]}
               defaultActiveKey="1"
             />
-          </Card>
+          </CardElement>
         </div>
         <div>
-          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
+          <CardElement></CardElement>
         </div>
         <div>
-          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}>
-            <Table columns={columns} dataSource={data} onChange={onChange} />
-          </Card>
+          <CardElement>
+            <div className={'max-w-full'} style={{ maxWidth: '100% !important' }}>
+              <Table columns={columns} dataSource={data} onChange={onChange} scroll={{ x: '100px', y: '200px' }} />
+              {/*loading={true}*/}
+            </div>
+          </CardElement>
         </div>
       </div>
     </>
