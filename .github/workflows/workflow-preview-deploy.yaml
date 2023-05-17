@@ -46,3 +46,9 @@ jobs:
       - name: Return Output
         id: preview-deploy-netlify
         run: echo -n "deployoutput=" | cat - $GITHUB_WORKSPACE/deploy-output-filtered.txt >> $GITHUB_OUTPUT
+  test-output:
+    runs-on: ubuntu-latest
+    needs: preview-deploy
+    steps:
+      - name: Print previous output
+        run: echo ${{ needs.preview-deploy.outputs.deploy-output }}
