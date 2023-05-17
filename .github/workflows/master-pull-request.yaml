@@ -9,7 +9,8 @@ jobs:
   #  name: Build and Test
   #  uses: ./.github/workflows/workflow-build-test.yaml
   comment:
-    - uses: actions/github-script@v5
+    - name: Create a comment
+      uses: actions/github-script@v5
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
