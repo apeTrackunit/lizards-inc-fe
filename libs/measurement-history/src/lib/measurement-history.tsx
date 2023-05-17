@@ -3,7 +3,6 @@ import { Card, DatePicker, Divider, Table, TableProps, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
-import moment from 'moment';
 
 interface TimeSpanState {
   from: Dayjs | null;
