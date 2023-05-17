@@ -7,6 +7,8 @@ on:
 jobs:
   comment-workflow:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
     steps:
       - name: Create a comment
