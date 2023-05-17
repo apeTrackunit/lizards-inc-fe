@@ -5,7 +5,7 @@ on:
   workflow_call:
     outputs:
       preview-deploy-result:
-        description: "The result of the deploy preview process"
+        description: "The Url of the Deployed Website"
         value: ${{ jobs.preview-deploy.outputs.deploy-output }}
 
 jobs:
