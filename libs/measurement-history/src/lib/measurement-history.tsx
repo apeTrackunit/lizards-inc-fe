@@ -42,13 +42,13 @@ export const MeasurementHistory = () => {
       </div>
       <div className={'w-full grid gap-2'}>
         <div className={'lg:col-span-2'}>
-          <Card></Card>
+          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
         </div>
         <div>
-          <Card></Card>
+          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
         </div>
         <div>
-          <Card></Card>
+          <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1'}></Card>
         </div>
       </div>
     </>
