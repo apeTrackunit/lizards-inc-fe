@@ -38,12 +38,12 @@ jobs:
       - name: Deploy Preview Site to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" >> "$GITHUB_WORKSPACE/deploy-output.txt"
+        run: npx netlify deploy --dir=dist/lizards-inc-fe --site 5f029723-5c0d-4190-a3d6-a04ef2b8e277 --auth "${NETLIFY_AUTH_TOKEN}" | tee "$GITHUB_WORKSPACE/deploy-output.txt"
 
       - name: Filter Deploy Output
-        run: grep -E "^Website Draft Url" "$GITHUB_WORKSPACE/deploy-output.txt" | tee "$GITHUB_WORKSPACE/deploy-output.txt"
+        run: grep -E "^Website Draft Url" "$GITHUB_WORKSPACE/deploy-output.txt" > "$GITHUB_WORKSPACE/deploy-output-filtered.txt"
 
       - name: Set Output
         id: preview-deploy-netlify
-        run: echo -n "deploy-output=" | cat - $GITHUB_WORKSPACE/deploy-output.txt >> $GITHUB_OUTPUT
+        run: echo -n "deploy-output=" | cat - $GITHUB_WORKSPACE/deploy-output-filtered.txt >> $GITHUB_OUTPUT
         #run: echo "::set-output name=deploy-output::$(cat $GITHUB_WORKSPACE/deploy-output.txt | grep -E "^Website Draft Url")"
