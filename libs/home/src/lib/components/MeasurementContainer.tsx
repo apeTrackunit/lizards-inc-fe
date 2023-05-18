@@ -63,10 +63,10 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
     }
 
     if (userData.boundaries != undefined && userData.measurementData != undefined) {
-      if (userData.boundaries.min >= userData.measurementData) {
+      if (userData.boundaries.min > userData.measurementData) {
         setWarningText(title + ' minimum limit has been reached!');
       }
-      if (userData.boundaries.max <= userData.measurementData) {
+      if (userData.boundaries.max < userData.measurementData) {
         setWarningText(title + ' maximum limit has been reached!');
       }
     }
