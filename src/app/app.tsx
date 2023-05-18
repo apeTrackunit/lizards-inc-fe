@@ -6,9 +6,12 @@ import { HomeOutlined, TwitterOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { SlidersOutlined } from '@ant-design/icons';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 
-export const App = () => {
+
+const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
@@ -28,6 +31,11 @@ export const App = () => {
       icon: <TwitterOutlined />,
       label: `Animals`,
     },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <SlidersOutlined />,
+      label: 'Limits and Boundaries'
+    }
   ];
   const handleResize = () => {
     setPageWidth(window.innerWidth);
