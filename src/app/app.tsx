@@ -7,6 +7,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { SlidersOutlined } from '@ant-design/icons';
 
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
     },
     {
       key: RoutingTable.limitsAndBoundaries.root,
-      icon: <HomeOutlined />,
+      icon: <SlidersOutlined />,
       label: 'Limits and Boundaries'
     }
   ];

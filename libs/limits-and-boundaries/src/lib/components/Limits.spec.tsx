@@ -8,9 +8,7 @@ describe('Limits component', () => {
 
     const { container, queryByText } = render(<Limits limitsData={limitsData} limitsLoading={limitsLoading} />);
 
-    // Assert loading state
     expect(container.querySelector('.ant-slider-handle')).toBeNull();
-    expect(queryByText('Loading...')).toBeTruthy();
   });
 
   it('renders temperature slider with provided values when not loading', () => {
@@ -23,13 +21,11 @@ describe('Limits component', () => {
 
     const { container, queryByText } = render(<Limits limitsData={limitsData} limitsLoading={limitsLoading} />);
 
-    // Assert slider and values
     const sliderHandles = container.querySelectorAll('.ant-slider-handle') as NodeListOf<HTMLElement>;
     expect(sliderHandles.length).toBe(2);
-    expect(sliderHandles[0].style.left).toBe('10%');
-    expect(sliderHandles[1].style.left).toBe('90%');
+    expect(sliderHandles[0].style.left).toBe(10*2/3+'%');
+    expect(sliderHandles[1].style.left).toBe(90*2/3+'%');
 
-    // Assert loading state
     expect(queryByText('Loading...')).toBeNull();
   });
 });

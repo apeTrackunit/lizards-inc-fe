@@ -1,5 +1,5 @@
+import React from 'react';
 import { render } from '@testing-library/react';
-
 import { LimitsAndBoundaries } from './LimitsAndBoundaries';
 
 describe('LimitsAndBoundaries', () => {

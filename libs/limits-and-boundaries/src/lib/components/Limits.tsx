@@ -43,7 +43,6 @@ const Limits = ({ limitsData, limitsLoading }: { limitsData: ILimits | undefined
 
   const onAfterChange = (value: number | [number, number]) => {
     const [min, max] = ExtractValues(value);
-    console.log('limits', limits);
     if (limitsData) {
       setLimits({
         id: limitsData.id,
@@ -56,9 +55,7 @@ const Limits = ({ limitsData, limitsLoading }: { limitsData: ILimits | undefined
   };
 
   useEffect(() => {
-    console.log('cj');
     if (limits) {
-      console.log('in');
       handlePut()
         .then(response => {
           if (response) {
@@ -83,7 +80,7 @@ const Limits = ({ limitsData, limitsLoading }: { limitsData: ILimits | undefined
       <p className="text-2xl text-zinc-500">Temperature</p>
       {contextHolder}
       <div style={style}>
-        {!limitsLoading ? (
+        {limitsData ? (
           <Slider
             range
             marks={marksTemp}
@@ -92,7 +89,7 @@ const Limits = ({ limitsData, limitsLoading }: { limitsData: ILimits | undefined
             max={150}
           />
         ) : (
-          <Skeleton>Loading...</Skeleton>
+          <Skeleton active paragraph={false}>Loading...</Skeleton>
         )}
       </div>
     </div>
