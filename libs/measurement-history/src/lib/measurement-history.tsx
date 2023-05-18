@@ -41,21 +41,23 @@ const calculatePieChartData = (values: number[], min: number, max: number): IPie
 
 export const MeasurementHistory = () => {
   const [dateStatus, setDateStatus] = useState<TimeSpanState>({
-    from: dayjs().subtract(10, 'day'),
+    from: dayjs().subtract(1, 'day'),
     to: dayjs(),
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
   //const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements' });
   const { data: measurementRange, trigger: measurementRageTrigger } = useMutateGetRequest<IMeasurement[]>({
     url: '/Measurements',
-    params: { from: dateStatus.from?.format('YYYY-MM-DD'), to: dateStatus.to?.format('YYYY-MM-DD') },
+    params: {
+      dateFrom: dateStatus.from?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
+      dateTo: dateStatus.to?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
+    },
   });
 
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
     measurementRageTrigger().then();
-    console.log('hello');
   }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
 
   return (

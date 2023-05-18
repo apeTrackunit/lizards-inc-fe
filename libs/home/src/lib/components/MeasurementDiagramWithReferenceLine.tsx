@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ReferenceDot } from 'recharts';
 import { Skeleton } from 'antd';
 
 export interface DiagramLine {
@@ -44,7 +44,8 @@ export const MeasurementDiagramWithReferenceLine = ({
       {lines.map(line => (
         <ReferenceLine y={line.y} label={line.label} stroke={line.color} />
       ))}
-      <Line type="monotone" dataKey="data" stroke={dataColor} name={dataName} />
+      <Line type="monotone" dataKey="data" dot={false} stroke={dataColor} name={dataName} />
+      <ReferenceDot r={1} fill="blue" stroke="none" />
     </LineChart>
   );
 };

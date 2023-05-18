@@ -57,9 +57,21 @@ export const LineChartSummary = ({ data }: { data?: LineChartSummaryData[] | und
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="temperature" name={'Temperature'} stroke={DisplayConfig.temperature.hexColor} />
-        <Line type="monotone" dataKey="humidity" name={'Humidity'} stroke={DisplayConfig.humidity.hexColor} />
-        <Line type="monotone" dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
+        <Line
+          type="monotone"
+          dot={false}
+          dataKey="temperature"
+          name={'Temperature'}
+          stroke={DisplayConfig.temperature.hexColor}
+        />
+        <Line
+          type="monotone"
+          dot={false}
+          dataKey="humidity"
+          name={'Humidity'}
+          stroke={DisplayConfig.humidity.hexColor}
+        />
+        <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
       </LineChart>
     </ResponsiveContainer>
   );

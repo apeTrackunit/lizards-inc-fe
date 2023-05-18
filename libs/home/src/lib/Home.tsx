@@ -6,13 +6,17 @@ import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
 import { MeasurementContainer } from './components/MeasurementContainer';
 import { DisplayConfig, DisplayDateFormat, DisplayDayFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
+import dayjs from 'dayjs';
 
 export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
     url: '/Measurements/latest',
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements' });
+  const { data: measurementRange } = useGetRequest<IMeasurement[]>({
+    url: `/Measurements?dateFrom=${dayjs().subtract(1, 'day').format('YYYY-MM-DD')}
+    &dateTo=${dayjs().format('YYYY-MM-DD')}`,
+  });
 
   return (
     <div>
