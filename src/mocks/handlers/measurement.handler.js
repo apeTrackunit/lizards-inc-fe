@@ -15,7 +15,7 @@ const handlers = [
       })
     );
   }),
-  rest.get(ApiUrl + '/Measurements/all', (req, res, context) => {
+  rest.get(ApiUrl + '/Measurements', (req, res, context) => {
     return res(
       context.status(200),
       context.json([

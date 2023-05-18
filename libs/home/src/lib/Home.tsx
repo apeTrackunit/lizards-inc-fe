@@ -12,7 +12,7 @@ export const Home = () => {
     url: '/Measurements/latest',
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements/all' });
+  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements' });
 
   return (
     <div>
