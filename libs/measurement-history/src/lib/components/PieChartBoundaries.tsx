@@ -43,10 +43,19 @@ const renderCustomizedLabel = ({
 
 export const PieChartBoundaries = () => {
   return (
-    <div>
+    <div className={'h-96'}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
-          <Pie data={data} cx="50%" cy="50%" labelLine={false} outerRadius={120} fill="#8884d8" dataKey="value">
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={120}
+            fill="#8884d8"
+            dataKey="value"
+          >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
