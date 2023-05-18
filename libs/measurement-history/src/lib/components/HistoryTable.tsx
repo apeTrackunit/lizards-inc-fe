@@ -2,6 +2,7 @@ import { Table, TableProps } from 'antd';
 import React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
+import { DisplayConfig, DisplayDateFormat, DisplayDayFormat } from '@lizards-inc-fe/model';
 
 export interface DataType {
   key: React.Key;
@@ -27,10 +28,10 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
       filters:
         data === undefined
           ? []
-          : [...new Set(data.map(d => d.dayjs.format('DD-MM-YYYY')))].map(d => ({ text: d, value: d })),
+          : [...new Set(data.map(d => d.dayjs.format(DisplayDayFormat)))].map(d => ({ text: d, value: d })),
       onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
       sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
-      render: (value: Dayjs) => value.format('DD.MM.YYYY HH:mm:ss'),
+      render: (value: Dayjs) => value.format(DisplayDateFormat),
     },
     {
       title: 'Temperature',
@@ -38,7 +39,7 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.temperature - b.temperature,
       align: 'center',
-      render: value => value + ' C',
+      render: value => DisplayConfig.temperature.format(value),
     },
     {
       title: 'Humidity',
@@ -46,7 +47,7 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.humidity - b.humidity,
       align: 'center',
-      render: value => value + ' %',
+      render: value => DisplayConfig.humidity.format(value),
     },
     {
       title: 'CO2',
@@ -54,7 +55,7 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.co2 - b.co2,
       align: 'center',
-      render: value => value + ' ppm',
+      render: value => DisplayConfig.co2.format(value),
     },
   ];
 

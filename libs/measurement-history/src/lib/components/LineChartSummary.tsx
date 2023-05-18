@@ -1,51 +1,16 @@
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { PureComponent } from 'react';
+import { Skeleton } from 'antd';
+import { DisplayConfig } from '@lizards-inc-fe/model';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+export interface LineChartSummaryData {
+  date: string;
+  temperature: number;
+  humidity: number;
+  co2: number;
+}
 
-const CustomizedAxisTick = ({ x = 0, y = 0, value }: { x?: number; y?: number; value: string }) => {
+/*const CustomizedAxisTick = ({ x = 0, y = 0, value }: { x?: number; y?: number; value?: string }) => {
   return (
     <g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
@@ -53,10 +18,28 @@ const CustomizedAxisTick = ({ x = 0, y = 0, value }: { x?: number; y?: number; v
       </text>
     </g>
   );
-};
+};*/
 
-export const LineChartSummary = () => {
-  return (
+// i don't know why, but it works with this one
+class CustomizedAxisTick extends PureComponent {
+  render() {
+    // @ts-ignore
+    const { x, y, payload } = this.props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+          {payload.value.substring(0, payload.value.indexOf(' '))}
+        </text>
+      </g>
+    );
+  }
+}
+
+export const LineChartSummary = ({ data }: { data?: LineChartSummaryData[] | undefined }) => {
+  return data === undefined ? (
+    <Skeleton.Avatar active={true} size={400} shape={'square'} className={'rounded-lg overflow-hidden'} />
+  ) : (
     <ResponsiveContainer width={'100%'} height={'100%'}>
       <LineChart
         width={500}
@@ -70,12 +53,13 @@ export const LineChartSummary = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick value={'Temp'} />} />
+        <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="temperature" name={'Temperature'} stroke={DisplayConfig.temperature.hexColor} />
+        <Line type="monotone" dataKey="humidity" name={'Humidity'} stroke={DisplayConfig.humidity.hexColor} />
+        <Line type="monotone" dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
       </LineChart>
     </ResponsiveContainer>
   );
