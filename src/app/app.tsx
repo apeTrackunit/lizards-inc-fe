@@ -100,7 +100,6 @@ export const App = () => {
               minHeight: 280,
               background: colorBgContainer,
               overflowY: 'scroll',
-              maxWidth: '100%',
             }}
           >
             <Outlet />

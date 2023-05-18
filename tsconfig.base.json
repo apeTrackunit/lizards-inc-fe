@@ -18,6 +18,7 @@
       "@lizards-inc-fe/fetcher": ["libs/fetcher/src/index.ts"],
       "@lizards-inc-fe/home": ["libs/home/src/index.ts"],
       "@lizards-inc-fe/measurement-history": ["libs/measurement-history/src/index.ts"],
+      "@lizards-inc-fe/login": ["libs/login/src/index.ts"],
       "@lizards-inc-fe/shared-components": ["libs/shared-components/src/index.ts"]
     }
   },
