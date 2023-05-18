@@ -1,3 +1,4 @@
+import { AuthProvider } from '@lizards-inc-fe/auth';
 import { render } from '@testing-library/react';
 import { Limits } from './Limits';
 
@@ -6,7 +7,11 @@ describe('Limits component', () => {
     const limitsData = undefined;
     const limitsLoading = true;
 
-    const { container, queryByText } = render(<Limits limitsData={limitsData} limitsLoading={limitsLoading} />);
+    const { container } = render(
+      <AuthProvider>
+        <Limits limitsData={limitsData} limitsLoading={limitsLoading} />
+      </AuthProvider>
+    );
 
     expect(container.querySelector('.ant-slider-handle')).toBeNull();
   });
@@ -19,12 +24,16 @@ describe('Limits component', () => {
     };
     const limitsLoading = false;
 
-    const { container, queryByText } = render(<Limits limitsData={limitsData} limitsLoading={limitsLoading} />);
+    const { container, queryByText } = render(
+      <AuthProvider>
+        <Limits limitsData={limitsData} limitsLoading={limitsLoading} />
+      </AuthProvider>
+    );
 
     const sliderHandles = container.querySelectorAll('.ant-slider-handle') as NodeListOf<HTMLElement>;
     expect(sliderHandles.length).toBe(2);
-    expect(sliderHandles[0].style.left).toBe(10*2/3+'%');
-    expect(sliderHandles[1].style.left).toBe(90*2/3+'%');
+    expect(sliderHandles[0].style.left).toBe((10 * 2) / 3 + '%');
+    expect(sliderHandles[1].style.left).toBe((90 * 2) / 3 + '%');
 
     expect(queryByText('Loading...')).toBeNull();
   });

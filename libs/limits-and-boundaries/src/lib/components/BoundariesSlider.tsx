@@ -1,17 +1,16 @@
 import { SliderMarks } from 'antd/es/slider';
-import {notification, Skeleton, Slider} from 'antd';
-import React, {useEffect, useState} from 'react';
-import {IBoundaries, ICO2Data, IHumData, INotificationState, ITempData, NotificationType} from './Interfaces';
-import {usePutRequest} from "@lizards-inc-fe/fetcher";
-import {NotificationPlacement} from "antd/es/notification/interface";
+import { notification, Skeleton, Slider } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { IBoundaries, ICO2Data, IHumData, INotificationState, ITempData } from './Interfaces';
+import { usePutRequest } from '@lizards-inc-fe/fetcher';
 
 const BoundariesSlider = ({
-     title,
-     marks,
-     boundariesData,
-     type,
-     max,
-   }: {
+  title,
+  marks,
+  boundariesData,
+  type,
+  max,
+}: {
   title: string;
   marks: SliderMarks;
   boundariesData: IBoundaries | undefined;
@@ -29,24 +28,6 @@ const BoundariesSlider = ({
     data: data,
   });
   const [message, setMessage] = useState<INotificationState>();
-  const handlePut = async () => {
-    console.log('Trigger');
-    try {
-      const response = await trigger();
-      console.log(response?.data);
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
-
-  const openNotification = (placement: NotificationPlacement, type: NotificationType) => {
-    api[type]({
-      message: message?.message,
-      placement,
-    });
-  };
 
   const extractValues = (value: number | [number, number]): [number, number] => {
     if (typeof value === 'number') {
@@ -86,24 +67,29 @@ const BoundariesSlider = ({
 
   useEffect(() => {
     if (dataTemp || dataHum || dataCO2) {
-      handlePut()
-          .then(response => {
-            if (response) {
-              setMessage({ message: 'Changes successfully saved!', type: 'success' });
-            } else {
-              setMessage({ message: 'Something went wrong!', type: 'error' });
-            }
-          })
-          .catch(error => {
-            console.error(error);
-            setMessage({ message: 'Something went very wrong!', type: 'error' });
-          });
+      trigger()
+        .then(response => {
+          if (response) {
+            setMessage({ message: 'Changes successfully saved!', type: 'success' });
+          } else {
+            setMessage({ message: 'Something went wrong!', type: 'error' });
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          setMessage({ message: 'Something went very wrong!', type: 'error' });
+        });
     }
-  }, [dataCO2, dataHum, dataTemp]);
+  }, [trigger, dataCO2, dataHum, dataTemp]);
 
   useEffect(() => {
-    if (message) openNotification('bottomRight', message?.type);
-  }, [message]);
+    if (message) {
+      api[message?.type]({
+        message: message?.message,
+        placement: 'bottomRight',
+      });
+    }
+  }, [api, message]);
 
   let defaultValue: [number, number] = [0, 50];
 
@@ -116,20 +102,22 @@ const BoundariesSlider = ({
   }
 
   return (
-      <div className="basis-1/3">
-        <p className="text-2xl text-zinc-500">{title}</p>
-        {contextHolder}
-        <div>
-          <div className="w-5/6 pb-10">
-            {boundariesData ? (
-                <Slider range marks={marks} defaultValue={defaultValue} onAfterChange={onAfterChange} max={max} />
-            ) : (
-                <Skeleton active paragraph={false}>Loading...</Skeleton>
-            )}
-          </div>
+    <div className="basis-1/3">
+      <p className="text-2xl text-zinc-500">{title}</p>
+      {contextHolder}
+      <div>
+        <div className="w-5/6 pb-10">
+          {boundariesData ? (
+            <Slider range marks={marks} defaultValue={defaultValue} onAfterChange={onAfterChange} max={max} />
+          ) : (
+            <Skeleton active paragraph={false}>
+              Loading...
+            </Skeleton>
+          )}
         </div>
       </div>
+    </div>
   );
 };
 
-export {BoundariesSlider}
+export { BoundariesSlider };
