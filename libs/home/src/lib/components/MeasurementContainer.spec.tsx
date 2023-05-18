@@ -99,7 +99,7 @@ describe('MeasurementContainer', () => {
       />
     );
 
-    const toggleButton = getByText('Diagram');
+    const toggleButton = getByText('History Diagram');
 
     // Initially, diagram is hidden
     expect(getByTestId('measurement-diagram').classList).toContain('hidden');
