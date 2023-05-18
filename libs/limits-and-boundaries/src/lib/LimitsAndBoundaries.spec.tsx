@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import {LimitsAndBoundaries} from './limits-and-boundaries';
+import { LimitsAndBoundaries } from './LimitsAndBoundaries';
 
 describe('LimitsAndBoundaries', () => {
   it('should render successfully', () => {

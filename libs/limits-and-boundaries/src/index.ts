@@ -1,1 +1,1 @@
-export * from './lib/limits-and-boundaries';
+export * from './lib/LimitsAndBoundaries';
