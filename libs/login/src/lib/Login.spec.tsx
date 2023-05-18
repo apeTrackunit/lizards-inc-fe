@@ -5,7 +5,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 describe('Login', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Login />);
+    const { baseElement } = render(
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <AuthProvider>
+                <Login />
+              </AuthProvider>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    );
     expect(baseElement).toBeTruthy();
   });
 
