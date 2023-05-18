@@ -5,7 +5,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { CardElement } from './components/CardElement';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
-import { useGetRequest } from '@lizards-inc-fe/fetcher';
+import { useGetRequest, useMutateGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
 import { PieChartDataState, PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
@@ -45,39 +45,19 @@ export const MeasurementHistory = () => {
     to: dayjs(),
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements' });
+  //const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements' });
+  const { data: measurementRange, trigger: measurementRageTrigger } = useMutateGetRequest<IMeasurement[]>({
+    url: '/Measurements',
+    params: { from: dateStatus.from?.format('YYYY-MM-DD'), to: dateStatus.to?.format('YYYY-MM-DD') },
+  });
   const [diagramData, setDiagramData] = useState<PieChartDataState>();
 
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
-    console.log('make a db request', dateStatus.from?.toISOString(), dateStatus.to?.toISOString());
+    measurementRageTrigger().then();
+    console.log('hello');
   }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
-
-  useEffect(() => {
-    if (boundaries === undefined || measurementRange === undefined) {
-      setDiagramData(undefined);
-      return;
-    }
-
-    setDiagramData({
-      temperatureData: calculatePieChartData(
-        measurementRange.map(m => m.temperature),
-        boundaries.temperatureBoundaryMin,
-        boundaries.temperatureBoundaryMax
-      ),
-      humidityData: calculatePieChartData(
-        measurementRange.map(m => m.humidity),
-        boundaries.humidityBoundaryMin,
-        boundaries.humidityBoundaryMax
-      ),
-      co2Data: calculatePieChartData(
-        measurementRange.map(m => m.co2),
-        boundaries.cO2BoundaryMin,
-        boundaries.cO2BoundaryMax
-      ),
-    });
-  }, [boundaries, measurementRange]);
 
   return (
     <>
@@ -100,7 +80,29 @@ export const MeasurementHistory = () => {
       <Divider />
       <div className={'grid gap-2 max-w-full'}>
         <CardElement className={'h-fit xl:col-span-2'}>
-          <PieChartDiagramsCard diagramData={diagramData} />
+          <PieChartDiagramsCard
+            diagramData={
+              measurementRange && boundaries
+                ? {
+                    temperatureData: calculatePieChartData(
+                      measurementRange.map(m => m.temperature),
+                      boundaries.temperatureBoundaryMin,
+                      boundaries.temperatureBoundaryMax
+                    ),
+                    humidityData: calculatePieChartData(
+                      measurementRange.map(m => m.humidity),
+                      boundaries.humidityBoundaryMin,
+                      boundaries.humidityBoundaryMax
+                    ),
+                    co2Data: calculatePieChartData(
+                      measurementRange.map(m => m.co2),
+                      boundaries.cO2BoundaryMin,
+                      boundaries.cO2BoundaryMax
+                    ),
+                  }
+                : undefined
+            }
+          />
         </CardElement>
 
         <CardElement className={'flex max-xl:h-80 justify-center max-w-full'}>
