@@ -8,8 +8,7 @@ interface CardProps {
 
 export const CardElement = (props: CardProps) => {
   return (
-    <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 ' + props.className}>
-      {props.children}
-    </Card>
+    //shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1
+    <div className={'border border-black/10 p-6 rounded-md ' + props.className}>{props.children}</div>
   );
 };

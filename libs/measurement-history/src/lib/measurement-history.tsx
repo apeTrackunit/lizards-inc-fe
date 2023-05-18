@@ -81,12 +81,11 @@ export const MeasurementHistory = () => {
 
   return (
     <>
-      <div className={'bg-inherit overflow-y-scroll max-h-full'}>
+      <div className={'flex gap-4 lg:gap-8'}>
         <h1 className={'text-2xl font-bold'}>History</h1>
-        <br />
-        <div className={'sticky top-0 w-full bg-inherit z-10'}>
+        <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
+        <div className={'w-full bg-inherit z-10'}>
           <div className={'flex items-center gap-2'}>
-            {/* Above className has the inner design */}
             <FilterFilled />
             <DatePicker.RangePicker
               size={'large'}
@@ -96,23 +95,25 @@ export const MeasurementHistory = () => {
               onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
             />
           </div>
-          <Divider />
         </div>
-        <div className={'grid gap-2'}>
-          <div className={'lg:col-span-2'}>
-            <CardElement>
-              <PieChartDiagramsCard diagramData={diagramData} />
-            </CardElement>
-          </div>
+      </div>
+      <Divider />
+      <div className={'grid gap-2 max-w-full'}>
+        <CardElement className={'h-fit xl:col-span-2'}>
+          <PieChartDiagramsCard diagramData={diagramData} />
+        </CardElement>
 
-          <div className={'h-72 w-72'}>
+        <CardElement className={'flex max-xl:h-80 justify-center max-w-full'}>
+          <div className={'w-60 sm:w-72 md:w-96 lg:w-[40rem] xl:w-[28rem] 2xl:w-[32rem]'}>
             <LineChartSummary />
           </div>
+        </CardElement>
 
-          <div className={'h-72 w-96'}>
+        <CardElement className={'flex justify-center'}>
+          <div className={'w-60 sm:w-80 md:w-[30rem] lg:w-[40rem] xl:w-[28rem] 2xl:w-[40rem]'}>
             <HistoryTable data={undefined} />
           </div>
-        </div>
+        </CardElement>
       </div>
     </>
   );

@@ -106,7 +106,6 @@ const columns: ColumnsType<DataType> = [
     filters: [...new Set(data.map(d => d.dayjs.format('DD-MM-YYYY')))].map(d => ({ text: d, value: d })),
     onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
     sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
-    fixed: 'left',
     render: (value: Dayjs) => value.format('DD.MM.YYYY HH:mm:ss'),
   },
   {
@@ -145,6 +144,6 @@ interface HistoryTableProps {
 
 export const HistoryTable = ({}: HistoryTableProps) => {
   return (
-    <Table scroll={{ y: 300 }} columns={columns} dataSource={data} loading={data === undefined} onChange={onChange} />
+    <Table scroll={{ y: 250 }} columns={columns} dataSource={data} loading={data === undefined} onChange={onChange} />
   );
 };
