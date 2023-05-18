@@ -1,4 +1,4 @@
-import { Pie, Cell, ResponsiveContainer, PieChart, Legend } from 'recharts';
+import { Pie, Cell, PieChart, Legend } from 'recharts';
 import React, { useEffect, useState } from 'react';
 import { Skeleton } from 'antd';
 
