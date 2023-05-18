@@ -60,7 +60,7 @@ export const PieChartBoundaries = ({ data, title }: IPieChartBoundariesProps) =>
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={80}
+            outerRadius={70}
             fill="#8884d8"
             dataKey="data"
           >
@@ -68,7 +68,7 @@ export const PieChartBoundaries = ({ data, title }: IPieChartBoundariesProps) =>
               <Cell key={`cell-${index}`} fill={pieChartColors[index % pieChartColors.length]} />
             ))}
           </Pie>
-          <Legend align={'right'} />
+          <Legend align={'left'} />
         </PieChart>
       )}
     </div>

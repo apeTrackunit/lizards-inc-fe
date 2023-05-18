@@ -22,19 +22,19 @@ const calculatePieChartData = (values: number[], min: number, max: number): IPie
 
   return [
     {
-      name: 'Good',
+      name: 'Between Boundaries',
       data: countInBoundary,
-      color: '#9afc9b',
+      color: '#16a34a',
     },
     {
-      name: 'Over',
+      name: 'Over Boundaries',
       data: countOverBoundary,
-      color: '#ff6c6c',
+      color: '#e11d48',
     },
     {
-      name: 'Under',
+      name: 'Under Boundaries',
       data: countUnderBoundary,
-      color: '#860000',
+      color: '#9a3412',
     },
   ];
 };
