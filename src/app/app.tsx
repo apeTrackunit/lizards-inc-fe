@@ -9,7 +9,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import {RoutingTable} from "@lizards-inc-fe/shared-components";
 
 
-export const App = () => {
+const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 

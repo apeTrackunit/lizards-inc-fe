@@ -2,20 +2,22 @@ import React from 'react';
 import { Divider, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import Notification from './components/Notification';
-import { useGetRequest } from '@lizards-inc-fe/fetcher';
+import {useGetRequest} from '@lizards-inc-fe/fetcher';
 import { BoundariesSlider } from './components/BoundariesSlider';
 import { Limits } from './components/Limits';
 import { marksHum, marksTemp, marksCO2 } from './components/MarksAndStyle';
 import { IBoundaries, ILimits } from './components/Interfaces';
 
 const LimitsAndBoundaries = () => {
-  const { data: boundariesData, isLoading: boundariesLoading } = useGetRequest<IBoundaries>({
+  const { data: boundariesData, isLoading: boundariesLoading, mutate : mutateBoundaries } = useGetRequest<IBoundaries>({
     url: 'Terrarium/boundaries',
   });
-  const { data: limitsData, isLoading: limitsLoading } = useGetRequest<ILimits>({ url: 'Terrarium/limits' });
+  const { data: limitsData, isLoading: limitsLoading, mutate : mutateLimits } = useGetRequest<ILimits>({ url: 'Terrarium/limits' });
 
   return (
     <div>
+      <button>
+      </button>
       <Notification />
       <div>
         <div className="flex">
@@ -62,18 +64,21 @@ const LimitsAndBoundaries = () => {
             marks={marksTemp}
             boundariesData={boundariesData}
             boundariesLoading={boundariesLoading}
+            max = {150}
           />
           <BoundariesSlider
             title="Humidity"
             marks={marksHum}
             boundariesData={boundariesData}
             boundariesLoading={boundariesLoading}
+            max = {100}
           />
           <BoundariesSlider
             title="CO2"
             marks={marksCO2}
             boundariesData={boundariesData}
             boundariesLoading={boundariesLoading}
+            max = {100}
           />
         </div>
       </div>

@@ -8,11 +8,13 @@ const BoundariesSlider = ({
   marks,
   boundariesData,
   boundariesLoading,
+    max,
 }: {
   title: string;
   marks: SliderMarks;
   boundariesData: IBoundaries | undefined;
   boundariesLoading: boolean;
+  max: number
 }) => (
   <div className="basis-1/3">
     <p className="text-2xl text-zinc-500">{title}</p>
@@ -26,7 +28,7 @@ const BoundariesSlider = ({
               boundariesData ? [boundariesData.temperatureBoundaryMin, boundariesData.temperatureBoundaryMax] : [0, 50]
             }
             onAfterChange={value => null}
-            max={100}
+            max={max}
           />
         ) : (
           <span>Loading...</span>

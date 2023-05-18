@@ -17,6 +17,9 @@ const marksTemp: SliderMarks = {
   100: {
     label: '100°C',
   },
+  150: {
+    label: '150°C'
+  }
 };
 
 const marksHum: SliderMarks = {

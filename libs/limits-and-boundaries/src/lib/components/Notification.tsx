@@ -1,31 +1,54 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { NotificationPlacement } from 'antd/es/notification/interface';
 import { Button, notification } from 'antd';
+import {useGetRequest, usePutRequest} from "@lizards-inc-fe/fetcher";
+import {IBoundaries} from "./Interfaces";
 
-function Notification() {
+const Notification = () =>{
+    const { data: boundariesData, isLoading: boundariesLoading, mutate : mutateBoundaries } = useGetRequest<IBoundaries>({
+        url: 'Terrarium/boundaries',
+    });
   type NotificationType = 'success' | 'info' | 'warning' | 'error';
-  const Context = React.createContext({ text: 'Default' });
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: NotificationPlacement, type: NotificationType) => {
     api[type]({
-      message: <Context.Consumer>{({ text }) => text}</Context.Consumer>,
+      message: 'Changes successfully saved!',
       placement,
     });
   };
 
-  const contextValue = useMemo(() => ({ text: 'Changes successfully saved!' }), []);
+  const { trigger, response } = usePutRequest<unknown, IBoundaries>({
+      url: '/Terrarium/boundaries',
+      data: {
+          "id": '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          "temperatureBoundaryMax": 11,
+          "temperatureBoundaryMin": 0,
+          "humidityBoundaryMax": 0,
+          "humidityBoundaryMin": 0,
+          "cO2BoundaryMax": 0,
+          "cO2BoundaryMin": 0
+      },
+  });
 
-  return (
+    const handlePut = () => {
+        console.log("Trigger")
+        trigger().then(()=>{
+            console.log(response?.data)
+        })
+    };
+
+    return (
     <div className="flex flex-row-reverse">
-      <Context.Provider value={contextValue}>
         {contextHolder}
         <Button
           className="rounded-none bg-[#91caff] px-6 h-min"
-          onClick={() => openNotification('bottomRight', 'success')}
+          onClick={() => {
+              handlePut()
+              openNotification('bottomRight', 'success')
+          }}
         >
           <div className="mx-6 my-1 text-xl">Save</div>
         </Button>
-      </Context.Provider>
     </div>
   );
 }
