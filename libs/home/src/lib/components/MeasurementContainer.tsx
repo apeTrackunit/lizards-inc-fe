@@ -1,7 +1,7 @@
 import { MeasurementCard } from './MeasurementCard';
 import { DiagramData, DiagramLine, MeasurementDiagramWithReferenceLine } from './MeasurementDiagramWithReferenceLine';
 import { Button, Card } from 'antd';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // card configuration
 interface CardConfig {
@@ -36,36 +36,41 @@ interface MeasurementContainerProps {
 
 export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userData }: MeasurementContainerProps) => {
   const [diagramVisible, setDiagramVisible] = useState(false);
+  const [warningText, setWarningText] = useState<string>();
+  const [boundaryLines, setBoundaryLines] = useState<DiagramLine[]>([]);
 
-  const boundaryLines: DiagramLine[] = [];
-  let warningText: string | null = null;
-
-  // setting up diagram lines
-  if (userData.boundaries != undefined) {
-    const boundaryLineMin: DiagramLine = {
+  const boundaryLineMin: DiagramLine = useMemo(
+    () => ({
       label: 'Min',
-      y: userData.boundaries.min,
+      y: userData.boundaries?.min,
       color: '#f00',
-    };
+    }),
+    [userData.boundaries?.min]
+  );
 
-    const boundaryLineMax: DiagramLine = {
+  const boundaryLineMax: DiagramLine = useMemo(
+    () => ({
       label: 'Max',
-      y: userData.boundaries.max,
+      y: userData.boundaries?.max,
       color: '#f00',
-    };
+    }),
+    [userData.boundaries?.max]
+  );
 
-    boundaryLines.push(boundaryLineMin);
-    boundaryLines.push(boundaryLineMax);
-  }
+  useEffect(() => {
+    if (userData.boundaries != undefined) {
+      setBoundaryLines([boundaryLineMin, boundaryLineMax]);
+    }
 
-  if (userData.boundaries != undefined && userData.measurementData != undefined) {
-    if (userData.boundaries.min >= userData.measurementData) {
-      warningText = title + ' minimum limit has been reached!';
+    if (userData.boundaries != undefined && userData.measurementData != undefined) {
+      if (userData.boundaries.min >= userData.measurementData) {
+        setWarningText(title + ' minimum limit has been reached!');
+      }
+      if (userData.boundaries.max <= userData.measurementData) {
+        setWarningText(title + ' maximum limit has been reached!');
+      }
     }
-    if (userData.boundaries.max <= userData.measurementData) {
-      warningText = title + ' maximum limit has been reached!';
-    }
-  }
+  }, [userData.boundaries, userData.measurementData, boundaryLineMax, boundaryLineMin]);
 
   const toggleDiagram = () => setDiagramVisible(prevState => !prevState);
 
@@ -87,8 +92,9 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
           <div className={'font-bold text-rose-500'}>{warningText}</div>
         )}
 
+        <span className={'hidden xl:block w-full pl-8'}>History</span>
         <Button onClick={toggleDiagram} className={'xl:hidden'}>
-          Diagram
+          History Diagram
         </Button>
         <div
           data-testid={'measurement-diagram'}

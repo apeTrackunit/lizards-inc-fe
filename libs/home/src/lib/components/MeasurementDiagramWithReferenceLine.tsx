@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Referenc
 import { Skeleton } from 'antd';
 
 export interface DiagramLine {
-  y: number;
+  y: number | undefined;
   color: string;
   label: string;
 }
