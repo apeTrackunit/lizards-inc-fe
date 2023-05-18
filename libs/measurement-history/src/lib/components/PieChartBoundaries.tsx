@@ -1,13 +1,11 @@
-import { Pie, Cell, ResponsiveContainer, PieChart } from 'recharts';
+import { Pie, Cell, ResponsiveContainer, PieChart, Legend } from 'recharts';
+import React, { useEffect, useState } from 'react';
 
 const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
+  { name: 'Group A', value: 400, color: '#f00' },
+  { name: 'Group B', value: 300, color: '#0f0' },
+  { name: 'Group C', value: 300, color: '#00f' },
 ];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;
 
@@ -18,18 +16,9 @@ interface RenderCustomizedLabelProps {
   innerRadius: number;
   outerRadius: number;
   percent: number;
-  index: number;
 }
 
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index,
-}: RenderCustomizedLabelProps) => {
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: RenderCustomizedLabelProps) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -41,7 +30,23 @@ const renderCustomizedLabel = ({
   );
 };
 
-export const PieChartBoundaries = () => {
+export interface IPieChartBoundariesData {
+  name: string;
+  data: number;
+  color: string;
+}
+
+export interface IPieChartBoundariesProps {
+  data?: IPieChartBoundariesData[] | undefined;
+}
+
+export const PieChartBoundaries = ({ data }: IPieChartBoundariesProps) => {
+  const [pieChartColors, setPieChartColors] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (data !== undefined) setPieChartColors(data.map(d => d.color));
+  }, [data]);
+
   return (
     <div className={'h-96'}>
       <ResponsiveContainer width="100%" height="100%">
@@ -56,10 +61,11 @@ export const PieChartBoundaries = () => {
             fill="#8884d8"
             dataKey="value"
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            {data?.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={pieChartColors[index % pieChartColors.length]} />
             ))}
           </Pie>
+          <Legend align={'right'} />
         </PieChart>
       </ResponsiveContainer>
     </div>

@@ -5,6 +5,8 @@ import dayjs, { Dayjs } from 'dayjs';
 import { CardElement } from './components/CardElement';
 import { HistoryTable } from './components/HistoryTable';
 import { PieChartBoundaries } from './components/PieChartBoundaries';
+import { useGetRequest } from '@lizards-inc-fe/fetcher';
+import { IBoundary, IMeasurement } from '@lizards-inc-fe/model';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -18,6 +20,8 @@ const initialState: TimeSpanState = {
 
 export const MeasurementHistory = () => {
   const [dateStatus, setDateStatus] = useState(initialState);
+  const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
+  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements/all' });
 
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;

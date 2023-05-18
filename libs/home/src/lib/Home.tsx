@@ -4,9 +4,8 @@ import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
-import { IMeasurement } from './IMeasurement';
-import { IBoundary } from './IBoundary';
 import { MeasurementContainer } from './components/MeasurementContainer';
+import { IBoundary, IMeasurement } from '@lizards-inc-fe/model';
 
 export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
