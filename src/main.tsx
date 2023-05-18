@@ -7,7 +7,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
 import { RequireAuth } from '@lizards-inc-fe/login';
-import { AuthProvider } from '@lizards-inc-fe/auth';
+import { AuthProvider } from '@lizards-inc-fe/auth'
+import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
       <Route path={RoutingTable.animals.root}>
         <Route index element={<h1>Animals</h1>} />
         <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
+      </Route>
+
+      <Route path={RoutingTable.limitsAndBoundaries.root}>
+        <Route index element={<LimitsAndBoundaries />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
