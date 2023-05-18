@@ -7,7 +7,7 @@ import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest, useMutateGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
-import { PieChartDataState, PieChartDiagramsCard } from './components/PieChartDiagramsCard';
+import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
 
 interface TimeSpanState {
@@ -50,7 +50,6 @@ export const MeasurementHistory = () => {
     url: '/Measurements',
     params: { from: dateStatus.from?.format('YYYY-MM-DD'), to: dateStatus.to?.format('YYYY-MM-DD') },
   });
-  const [diagramData, setDiagramData] = useState<PieChartDataState>();
 
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;
@@ -106,7 +105,7 @@ export const MeasurementHistory = () => {
         </CardElement>
 
         <CardElement className={'flex max-xl:h-80 justify-center max-w-full'}>
-          <div className={'w-60 sm:w-72 md:w-96 lg:w-[40rem] xl:w-[28rem] 2xl:w-[32rem] flex justify-center'}>
+          <div className={'w-64 sm:w-72 md:w-96 lg:w-[40rem] xl:w-[28rem] 2xl:w-[32rem] flex justify-center'}>
             <LineChartSummary
               data={measurementRange?.map<LineChartSummaryData>(d => ({
                 date: dayjs(d.dateTime).format(DisplayDateFormat),
@@ -119,7 +118,7 @@ export const MeasurementHistory = () => {
         </CardElement>
 
         <CardElement className={'flex justify-center'}>
-          <div className={'w-60 sm:w-80 md:w-[30rem] lg:w-[40rem] xl:w-[28rem] 2xl:w-[40rem]'}>
+          <div className={'w-64 sm:w-80 md:w-[30rem] lg:w-[40rem] xl:w-[28rem] 2xl:w-[40rem]'}>
             <HistoryTable
               data={measurementRange?.map((d, index) => ({
                 key: index + '',

@@ -60,6 +60,12 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
   ];
 
   return (
-    <Table scroll={{ y: 250 }} columns={columns} dataSource={data} loading={data === undefined} onChange={onChange} />
+    <Table
+      scroll={{ y: 250, x: 500 }}
+      columns={columns}
+      dataSource={data}
+      loading={data === undefined}
+      onChange={onChange}
+    />
   );
 };
