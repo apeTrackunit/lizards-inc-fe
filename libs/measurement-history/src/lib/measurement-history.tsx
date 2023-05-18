@@ -8,6 +8,7 @@ import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { IBoundary, IMeasurement } from '@lizards-inc-fe/model';
 import { PieChartDataState, PieChartDiagramsCard } from './components/PieChartDiagramsCard';
+import { LineChartSummary } from './components/LineChartSummary';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -80,7 +81,7 @@ export const MeasurementHistory = () => {
 
   return (
     <>
-      <div className={'bg-inherit overflow-y-scroll max-h-full relative'}>
+      <div className={'bg-inherit overflow-y-scroll max-h-full'}>
         <h1 className={'text-2xl font-bold'}>History</h1>
         <br />
         <div className={'sticky top-0 w-full bg-inherit z-10'}>
@@ -103,13 +104,13 @@ export const MeasurementHistory = () => {
               <PieChartDiagramsCard diagramData={diagramData} />
             </CardElement>
           </div>
-          <div>
-            <CardElement></CardElement>
+
+          <div className={'h-72 w-72'}>
+            <LineChartSummary />
           </div>
-          <div>
-            <CardElement className={'h-96 max-w-full'}>
-              <HistoryTable data={undefined} />
-            </CardElement>
+
+          <div className={'h-72 w-96'}>
+            <HistoryTable data={undefined} />
           </div>
         </div>
       </div>
