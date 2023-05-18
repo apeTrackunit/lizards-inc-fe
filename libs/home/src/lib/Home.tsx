@@ -5,7 +5,7 @@ import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
 import { MeasurementContainer } from './components/MeasurementContainer';
-import { IBoundary, IMeasurement } from '@lizards-inc-fe/model';
+import { DisplayConfig, DisplayDateFormat, DisplayDayFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
 
 export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
@@ -25,7 +25,7 @@ export const Home = () => {
             {isLatestMeasurementLoading ? (
               <Skeleton active={true} paragraph={false} className={'max-w-md'} />
             ) : (
-              <span>Measured at {moment(latestMeasurement?.dateTime).format('hh:mm:ss DD.MM.YYYY')}</span>
+              <span>Measured at {moment(latestMeasurement?.dateTime).format(DisplayDateFormat)}</span>
             )}
           </span>
           <div className="flex gap-4 xl:justify-around items-center xl:flex-row flex-col flex-wrap">
@@ -36,7 +36,7 @@ export const Home = () => {
                 icon: TemperatureIcon,
               }}
               diagramConfig={{
-                hexColor: '#e30000',
+                hexColor: DisplayConfig.temperature.hexColor,
               }}
               userData={{
                 boundaries:
@@ -47,11 +47,11 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                        name: moment(measurement.dateTime).format(DisplayDayFormat),
                         data: measurement.temperature,
                       })),
                 measurementData: latestMeasurement?.temperature,
-                measurementDisplayData: `${latestMeasurement?.temperature} °C`,
+                measurementDisplayData: DisplayConfig.temperature.format(latestMeasurement?.temperature ?? 0),
               }}
             />
             <Divider className={'xl:hidden'} />
@@ -62,7 +62,7 @@ export const Home = () => {
                 icon: HumidityIcon,
               }}
               diagramConfig={{
-                hexColor: '#00f',
+                hexColor: DisplayConfig.humidity.hexColor,
               }}
               userData={{
                 boundaries:
@@ -73,11 +73,11 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                        name: moment(measurement.dateTime).format(DisplayDayFormat),
                         data: measurement.humidity,
                       })),
                 measurementData: latestMeasurement?.humidity,
-                measurementDisplayData: `${latestMeasurement?.humidity} %`,
+                measurementDisplayData: DisplayConfig.humidity.format(latestMeasurement?.humidity ?? 0),
               }}
             />
             <Divider className={'xl:hidden'} />
@@ -88,7 +88,7 @@ export const Home = () => {
                 icon: Co2Icon,
               }}
               diagramConfig={{
-                hexColor: '#00b700',
+                hexColor: DisplayConfig.co2.hexColor,
               }}
               userData={{
                 boundaries:
@@ -99,11 +99,11 @@ export const Home = () => {
                   measurementRange == undefined
                     ? undefined
                     : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                        name: moment(measurement.dateTime).format(DisplayDayFormat),
                         data: measurement.co2,
                       })),
                 measurementData: latestMeasurement?.co2,
-                measurementDisplayData: `${latestMeasurement?.co2} ppm`,
+                measurementDisplayData: DisplayConfig.co2.format(latestMeasurement?.co2 ?? 0),
               }}
             />
           </div>
