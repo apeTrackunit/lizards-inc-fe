@@ -12,4 +12,7 @@ export const RoutingTable = {
       edit: 'edit',
     },
   },
+  limitsAndBoundaries: {
+    root: 'limits-and-boundaries'
+  }
 } as const;

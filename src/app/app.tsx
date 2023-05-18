@@ -6,8 +6,12 @@ import { HomeOutlined, TwitterOutlined, TableOutlined } from '@ant-design/icons'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { SlidersOutlined } from '@ant-design/icons';
+import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 
-export const App = () => {
+
+const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
@@ -26,6 +30,11 @@ export const App = () => {
       key: `animals`,
       icon: <TwitterOutlined />,
       label: `Animals`,
+    },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <SlidersOutlined />,
+      label: 'Limits and Boundaries'
     },
     {
       key: 'history',
@@ -52,9 +61,14 @@ export const App = () => {
   return (
     <Layout style={{ height: '100vh' }}>
       <div className={'flex flex-row h-14 items-center bg-white drop-shadow p-4'}>
-        {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
-        <div className={'sm:mb-1 mb-0.5'} onClick={handleSideBarCollapseClick}>
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        <div className={'flex justify-between w-full mr-4'}>
+          <div className={'flex'}>
+            {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
+            <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>
+              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            </div>
+          </div>
+          <NotificationCenter />
         </div>
       </div>
       <Layout>
@@ -99,7 +113,7 @@ export const App = () => {
               margin: 0,
               minHeight: 280,
               background: colorBgContainer,
-              overflowY: 'auto',
+              overflowY: 'scroll',
             }}
           >
             <Outlet />

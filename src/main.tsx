@@ -8,6 +8,7 @@ import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
 import { MeasurementHistory } from '@lizards-inc-fe/measurement-history';
 import { AuthProvider, RequireAuth } from '@lizards-inc-fe/login';
+import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,10 @@ const router = createBrowserRouter(
 
       <Route path={RoutingTable.history.root}>
         <Route index element={<MeasurementHistory />} />
+      </Route>
+
+      <Route path={RoutingTable.limitsAndBoundaries.root}>
+        <Route index element={<LimitsAndBoundaries />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
