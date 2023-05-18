@@ -94,6 +94,7 @@ export const App = () => {
               margin: 0,
               minHeight: 280,
               background: colorBgContainer,
+              overflowY: 'scroll',
             }}
           >
             <Outlet />
