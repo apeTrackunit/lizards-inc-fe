@@ -20,7 +20,7 @@ export interface LineChartSummaryData {
   );
 };*/
 
-// i don't know why, but it works with this one
+// I don't know why, but it works with this one
 class CustomizedAxisTick extends PureComponent {
   render() {
     // @ts-ignore
