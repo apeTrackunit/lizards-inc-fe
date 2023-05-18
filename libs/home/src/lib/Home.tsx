@@ -3,43 +3,17 @@ import { Divider, Skeleton } from 'antd';
 import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
-import { MeasurementCard } from './components/MeasurementCard';
 import moment from 'moment';
 import { IMeasurement } from './IMeasurement';
 import { IBoundary } from './IBoundary';
 import { MeasurementContainer } from './components/MeasurementContainer';
 
-const getLatestMeasurement = () => {
-  const response = useGetRequest<IMeasurement>({ url: '/Measurements/latest' });
-
-  return {
-    latestMeasurement: response.data,
-    isLatestMeasurementLoading: response.isLoading,
-  };
-};
-
-const getBoundaries = () => {
-  const response = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-
-  return {
-    boundaries: response.data,
-    isBoundariesLoading: response.isLoading,
-  };
-};
-
-const getMeasurementsRange = () => {
-  const response = useGetRequest<IMeasurement[]>({ url: '/Measurements/all' });
-
-  return {
-    measurementRange: response.data,
-    isMeasurementRangeLoading: response.data,
-  };
-};
-
 export const Home = () => {
-  const { latestMeasurement, isLatestMeasurementLoading } = getLatestMeasurement();
-  const { boundaries } = getBoundaries();
-  const { measurementRange } = getMeasurementsRange();
+  const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
+    url: '/Measurements/latest',
+  });
+  const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
+  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements/all' });
 
   return (
     <div>
