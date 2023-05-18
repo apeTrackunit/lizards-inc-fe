@@ -40,17 +40,15 @@ export const Home = () => {
                 hexColor: '#e30000',
               }}
               userData={{
-                boundaries:
-                  boundaries == undefined
-                    ? undefined
-                    : { min: boundaries.temperatureBoundaryMin, max: boundaries.temperatureBoundaryMax },
-                historyMeasurements:
-                  measurementRange == undefined
-                    ? undefined
-                    : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                        data: measurement.temperature,
-                      })),
+                boundaries: boundaries
+                  ? { min: boundaries.temperatureBoundaryMin, max: boundaries.temperatureBoundaryMax }
+                  : undefined,
+                historyMeasurements: measurementRange
+                  ? measurementRange.map(measurement => ({
+                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                      data: measurement.temperature,
+                    }))
+                  : undefined,
                 measurementData: latestMeasurement?.temperature,
                 measurementDisplayData: `${latestMeasurement?.temperature} °C`,
               }}
@@ -66,17 +64,15 @@ export const Home = () => {
                 hexColor: '#00f',
               }}
               userData={{
-                boundaries:
-                  boundaries == undefined
-                    ? undefined
-                    : { min: boundaries.humidityBoundaryMin, max: boundaries.humidityBoundaryMax },
-                historyMeasurements:
-                  measurementRange == undefined
-                    ? undefined
-                    : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                        data: measurement.humidity,
-                      })),
+                boundaries: boundaries
+                  ? { min: boundaries.humidityBoundaryMin, max: boundaries.humidityBoundaryMax }
+                  : undefined,
+                historyMeasurements: measurementRange
+                  ? measurementRange.map(measurement => ({
+                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                      data: measurement.humidity,
+                    }))
+                  : undefined,
                 measurementData: latestMeasurement?.humidity,
                 measurementDisplayData: `${latestMeasurement?.humidity} %`,
               }}
@@ -92,17 +88,13 @@ export const Home = () => {
                 hexColor: '#00b700',
               }}
               userData={{
-                boundaries:
-                  boundaries == undefined
-                    ? undefined
-                    : { min: boundaries.cO2BoundaryMin, max: boundaries.cO2BoundaryMax },
-                historyMeasurements:
-                  measurementRange == undefined
-                    ? undefined
-                    : measurementRange.map(measurement => ({
-                        name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                        data: measurement.co2,
-                      })),
+                boundaries: boundaries ? { min: boundaries.cO2BoundaryMin, max: boundaries.cO2BoundaryMax } : undefined,
+                historyMeasurements: measurementRange
+                  ? measurementRange.map(measurement => ({
+                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
+                      data: measurement.co2,
+                    }))
+                  : undefined,
                 measurementData: latestMeasurement?.co2,
                 measurementDisplayData: `${latestMeasurement?.co2} ppm`,
               }}

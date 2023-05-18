@@ -1,14 +1,13 @@
-import { Drawer, Layout, Menu, theme } from 'antd';
+import { Button, Drawer, Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { HomeOutlined, TwitterOutlined } from '@ant-design/icons';
+import { SlidersOutlined, LogoutOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import {RoutingTable} from "@lizards-inc-fe/shared-components";
-import { SlidersOutlined } from '@ant-design/icons';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
+import { useAuthContext } from '@lizards-inc-fe/auth';
 
 
 const App = () => {
@@ -19,6 +18,7 @@ const App = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
+  const { logout } = useAuthContext();
 
   const items: ItemType[] = [
     {
@@ -56,14 +56,24 @@ const App = () => {
   return (
     <Layout style={{ height: '100vh' }}>
       <div className={'flex flex-row h-14 items-center bg-white drop-shadow p-4'}>
-        <div className={'flex justify-between w-full mr-4'}>
+        <div className={'flex justify-between w-full md:mr-2'}>
           <div className={'flex'}>
             {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
             <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>
               {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             </div>
           </div>
-          <NotificationCenter />
+          <div className={'flex gap-3'}>
+            <NotificationCenter />
+            <Button
+              shape={'circle'}
+              type={'text'}
+              className={'flex flex-row justify-center items-center'}
+              icon={<LogoutOutlined />}
+              title={'Logout'}
+              onClick={logout}
+            />
+          </div>
         </div>
       </div>
       <Layout>

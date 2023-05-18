@@ -58,11 +58,11 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
   );
 
   useEffect(() => {
-    if (userData.boundaries != undefined) {
+    if (userData.boundaries !== undefined) {
       setBoundaryLines([boundaryLineMin, boundaryLineMax]);
     }
 
-    if (userData.boundaries != undefined && userData.measurementData != undefined) {
+    if (userData.boundaries !== undefined && userData.measurementData !== undefined) {
       if (userData.boundaries.min >= userData.measurementData) {
         setWarningText(title + ' minimum limit has been reached!');
       }
@@ -70,19 +70,19 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
         setWarningText(title + ' maximum limit has been reached!');
       }
     }
-  }, [userData.boundaries, userData.measurementData, boundaryLineMax, boundaryLineMin]);
+  }, [title, userData.boundaries, userData.measurementData, boundaryLineMax, boundaryLineMin]);
 
   const toggleDiagram = () => setDiagramVisible(prevState => !prevState);
 
   return (
-    <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 w-96'}>
+    <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 lg:w-96 w-full'}>
       <div className={'flex flex-col items-center justify-center gap-4'}>
         <MeasurementCard
           isLoading={userData.measurementData == null}
           title={title}
           icon={cardConfig.icon}
           value={userData.measurementDisplayData ?? ''}
-          cardClassName={cardConfig.cardColor + ' w-80 h-fit border-box'}
+          cardClassName={cardConfig.cardColor + ' lg:w-80 w-full mx-4 h-fit border-box'}
         />
         {warningText == null ? (
           <div className={'hidden xl:block'}>

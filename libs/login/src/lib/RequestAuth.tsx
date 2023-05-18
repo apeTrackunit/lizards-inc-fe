@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { useAuthContext } from './AuthProvider';
 import Login from './Login';
+import { useAuthContext } from '@lizards-inc-fe/auth';
 
 interface RequireAuthProps {
   children: ReactNode;

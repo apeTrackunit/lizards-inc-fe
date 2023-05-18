@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useMutateRequest } from './useMutateRequest';
+import { useAuthContext } from '@lizards-inc-fe/auth';
 
 interface IPutRequest<RequestBody, Params> {
   url: string;
@@ -12,6 +13,8 @@ export const usePutRequest = <Data = unknown, RequestBody = unknown, Params = un
   data,
   params,
 }: IPutRequest<RequestBody, Params>) => {
+  const { authenticated } = useAuthContext();
+
   const putRequestConfig: AxiosRequestConfig<RequestBody> = {
     baseURL: ApiUrl,
     url: url,
@@ -26,5 +29,5 @@ export const usePutRequest = <Data = unknown, RequestBody = unknown, Params = un
     putRequestConfig.params = params;
   }
 
-  return useMutateRequest<Data, Error>(putRequestConfig);
+  return useMutateRequest<Data, Error>(authenticated ? putRequestConfig : null);
 };

@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { Home } from './Home';
+import { AuthProvider } from '@lizards-inc-fe/auth';
 
 describe('Home', () => {
   beforeAll(() => {
@@ -20,7 +21,11 @@ describe('Home', () => {
   });
 
   it('should render successfully', () => {
-    const { baseElement } = render(<Home />);
+    const { baseElement } = render(
+      <AuthProvider>
+        <Home />
+      </AuthProvider>
+    );
     expect(baseElement).toBeTruthy();
   });
 });

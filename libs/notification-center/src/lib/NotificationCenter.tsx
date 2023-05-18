@@ -1,4 +1,4 @@
-import { Badge, Button, Popover } from 'antd';
+import { Badge, Button, Popover, Spin } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useGetRequest, usePutRequest } from '@lizards-inc-fe/fetcher';
@@ -25,9 +25,18 @@ export const NotificationCenter = () => {
   return (
     <Popover
       content={
-        <div className={'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col'}>
-          {!isLoading ? (
-            data?.map(value => {
+        <div
+          className={
+            'sm:h-80 h-full sm:w-96 w-full overflow-y-scroll rounded-lg flex flex-col ' +
+            (isLoading || (!isLoading && (data?.length === 0 || !data)) ? 'items-center justify-center' : '')
+          }
+        >
+          {isLoading && <Spin size="large" />}
+
+          {!isLoading && (data?.length === 0 || !data) && <span>No data</span>}
+
+          {!isLoading &&
+            data?.map((value, index) => {
               return (
                 <Notification
                   key={value.id}
@@ -38,10 +47,7 @@ export const NotificationCenter = () => {
                   onMarkedAsSeen={mutate}
                 />
               );
-            })
-          ) : (
-            <span>Loading...</span>
-          )}
+            })}
         </div>
       }
       trigger="click"
@@ -50,14 +56,16 @@ export const NotificationCenter = () => {
       <Button
         shape="circle"
         type={'text'}
-        className={'flex flex-col justify-center items-center'}
         ghost
+        className={'flex flex-col justify-center items-center'}
         icon={
           <Badge
             offset={[notificationCount > 9 ? 10 : 2, 0]}
             size={'small'}
             count={notificationCount}
             overflowCount={9}
+            className={'mb-1'}
+            title={'Notifications'}
           >
             <BellOutlined />
           </Badge>
@@ -93,7 +101,7 @@ const Notification = ({ id, message, dateTime, status, onMarkedAsSeen }: Notific
   return (
     <div
       id={`notification-${id}`}
-      className={'flex items-center justify-between h-fit gap-4 w-full p-4 hover:bg-slate-100'}
+      className={`flex items-center justify-between h-fit gap-4 w-full p-4 hover:bg-slate-100`}
       onMouseEnter={markAsSeen}
       onClick={markAsSeen}
     >

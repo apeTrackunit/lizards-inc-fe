@@ -1,13 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import { Limits } from './Limits';
-import {BoundariesSlider} from "./BoundariesSlider";
-import {marksCO2, marksHum, marksTemp} from "./MarksAndStyle";
+import { BoundariesSlider } from './BoundariesSlider';
+import { marksCO2, marksHum, marksTemp } from './MarksAndStyle';
+import { AuthProvider } from '@lizards-inc-fe/auth';
 
 describe('Boundaries component', () => {
   it('renders temperature slider with default values when loading', () => {
     const boundariesData = undefined;
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksTemp} max={100} title={'Temperature'} type={'temperature'}/>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider
+          boundariesData={boundariesData}
+          marks={marksTemp}
+          max={100}
+          title={'Temperature'}
+          type={'temperature'}
+        />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.querySelector('.ant-slider-handle-1');
 
     expect(sliderElement).toBeDefined();
@@ -24,7 +34,17 @@ describe('Boundaries component', () => {
       cO2BoundaryMin: 14,
     };
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksTemp} max={100} title={'Temperature'} type={'temperature'}></BoundariesSlider>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider
+          boundariesData={boundariesData}
+          marks={marksTemp}
+          max={100}
+          title={'Temperature'}
+          type={'temperature'}
+        />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
@@ -36,7 +56,17 @@ describe('Boundaries component', () => {
   it('renders humidity slider with default values when loading', () => {
     const boundariesData = undefined;
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksHum} max={100} title={'Humidity'} type={'humidity'}/>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider
+          boundariesData={boundariesData}
+          marks={marksHum}
+          max={100}
+          title={'Humidity'}
+          type={'humidity'}
+        />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.querySelector('.ant-slider-handle-1');
 
     expect(sliderElement).toBeDefined();
@@ -53,7 +83,17 @@ describe('Boundaries component', () => {
       cO2BoundaryMin: 14,
     };
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksHum} max={100} title={'Humidity'} type={'humidity'}></BoundariesSlider>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider
+          boundariesData={boundariesData}
+          marks={marksHum}
+          max={100}
+          title={'Humidity'}
+          type={'humidity'}
+        />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
@@ -64,7 +104,11 @@ describe('Boundaries component', () => {
   it('renders co2 slider with default values when loading', () => {
     const boundariesData = undefined;
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'}/>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'} />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.querySelector('.ant-slider-handle-1');
 
     expect(sliderElement).toBeDefined();
@@ -81,7 +125,11 @@ describe('Boundaries component', () => {
       cO2BoundaryMin: 14,
     };
 
-    const { baseElement } = render(<BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'}></BoundariesSlider>);
+    const { baseElement } = render(
+      <AuthProvider>
+        <BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'} />
+      </AuthProvider>
+    );
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
@@ -92,5 +140,4 @@ describe('Boundaries component', () => {
     expect(sliderElement[1].style.left).toBe('48%');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
-})
-
+});
