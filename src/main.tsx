@@ -6,11 +6,19 @@ import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
+import { AuthProvider, RequireAuth } from '@lizards-inc-fe/login';
 import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={RoutingTable.root} element={<App />}>
+    <Route
+      path={RoutingTable.root}
+      element={
+        <RequireAuth>
+          <App />
+        </RequireAuth>
+      }
+    >
       <Route index element={<Home />} />
 
       <Route path={RoutingTable.home.root}>
@@ -32,22 +40,24 @@ const router = createBrowserRouter(
 );
 
 // Mock
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  //const { worker } = require('./mocks/browser');
-  //worker.start();
+  const { worker } = require('./mocks/browser');
+  worker.start();
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
-    <SWRConfig
-      value={{
-        revalidateOnFocus: false,
-        refreshInterval: 1000 * 60 * 5,
-      }}
-    >
-      <RouterProvider router={router} />
-    </SWRConfig>
+    <AuthProvider>
+      <SWRConfig
+        value={{
+          revalidateOnFocus: false,
+          refreshInterval: 1000 * 60 * 5,
+        }}
+      >
+        <RouterProvider router={router} />
+      </SWRConfig>
+    </AuthProvider>
   </StrictMode>
 );

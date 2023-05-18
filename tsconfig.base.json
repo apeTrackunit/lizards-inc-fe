@@ -18,6 +18,8 @@
       "@lizards-inc-fe/fetcher": ["libs/fetcher/src/index.ts"],
       "@lizards-inc-fe/home": ["libs/home/src/index.ts"],
       "@lizards-inc-fe/limits-and-boundaries": ["libs/limits-and-boundaries/src/index.ts"],
+      "@lizards-inc-fe/login": ["libs/login/src/index.ts"],
+      "@lizards-inc-fe/notifcation-center": ["libs/notification-center/src/index.ts"],
       "@lizards-inc-fe/shared-components": ["libs/shared-components/src/index.ts"]
     }
   },

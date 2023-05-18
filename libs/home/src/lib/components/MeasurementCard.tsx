@@ -15,7 +15,7 @@ export const MeasurementCard = ({ isLoading, title, icon, value, cardClassName }
         <>
           <span className={'text-black/[.45] skeleton-title'}>{title}</span>
           <div className={'flex items-center pt-2'}>
-            <img src={icon} alt={'temperature-logo'} className={'h-8 mr-2'} />
+            <img src={icon} alt={title + '-logo'} className={'h-8 mr-2'} />
             <Skeleton paragraph={false} active={true}></Skeleton>
           </div>
         </>
@@ -23,8 +23,8 @@ export const MeasurementCard = ({ isLoading, title, icon, value, cardClassName }
         <Statistic
           title={title}
           value={value}
-          prefix={<img src={icon} alt={'temperature-logo'} className={'h-8 mr-2'} />}
-          valueStyle={{ alignItems: 'center', display: 'flex' }}
+          prefix={<img src={icon} alt={title + '-logo'} className={'h-8 mr-2'} />}
+          valueStyle={{ alignItems: 'center', display: 'flex', fontWeight: '500' }}
         />
       )}
     </Card>
