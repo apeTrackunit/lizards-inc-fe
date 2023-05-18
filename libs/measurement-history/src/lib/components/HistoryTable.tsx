@@ -6,7 +6,6 @@ import { ResponsiveContainer } from 'recharts';
 
 interface DataType {
   key: React.Key;
-  displayDate: string;
   dayjs: Dayjs;
   temperature: number;
   humidity: number;
@@ -16,7 +15,6 @@ interface DataType {
 const data = [
   {
     key: '1',
-    displayDate: '16.10.2022 10:10:10',
     dayjs: dayjs('16.10.2022 10:10:10', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 1,
     humidity: 2,
@@ -24,7 +22,6 @@ const data = [
   },
   {
     key: '2',
-    displayDate: '18.10.2022 20:20:20',
     dayjs: dayjs('18.10.2022 20:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -32,7 +29,6 @@ const data = [
   },
   {
     key: '3',
-    displayDate: '18.10.2022 21:20:20',
     dayjs: dayjs('18.10.2022 21:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -40,7 +36,6 @@ const data = [
   },
   {
     key: '4',
-    displayDate: '18.10.2022 22:20:20',
     dayjs: dayjs('18.10.2022 22:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -48,7 +43,6 @@ const data = [
   },
   {
     key: '5',
-    displayDate: '18.10.2022 23:20:20',
     dayjs: dayjs('18.10.2022 23:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -56,7 +50,6 @@ const data = [
   },
   {
     key: '6',
-    displayDate: '19.10.2022 10:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -64,7 +57,6 @@ const data = [
   },
   {
     key: '7',
-    displayDate: '19.10.2022 11:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -72,7 +64,6 @@ const data = [
   },
   {
     key: '8',
-    displayDate: '19.10.2022 12:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -80,7 +71,6 @@ const data = [
   },
   {
     key: '9',
-    displayDate: '19.10.2022 13:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -88,7 +78,6 @@ const data = [
   },
   {
     key: '10',
-    displayDate: '19.10.2022 14:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -96,7 +85,6 @@ const data = [
   },
   {
     key: '11',
-    displayDate: '19.10.2022 15:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -104,7 +92,6 @@ const data = [
   },
   {
     key: '12',
-    displayDate: '19.10.2022 16:20:20',
     dayjs: dayjs('19.10.2022 10:20:20', 'DD.MM.YYYY HH:mm:ss'),
     temperature: 2,
     humidity: 4,
@@ -115,33 +102,37 @@ const data = [
 const columns: ColumnsType<DataType> = [
   {
     title: 'Date',
-    dataIndex: 'displayDate',
+    dataIndex: 'dayjs',
     filters: [...new Set(data.map(d => d.dayjs.format('DD-MM-YYYY')))].map(d => ({ text: d, value: d })),
     onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
     sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
     fixed: 'left',
     width: 100,
+    render: (value: Dayjs) => value.format('DD.MM.YYYY HH:mm:ss'),
   },
   {
     title: 'Temperature',
     dataIndex: 'temperature',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.temperature - b.temperature,
-    width: 100,
+    align: 'center',
+    render: value => value + ' C',
   },
   {
     title: 'Humidity',
     dataIndex: 'humidity',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.humidity - b.humidity,
-    width: 80,
+    align: 'center',
+    render: value => value + ' %',
   },
   {
     title: 'CO2',
     dataIndex: 'co2',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.co2 - b.co2,
-    width: 70,
+    align: 'center',
+    render: value => value + ' ppm',
   },
 ];
 

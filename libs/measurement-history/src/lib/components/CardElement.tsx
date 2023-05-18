@@ -10,7 +10,7 @@ export const CardElement = (props: CardProps) => {
   return (
     <Card
       className={
-        'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 max-w-full overflow-x-auto ' +
+        'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 max-w-full overflow-x-auto' +
         props.className
       }
     >

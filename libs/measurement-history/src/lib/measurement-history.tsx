@@ -1,22 +1,17 @@
 import { FilterFilled } from '@ant-design/icons';
-import { DatePicker, Divider, Tabs } from 'antd';
+import { DatePicker, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { CardElement } from './components/CardElement';
 import { HistoryTable } from './components/HistoryTable';
-import { IPieChartBoundariesData, PieChartBoundaries } from './components/PieChartBoundaries';
+import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { IBoundary, IMeasurement } from '@lizards-inc-fe/model';
+import { PieChartDataState, PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 
 interface TimeSpanState {
   from: Dayjs | null;
   to: Dayjs | null;
-}
-
-interface PieChartDataState {
-  temperatureData: IPieChartBoundariesData[] | undefined;
-  humidityData: IPieChartBoundariesData[] | undefined;
-  co2Data: IPieChartBoundariesData[] | undefined;
 }
 
 const calculatePieChartData = (values: number[], min: number, max: number): IPieChartBoundariesData[] => {
@@ -85,54 +80,37 @@ export const MeasurementHistory = () => {
 
   return (
     <>
-      <h1 className={'text-2xl font-bold'}>History</h1>
-      <br />
-      <div className={'sticky top-0 w-full bg-inherit z-10'}>
-        <div className={'flex items-center gap-2'}>
-          {/* Above className has the inner design */}
-          <FilterFilled />
-          <DatePicker.RangePicker
-            size={'large'}
-            use12Hours={false}
-            mode={['date', 'date']}
-            value={[dateStatus.from, dateStatus.to]}
-            onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
-          />
-        </div>
-        <Divider />
-      </div>
-      <div className={'grid gap-2'}>
-        <div className={'lg:col-span-2'}>
-          <CardElement>
-            <Tabs
-              items={[
-                {
-                  key: 'temperature',
-                  label: 'Temperature',
-                  children: <PieChartBoundaries data={diagramData?.temperatureData}></PieChartBoundaries>,
-                },
-                {
-                  key: 'humidity',
-                  label: 'Humidity',
-                  children: <PieChartBoundaries data={diagramData?.humidityData}></PieChartBoundaries>,
-                },
-                {
-                  key: 'co2',
-                  label: 'CO2',
-                  children: <PieChartBoundaries data={diagramData?.co2Data}></PieChartBoundaries>,
-                },
-              ]}
-              defaultActiveKey="1"
+      <div className={'bg-inherit overflow-y-scroll max-h-full relative'}>
+        <h1 className={'text-2xl font-bold'}>History</h1>
+        <br />
+        <div className={'sticky top-0 w-full bg-inherit z-10'}>
+          <div className={'flex items-center gap-2'}>
+            {/* Above className has the inner design */}
+            <FilterFilled />
+            <DatePicker.RangePicker
+              size={'large'}
+              use12Hours={false}
+              mode={['date', 'date']}
+              value={[dateStatus.from, dateStatus.to]}
+              onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
             />
-          </CardElement>
+          </div>
+          <Divider />
         </div>
-        <div>
-          <CardElement></CardElement>
-        </div>
-        <div>
-          <CardElement className={'h-96 max-w-full'}>
-            <HistoryTable data={undefined} />
-          </CardElement>
+        <div className={'grid gap-2'}>
+          <div className={'lg:col-span-2'}>
+            <CardElement>
+              <PieChartDiagramsCard diagramData={diagramData} />
+            </CardElement>
+          </div>
+          <div>
+            <CardElement></CardElement>
+          </div>
+          <div>
+            <CardElement className={'h-96 max-w-full'}>
+              <HistoryTable data={undefined} />
+            </CardElement>
+          </div>
         </div>
       </div>
     </>

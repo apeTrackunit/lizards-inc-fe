@@ -1,11 +1,6 @@
 import { Pie, Cell, ResponsiveContainer, PieChart, Legend } from 'recharts';
 import React, { useEffect, useState } from 'react';
-
-const data = [
-  { name: 'Group A', value: 400, color: '#f00' },
-  { name: 'Group B', value: 300, color: '#0f0' },
-  { name: 'Group C', value: 300, color: '#00f' },
-];
+import { Skeleton } from 'antd';
 
 const RADIAN = Math.PI / 180;
 
@@ -38,9 +33,10 @@ export interface IPieChartBoundariesData {
 
 export interface IPieChartBoundariesProps {
   data?: IPieChartBoundariesData[] | undefined;
+  title: string;
 }
 
-export const PieChartBoundaries = ({ data }: IPieChartBoundariesProps) => {
+export const PieChartBoundaries = ({ data, title }: IPieChartBoundariesProps) => {
   const [pieChartColors, setPieChartColors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -48,18 +44,25 @@ export const PieChartBoundaries = ({ data }: IPieChartBoundariesProps) => {
   }, [data]);
 
   return (
-    <div className={'h-96'}>
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
+    <div className={'xl:h-60 h-52'}>
+      <div className={'text-lg hidden xl:inline'}>{title}</div>
+      {data === undefined ? (
+        <>
+          <br />
+          <br />
+          <Skeleton.Avatar active={true} size={170}></Skeleton.Avatar>
+        </>
+      ) : (
+        <PieChart width={220} height={220}>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={120}
+            outerRadius={80}
             fill="#8884d8"
-            dataKey="value"
+            dataKey="data"
           >
             {data?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={pieChartColors[index % pieChartColors.length]} />
@@ -67,7 +70,7 @@ export const PieChartBoundaries = ({ data }: IPieChartBoundariesProps) => {
           </Pie>
           <Legend align={'right'} />
         </PieChart>
-      </ResponsiveContainer>
+      )}
     </div>
   );
 };
