@@ -23,7 +23,7 @@ interface Props {
   children: ReactNode;
 }
 export const AuthProvider = ({ children }: Props) => {
-  const [authenticated, setAuthenticated] = useState<boolean>(!!localStorage.getItem('auth-token'));
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem('auth-token') ?? '{}') as AuthServerResponse;
@@ -35,6 +35,8 @@ export const AuthProvider = ({ children }: Props) => {
         Authorization: `Bearer ${auth.id_token}`,
       };
     }
+
+    setAuthenticated(!!localStorage.getItem('auth-token'));
   }, []);
 
   const login = (response: AuthServerResponse) => {

@@ -6,7 +6,8 @@ import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
-import { AuthProvider, RequireAuth } from '@lizards-inc-fe/login';
+import { RequireAuth } from '@lizards-inc-fe/login';
+import { AuthProvider } from '@lizards-inc-fe/auth';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +39,7 @@ const router = createBrowserRouter(
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { worker } = require('./mocks/browser');
-  worker.start();
+  //worker.start();
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

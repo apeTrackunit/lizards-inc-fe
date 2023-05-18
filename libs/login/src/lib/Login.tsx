@@ -3,10 +3,10 @@ import { UserOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
-import { AuthServerResponse, useAuthContext } from './AuthProvider';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutingTable } from '@lizards-inc-fe/shared-components';
+import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
 
 interface IAuthServerRequest {
   code: string;
@@ -45,7 +45,7 @@ export const Login = () => {
   }, [data, authLogin, navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-white relative">
+    <div className="flex justify-center items-center h-screen bg-white relative m-8">
       <Card
         id={'login-card'}
         bordered={false}
