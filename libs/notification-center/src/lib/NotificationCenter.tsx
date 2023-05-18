@@ -1,6 +1,6 @@
 import { Badge, Button, Popover } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useGetRequest, usePutRequest } from '@lizards-inc-fe/fetcher';
 import moment from 'moment/moment';
 
@@ -17,25 +17,10 @@ interface NotificationSeen {
 
 export const NotificationCenter = () => {
   const { data, isLoading, mutate } = useGetRequest<INotification[]>({ url: '/Notifications' });
-  const { trigger, response } = usePutRequest<unknown, NotificationSeen>({
-    url: '/Notifications',
-    data: {
-      ids: data?.filter(x => !x.status).map(x => x.id) ?? [],
-    },
-  });
 
   const notificationCount = useMemo(() => {
     return data?.filter(x => !x.status).length ?? 0;
   }, [data]);
-
-  const handleOpen = (visible: boolean) => {
-    if (visible) {
-      trigger();
-      if (response?.status === 200) {
-        mutate();
-      }
-    }
-  };
 
   return (
     <Popover
@@ -50,6 +35,7 @@ export const NotificationCenter = () => {
                   dateTime={value.dateTime}
                   message={value.message}
                   status={value.status}
+                  onMarkedAsSeen={mutate}
                 />
               );
             })
@@ -60,7 +46,6 @@ export const NotificationCenter = () => {
       }
       trigger="click"
       placement="bottomRight"
-      onOpenChange={handleOpen}
     >
       <Button
         shape="circle"
@@ -82,11 +67,36 @@ export const NotificationCenter = () => {
   );
 };
 
-type NotificationProps = INotification;
+interface NotificationProps extends INotification {
+  onMarkedAsSeen: () => void;
+}
 
-const Notification = ({ message, dateTime, status }: NotificationProps) => {
+const Notification = ({ id, message, dateTime, status, onMarkedAsSeen }: NotificationProps) => {
+  const { trigger, response } = usePutRequest<unknown, NotificationSeen>({
+    url: '/Notifications',
+    data: {
+      ids: [id],
+    },
+  });
+
+  useEffect(() => {
+    response?.status === 200 && onMarkedAsSeen();
+  }, [response, onMarkedAsSeen]);
+
+  const markAsSeen = useCallback(() => {
+    !status &&
+      setTimeout(() => {
+        trigger();
+      }, 500);
+  }, [trigger, status]);
+
   return (
-    <div className={'flex items-center justify-between h-fit gap-4 w-full p-4 hover:bg-slate-100'}>
+    <div
+      id={`notification-${id}`}
+      className={'flex items-center justify-between h-fit gap-4 w-full p-4 hover:bg-slate-100'}
+      onMouseEnter={markAsSeen}
+      onClick={markAsSeen}
+    >
       <div className={'flex flex-col gap-1'}>
         <span className={'grow'}>{message}</span>
         <span className={'text-xs text-slate-700'}>{moment(dateTime).fromNow()}</span>
