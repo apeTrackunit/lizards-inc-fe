@@ -6,7 +6,7 @@ import { CardElement } from './components/CardElement';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest, useMutateGetRequest } from '@lizards-inc-fe/fetcher';
-import { DisplayDateFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
+import { DisplayDateFormat, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
 
@@ -110,9 +110,9 @@ export const MeasurementHistory = () => {
             <LineChartSummary
               data={measurementRange?.map<LineChartSummaryData>(d => ({
                 date: dayjs(d.dateTime).format(DisplayDateFormat),
-                temperature: d.temperature,
-                humidity: d.humidity,
-                co2: d.co2,
+                temperature: roundValue(d.temperature, 2),
+                humidity: roundValue(d.humidity, 2),
+                co2: roundValue(d.co2, 2),
               }))}
             />
           </div>

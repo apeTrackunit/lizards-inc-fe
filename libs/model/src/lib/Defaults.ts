@@ -8,15 +8,20 @@ export interface ValueTypeConfig {
 
 export const DisplayConfig: { temperature: ValueTypeConfig; humidity: ValueTypeConfig; co2: ValueTypeConfig } = {
   temperature: {
-    format: temperature => temperature + ' °C',
+    format: temperature => roundValue(temperature, 2) + ' °C',
     hexColor: '#e30000',
   },
   humidity: {
-    format: temperature => temperature + ' %',
+    format: humidity => roundValue(humidity, 2) + ' %',
     hexColor: '#00f',
   },
   co2: {
-    format: temperature => temperature + ' ppm',
+    format: co2 => roundValue(co2, 2) + ' ppm',
     hexColor: '#00b700',
   },
+};
+
+export const roundValue = (value: number, decimals: number) => {
+  const tenPower = Math.pow(10, decimals);
+  return Math.round(value * tenPower) / tenPower;
 };

@@ -5,7 +5,14 @@ import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
 import { MeasurementContainer } from './components/MeasurementContainer';
-import { DisplayConfig, DisplayDateFormat, DisplayDayFormat, IBoundary, IMeasurement } from '@lizards-inc-fe/model';
+import {
+  DisplayConfig,
+  DisplayDateFormat,
+  DisplayDayFormat,
+  IBoundary,
+  IMeasurement,
+  roundValue,
+} from '@lizards-inc-fe/model';
 import dayjs from 'dayjs';
 
 export const Home = () => {
@@ -49,7 +56,7 @@ export const Home = () => {
                 historyMeasurements: measurementRange
                   ? measurementRange.map(measurement => ({
                       name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: measurement.temperature,
+                      data: roundValue(measurement.temperature, 2),
                     }))
                   : undefined,
                 measurementData: latestMeasurement?.temperature,
@@ -73,7 +80,7 @@ export const Home = () => {
                 historyMeasurements: measurementRange
                   ? measurementRange.map(measurement => ({
                       name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: measurement.humidity,
+                      data: roundValue(measurement.humidity, 2),
                     }))
                   : undefined,
                 measurementData: latestMeasurement?.humidity,
@@ -95,7 +102,7 @@ export const Home = () => {
                 historyMeasurements: measurementRange
                   ? measurementRange.map(measurement => ({
                       name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: measurement.co2,
+                      data: roundValue(measurement.co2, 2),
                     }))
                   : undefined,
                 measurementData: latestMeasurement?.co2,

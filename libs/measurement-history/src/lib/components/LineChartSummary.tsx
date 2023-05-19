@@ -59,6 +59,7 @@ export const LineChartSummary = ({ data }: { data?: LineChartSummaryData[] | und
           dataKey="humidity"
           name={'Humidity'}
           stroke={DisplayConfig.humidity.hexColor}
+          format={'h'}
         />
         <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
       </LineChart>
