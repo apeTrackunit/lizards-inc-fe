@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ReferenceDot } from 'recharts';
 import { Skeleton } from 'antd';
 
@@ -23,6 +23,21 @@ interface MeasurementDiagramWithReferenceLineProps {
   dataName: string;
 }
 
+class CustomizedAxisTick extends PureComponent {
+  render() {
+    // @ts-ignore
+    const { x, y, payload } = this.props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+          {payload.value.substring(0, payload.value.indexOf(' '))}
+        </text>
+      </g>
+    );
+  }
+}
+
 export const MeasurementDiagramWithReferenceLine = ({
   isLoading,
   height,
@@ -37,7 +52,7 @@ export const MeasurementDiagramWithReferenceLine = ({
   ) : (
     <LineChart width={width} height={height} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
       <YAxis />
       <Tooltip />
       <Legend align={'right'} />
