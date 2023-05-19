@@ -1,9 +1,13 @@
 import { rest } from 'msw';
-import { ApiUrl } from '../ApiUrl';
+import { ApiUrl, isLoggedIn } from '../MockUtils';
 import dayjs from 'dayjs';
 
 const handlers = [
   rest.get(ApiUrl + '/Measurements/latest', (req, res, context) => {
+    if (!isLoggedIn(req)) {
+      return res(context.status(401));
+    }
+
     return res(
       context.status(200),
       context.json({
@@ -16,6 +20,11 @@ const handlers = [
     );
   }),
   rest.get(ApiUrl + '/Measurements', (req, res, context) => {
+    if (!isLoggedIn(req)) {
+      return res(context.status(401));
+    }
+
+    // if we have url search parameter, then we generate some random data
     if (req.url.search !== '') {
       // search parameter is on, return random data
       const searchParams = new URLSearchParams(req.url.search);
@@ -41,6 +50,7 @@ const handlers = [
       return res(context.status(200), context.json(randomData));
     }
 
+    // else we return the hard-coded data
     return res(
       context.status(200),
       context.json([

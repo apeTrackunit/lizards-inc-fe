@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { ApiUrl } from '../ApiUrl';
+import { ApiUrl } from '../MockUtils';
 
 const handlers = [
   rest.post(ApiUrl + '/Authentication', (req, res, context) => {
