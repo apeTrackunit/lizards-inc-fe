@@ -9,6 +9,7 @@ import {
   DisplayConfig,
   DisplayDateFormat,
   DisplayDayFormat,
+  filterData,
   IBoundary,
   IMeasurement,
   roundValue,
@@ -53,12 +54,10 @@ export const Home = () => {
                 boundaries: boundaries
                   ? { min: boundaries.temperatureBoundaryMin, max: boundaries.temperatureBoundaryMax }
                   : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: roundValue(measurement.temperature, 2),
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDayFormat),
+                  data: roundValue(measurement.temperature, 2),
+                })),
                 measurementData: latestMeasurement?.temperature,
                 measurementDisplayData: DisplayConfig.temperature.format(latestMeasurement?.temperature ?? 0),
               }}
@@ -77,12 +76,10 @@ export const Home = () => {
                 boundaries: boundaries
                   ? { min: boundaries.humidityBoundaryMin, max: boundaries.humidityBoundaryMax }
                   : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: roundValue(measurement.humidity, 2),
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDayFormat),
+                  data: roundValue(measurement.humidity, 2),
+                })),
                 measurementData: latestMeasurement?.humidity,
                 measurementDisplayData: DisplayConfig.humidity.format(latestMeasurement?.humidity ?? 0),
               }}
@@ -99,12 +96,10 @@ export const Home = () => {
               }}
               userData={{
                 boundaries: boundaries ? { min: boundaries.cO2BoundaryMin, max: boundaries.cO2BoundaryMax } : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format(DisplayDayFormat),
-                      data: roundValue(measurement.co2, 2),
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDayFormat),
+                  data: roundValue(measurement.co2, 2),
+                })),
                 measurementData: latestMeasurement?.co2,
                 measurementDisplayData: DisplayConfig.co2.format(latestMeasurement?.co2 ?? 0),
               }}
