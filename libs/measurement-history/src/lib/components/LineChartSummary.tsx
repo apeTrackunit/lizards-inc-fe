@@ -10,17 +10,6 @@ export interface LineChartSummaryData {
   co2: number;
 }
 
-/*const CustomizedAxisTick = ({ x = 0, y = 0, value }: { x?: number; y?: number; value?: string }) => {
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-        {value}
-      </text>
-    </g>
-  );
-};*/
-
-// I don't know why, but it works with this one
 class CustomizedAxisTick extends PureComponent {
   render() {
     // @ts-ignore
