@@ -45,7 +45,7 @@ export const MeasurementHistory = () => {
     to: dayjs(),
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange, trigger: measurementRageTrigger } = useMutateGetRequest<IMeasurement[]>({
+  const { data: measurementRange, trigger: measurementRangeTrigger } = useMutateGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
       dateFrom: dateStatus.from?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
@@ -56,7 +56,7 @@ export const MeasurementHistory = () => {
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
-    measurementRageTrigger().then();
+    measurementRangeTrigger().then();
   }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
 
   return (
