@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@lizards-inc-fe/auth": ["libs/auth/src/index.ts"],
       "@lizards-inc-fe/fetcher": ["libs/fetcher/src/index.ts"],
       "@lizards-inc-fe/home": ["libs/home/src/index.ts"],
       "@lizards-inc-fe/limits-and-boundaries": ["libs/limits-and-boundaries/src/index.ts"],

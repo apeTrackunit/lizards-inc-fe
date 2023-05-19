@@ -1,6 +1,8 @@
 import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useMutateRequest } from './useMutateRequest';
+import { useAuthContext } from '@lizards-inc-fe/auth';
+import { useMemo } from 'react';
 
 interface IPostRequest<RequestBody, Params> {
   url: string;
@@ -12,6 +14,8 @@ export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = u
   data,
   params,
 }: IPostRequest<RequestBody, Params>) => {
+  const { authenticated } = useAuthContext();
+
   const postRequestConfig: AxiosRequestConfig<RequestBody> = {
     baseURL: ApiUrl,
     url: url,
@@ -26,5 +30,9 @@ export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = u
     postRequestConfig.params = params;
   }
 
-  return useMutateRequest<Data, Error>(postRequestConfig);
+  const isException = useMemo(() => {
+    return url === '/Authentication';
+  }, [url]);
+
+  return useMutateRequest<Data, Error>(authenticated || isException ? postRequestConfig : null);
 };

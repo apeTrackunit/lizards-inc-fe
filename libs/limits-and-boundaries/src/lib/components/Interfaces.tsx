@@ -1,4 +1,4 @@
-interface IBoundaries {
+export interface IBoundaries {
   id: string;
   temperatureBoundaryMax: number;
   temperatureBoundaryMin: number;
@@ -8,32 +8,30 @@ interface IBoundaries {
   cO2BoundaryMin: number;
 }
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error';
-
-interface ILimits {
+export interface ILimits {
   id: string;
   temperatureLimitMax: number;
   temperatureLimitMin: number;
 }
 
-interface ITempData {
+export interface ITempData {
   tempMin: number;
   tempMax: number;
 }
 
-interface IHumData {
+export interface IHumData {
   humMin: number;
   humMax: number;
 }
 
-interface ICO2Data {
+export interface ICO2Data {
   co2Min: number;
   co2Max: number;
 }
 
-interface INotificationState {
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+export interface INotificationState {
   message: string;
   type: NotificationType;
 }
-
-export { IBoundaries, ILimits, ITempData, IHumData, ICO2Data, INotificationState, NotificationType };

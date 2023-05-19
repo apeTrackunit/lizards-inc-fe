@@ -1,22 +1,15 @@
 import { render } from '@testing-library/react';
 import Login from './Login';
-import { AuthProvider } from '@lizards-inc-fe/login';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '@lizards-inc-fe/auth';
 
 describe('Login', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="*"
-            element={
-              <AuthProvider>
-                <Login />
-              </AuthProvider>
-            }
-          />
-        </Routes>
+        <AuthProvider>
+          <Login />
+        </AuthProvider>
       </BrowserRouter>
     );
     expect(baseElement).toBeTruthy();
@@ -25,16 +18,9 @@ describe('Login', () => {
   it('should render the card and components successfully', () => {
     const { baseElement } = render(
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="*"
-            element={
-              <AuthProvider>
-                <Login />
-              </AuthProvider>
-            }
-          />
-        </Routes>
+        <AuthProvider>
+          <Login />
+        </AuthProvider>
       </BrowserRouter>
     );
     const loginCard = baseElement.id.localeCompare('login-card');

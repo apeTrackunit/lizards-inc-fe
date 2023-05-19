@@ -18,7 +18,7 @@ export interface Config<Data = unknown, Error = unknown>
 }
 
 export function useMutateRequest<Data = unknown, Error = unknown>(
-  request: Request
+  request: Request | null
   //{ fallbackData, ...config }: Config<Data, Error> = {}
 ): Return<Data, Error> {
   const {

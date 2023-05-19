@@ -15,7 +15,7 @@ export interface Config<Data = unknown, Error = unknown>
 }
 
 export function useRequest<Data = unknown, Error = unknown>(
-  request: GetRequest,
+  request: GetRequest | null,
   { fallbackData, ...config }: Config<Data, Error> = {}
 ): Return<Data, Error> {
   const {

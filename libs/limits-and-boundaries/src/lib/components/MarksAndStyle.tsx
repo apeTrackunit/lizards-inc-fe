@@ -1,13 +1,13 @@
-import React from 'react';
+import { CSSProperties } from 'react';
 import { SliderMarks } from 'antd/es/slider';
 
-const style: React.CSSProperties = {
+export const style: CSSProperties = {
   marginLeft: 70,
   marginRight: 70,
   marginTop: 20,
 };
 
-const marksTemp: SliderMarks = {
+export const marksTemp: SliderMarks = {
   0: {
     label: '0°C',
   },
@@ -18,11 +18,11 @@ const marksTemp: SliderMarks = {
     label: '100°C',
   },
   150: {
-    label: '150°C'
-  }
+    label: '150°C',
+  },
 };
 
-const marksHum: SliderMarks = {
+export const marksHum: SliderMarks = {
   0: {
     label: '0%',
   },
@@ -31,7 +31,7 @@ const marksHum: SliderMarks = {
   },
 };
 
-const marksCO2: SliderMarks = {
+export const marksCO2: SliderMarks = {
   0: {
     label: '0%',
   },
@@ -39,8 +39,3 @@ const marksCO2: SliderMarks = {
     label: '100%',
   },
 };
-
-export { marksTemp };
-export { marksHum };
-export { marksCO2 };
-export { style };
