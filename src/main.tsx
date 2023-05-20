@@ -45,7 +45,6 @@ const router = createBrowserRouter(
   )
 );
 
-console.log('mock worker: ' + process.env.NX_MOCK_WORKER);
 // Mock
 if (process.env.NX_MOCK_WORKER === '1') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
