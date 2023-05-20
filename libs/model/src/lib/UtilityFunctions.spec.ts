@@ -18,17 +18,17 @@ describe('filterData', () => {
     expect(result).toEqual([1]);
   });
 
-  it('returns filtered data with 2 of elements', () => {
+  it('returns filtered data with 2 elements', () => {
     const result = filterData(sampleData, 2);
     expect(result).toEqual([1, 6]);
   });
 
-  it('returns filtered data with 3 of elements', () => {
+  it('returns filtered data with 3 elements', () => {
     const result = filterData(sampleData, 3);
     expect(result).toEqual([1, 5, 9]);
   });
 
-  it('returns filtered data with 5 of elements', () => {
+  it('returns filtered data with 5 elements', () => {
     const result = filterData(sampleData, 5);
     expect(result).toEqual([1, 3, 5, 7, 9]);
   });
