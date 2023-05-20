@@ -2,6 +2,7 @@ import { MeasurementCard } from './MeasurementCard';
 import { DiagramData, DiagramLine, MeasurementDiagramWithReferenceLine } from './MeasurementDiagramWithReferenceLine';
 import { Button, Card } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import { CardElement } from '@lizards-inc-fe/shared-components';
 
 // card configuration
 interface CardConfig {
@@ -75,7 +76,7 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
   const toggleDiagram = () => setDiagramVisible(prevState => !prevState);
 
   return (
-    <Card className={'shadow-sm hover:shadow-lg transition ease-in-out hover:-translate-y-1 lg:w-96 w-full'}>
+    <CardElement className={'lg:w-96 w-full'} isHoverAnimated={true}>
       <div className={'flex flex-col items-center justify-center gap-4'}>
         <MeasurementCard
           isLoading={userData.measurementData == null}
@@ -111,6 +112,6 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
           />
         </div>
       </div>
-    </Card>
+    </CardElement>
   );
 };

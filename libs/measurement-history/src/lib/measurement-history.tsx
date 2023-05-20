@@ -2,7 +2,7 @@ import { FilterFilled } from '@ant-design/icons';
 import { DatePicker, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { CardElement } from './components/CardElement';
+import { CardElement } from '@lizards-inc-fe/shared-components';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest, useMutateGetRequest } from '@lizards-inc-fe/fetcher';
