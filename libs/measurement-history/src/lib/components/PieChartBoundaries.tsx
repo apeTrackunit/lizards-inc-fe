@@ -46,13 +46,7 @@ export const PieChartBoundaries = ({ data, title }: IPieChartBoundariesProps) =>
   return (
     <div className={'xl:h-60 h-52'}>
       <div className={'text-lg hidden xl:inline'}>{title}</div>
-      {data === undefined ? (
-        <>
-          <br />
-          <br />
-          <Skeleton.Avatar active={true} size={170}></Skeleton.Avatar>
-        </>
-      ) : (
+      {data ? (
         <PieChart width={220} height={220}>
           <Pie
             data={data}
@@ -70,6 +64,12 @@ export const PieChartBoundaries = ({ data, title }: IPieChartBoundariesProps) =>
           </Pie>
           <Legend align={'left'} />
         </PieChart>
+      ) : (
+        <>
+          <br />
+          <br />
+          <Skeleton.Avatar active={true} size={170}></Skeleton.Avatar>
+        </>
       )}
     </div>
   );
