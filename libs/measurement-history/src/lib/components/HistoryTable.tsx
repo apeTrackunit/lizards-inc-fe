@@ -1,4 +1,4 @@
-import { Table, TableProps } from 'antd';
+import { Table } from 'antd';
 import React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
@@ -17,10 +17,6 @@ interface HistoryTableProps {
 }
 
 export const HistoryTable = ({ data }: HistoryTableProps) => {
-  const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-  };
-
   const columns: ColumnsType<DataType> = [
     {
       title: 'Date',
@@ -59,13 +55,5 @@ export const HistoryTable = ({ data }: HistoryTableProps) => {
     },
   ];
 
-  return (
-    <Table
-      scroll={{ y: 250, x: 500 }}
-      columns={columns}
-      dataSource={data}
-      loading={data === undefined}
-      onChange={onChange}
-    />
-  );
+  return <Table scroll={{ y: 250, x: 500 }} columns={columns} dataSource={data} loading={data === undefined} />;
 };

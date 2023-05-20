@@ -25,44 +25,58 @@ class CustomizedAxisTick extends PureComponent {
   }
 }
 
-export const LineChartSummary = ({ data }: { data?: LineChartSummaryData[] | undefined }) => {
-  return data === undefined ? (
-    <Skeleton.Avatar active={true} size={400} shape={'square'} className={'rounded-lg overflow-hidden'} />
+export const LineChartSummary = ({
+  data,
+  isResponsive = true,
+}: {
+  data?: LineChartSummaryData[] | undefined;
+  isResponsive?: boolean;
+}) => {
+  const chart = (
+    <LineChart
+      width={500}
+      height={300}
+      data={data}
+      margin={{
+        top: 20,
+        right: 30,
+        left: 20,
+        bottom: 10,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line
+        type="monotone"
+        dot={false}
+        dataKey="temperature"
+        name={'Temperature'}
+        stroke={DisplayConfig.temperature.hexColor}
+      />
+      <Line
+        type="monotone"
+        dot={false}
+        dataKey="humidity"
+        name={'Humidity'}
+        stroke={DisplayConfig.humidity.hexColor}
+        format={'h'}
+      />
+      <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
+    </LineChart>
+  );
+
+  return data ? (
+    isResponsive ? (
+      <ResponsiveContainer width={'100%'} height={'100%'}>
+        {chart}
+      </ResponsiveContainer>
+    ) : (
+      chart
+    )
   ) : (
-    <ResponsiveContainer width={'100%'} height={'100%'}>
-      <LineChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 20,
-          right: 30,
-          left: 20,
-          bottom: 10,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dot={false}
-          dataKey="temperature"
-          name={'Temperature'}
-          stroke={DisplayConfig.temperature.hexColor}
-        />
-        <Line
-          type="monotone"
-          dot={false}
-          dataKey="humidity"
-          name={'Humidity'}
-          stroke={DisplayConfig.humidity.hexColor}
-          format={'h'}
-        />
-        <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
-      </LineChart>
-    </ResponsiveContainer>
+    <Skeleton.Avatar active={true} size={400} shape={'square'} className={'rounded-lg overflow-hidden'} />
   );
 };
