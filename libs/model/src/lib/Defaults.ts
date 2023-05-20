@@ -21,6 +21,11 @@ export const DisplayConfig: { temperature: ValueTypeConfig; humidity: ValueTypeC
   },
 };
 
+/**
+ Rounds a number to the specified number of decimal places.
+ @param {number} value - The number to be rounded.
+ @param {number} decimals - The number of decimal places to round to.
+*/
 export const roundValue = (value: number, decimals: number) => {
   const tenPower = Math.pow(10, decimals);
   return Math.round(value * tenPower) / tenPower;

@@ -3,9 +3,8 @@
  @template T - The type of data elements in the array.
  @param data - The array of data to filter.
  @param numberOfDataToReturn - The number of data items to return.
- @returns An array containing a subset of the data elements based on the specified number of items to return.
+ @returns An array containing a subset of the data elements based on the specified number of items to return. Or undefined if the initial data array is undefined
  @throws Error if numberOfDataToReturn is less than 1.
- @throws Returns undefined if the input data is undefined.
  */
 export function filterData<T>(data: T[] | undefined, numberOfDataToReturn: number) {
   if (data == undefined) return undefined;
