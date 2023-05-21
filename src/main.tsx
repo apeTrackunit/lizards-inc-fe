@@ -16,10 +16,9 @@ const router = createBrowserRouter(
     <Route
       path={RoutingTable.root}
       element={
-        // todo: don't forget to uncomment this
-        /* <RequireAuth>*/
-        <App />
-        /*  </RequireAuth>*/
+        <RequireAuth>
+          <App />
+        </RequireAuth>
       }
     >
       <Route index element={<Home />} />
