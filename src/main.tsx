@@ -45,15 +45,8 @@ const router = createBrowserRouter(
   )
 );
 
-if (window.location.pathname == '' || window.location.pathname == '/')
-  window.location.replace(window.location + 'history');
-
-// https://docs.netlify.com/routing/redirects/redirect-options/
-// https://blog.kiprosh.com/show-custom-404-error-page-for-netlify-applications/
-// https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually
-
 // Mock
-if (process.env.NX_MOCK_WORKER === '1') {
+if (process.env.NODE_ENV == 'development' && process.env.NX_MOCK_WORKER === '1') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { worker } = require('./mocks/browser');
   worker.start();
