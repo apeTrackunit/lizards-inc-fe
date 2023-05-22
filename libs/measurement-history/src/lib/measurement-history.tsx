@@ -1,11 +1,11 @@
 import { FilterFilled } from '@ant-design/icons';
 import { DatePicker, Divider } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { CardElement } from '@lizards-inc-fe/shared-components';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
-import { useGetRequest, useMutateGetRequest } from '@lizards-inc-fe/fetcher';
+import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, filterData, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
@@ -15,37 +15,22 @@ interface TimeSpanState {
   to: Dayjs | null;
 }
 
-const calculatePieChartData = (values: number[], min: number, max: number): IPieChartBoundariesData[] => {
-  const countInBoundary = values.filter(v => v < max && v > min).length;
-  const countOverBoundary = values.filter(v => v >= max).length;
-  const countUnderBoundary = values.filter(v => v <= min).length;
-
-  return [
-    {
-      name: 'Between Boundaries',
-      data: countInBoundary,
-      color: '#16a34a',
-    },
-    {
-      name: 'Over Boundaries',
-      data: countOverBoundary,
-      color: '#e11d48',
-    },
-    {
-      name: 'Under Boundaries',
-      data: countUnderBoundary,
-      color: '#9a3412',
-    },
-  ];
-};
-
 export const MeasurementHistory = () => {
   const [dateStatus, setDateStatus] = useState<TimeSpanState>({
     from: dayjs().subtract(1, 'day'),
     to: dayjs(),
   });
-  const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange, trigger: measurementRangeTrigger } = useMutateGetRequest<IMeasurement[]>({
+  const {
+    data: boundaries,
+    isLoading: isBoundariesLoading,
+    isValidating: isBoundariesValidating,
+  } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
+  const {
+    data: measurementRange,
+    mutate: measurementRangeTrigger,
+    isLoading: isMeasurementRangeLoading,
+    isValidating: isMeasurementRangeValidating,
+  } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
       dateFrom: dateStatus.from?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
@@ -53,11 +38,57 @@ export const MeasurementHistory = () => {
     },
   });
 
+  const calculatePieChartData = (values: number[], min: number, max: number): IPieChartBoundariesData[] => {
+    const countInBoundary = values.filter(v => v < max && v > min).length;
+    const countOverBoundary = values.filter(v => v >= max).length;
+    const countUnderBoundary = values.filter(v => v <= min).length;
+
+    return [
+      {
+        name: 'Between Boundaries',
+        data: countInBoundary,
+        color: '#16a34a',
+      },
+      {
+        name: 'Over Boundaries',
+        data: countOverBoundary,
+        color: '#e11d48',
+      },
+      {
+        name: 'Under Boundaries',
+        data: countUnderBoundary,
+        color: '#9a3412',
+      },
+    ];
+  };
+
   useEffect(() => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
-    measurementRangeTrigger().then();
+    measurementRangeTrigger();
   }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
+
+  const pieChartData = useMemo(() => {
+    return measurementRange && boundaries
+      ? {
+          temperatureData: calculatePieChartData(
+            measurementRange.map(m => m.temperature),
+            boundaries.temperatureBoundaryMin,
+            boundaries.temperatureBoundaryMax
+          ),
+          humidityData: calculatePieChartData(
+            measurementRange.map(m => m.humidity),
+            boundaries.humidityBoundaryMin,
+            boundaries.humidityBoundaryMax
+          ),
+          co2Data: calculatePieChartData(
+            measurementRange.map(m => m.co2),
+            boundaries.cO2BoundaryMin,
+            boundaries.cO2BoundaryMax
+          ),
+        }
+      : undefined;
+  }, [measurementRange, boundaries]);
 
   return (
     <>
@@ -81,26 +112,9 @@ export const MeasurementHistory = () => {
       <div className={'grid gap-2 max-w-full'}>
         <CardElement className={'h-fit xl:col-span-2'}>
           <PieChartDiagramsCard
-            diagramData={
-              measurementRange && boundaries
-                ? {
-                    temperatureData: calculatePieChartData(
-                      measurementRange.map(m => m.temperature),
-                      boundaries.temperatureBoundaryMin,
-                      boundaries.temperatureBoundaryMax
-                    ),
-                    humidityData: calculatePieChartData(
-                      measurementRange.map(m => m.humidity),
-                      boundaries.humidityBoundaryMin,
-                      boundaries.humidityBoundaryMax
-                    ),
-                    co2Data: calculatePieChartData(
-                      measurementRange.map(m => m.co2),
-                      boundaries.cO2BoundaryMin,
-                      boundaries.cO2BoundaryMax
-                    ),
-                  }
-                : undefined
+            diagramData={pieChartData}
+            isLoading={
+              isMeasurementRangeLoading || isMeasurementRangeValidating || isBoundariesLoading || isBoundariesValidating
             }
           />
         </CardElement>
@@ -114,6 +128,7 @@ export const MeasurementHistory = () => {
                 humidity: roundValue(d.humidity, 2),
                 co2: roundValue(d.co2, 2),
               }))}
+              isLoading={isMeasurementRangeLoading || isMeasurementRangeValidating}
             />
           </div>
         </CardElement>
@@ -128,6 +143,7 @@ export const MeasurementHistory = () => {
                 humidity: d.humidity,
                 co2: d.co2,
               }))}
+              isLoading={isMeasurementRangeLoading || isMeasurementRangeValidating}
             />
           </div>
         </CardElement>

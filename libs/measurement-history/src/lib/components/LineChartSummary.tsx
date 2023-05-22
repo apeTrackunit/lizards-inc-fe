@@ -1,5 +1,5 @@
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { PureComponent } from 'react';
+import React, { PureComponent, useMemo } from 'react';
 import { Skeleton } from 'antd';
 import { DisplayConfig } from '@lizards-inc-fe/model';
 
@@ -25,50 +25,56 @@ class CustomizedAxisTick extends PureComponent {
   }
 }
 
-export const LineChartSummary = ({
-  data,
-  isResponsive = true,
-}: {
+interface LineChartSummaryProps {
   data?: LineChartSummaryData[] | undefined;
   isResponsive?: boolean;
-}) => {
-  const chart = (
-    <LineChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 20,
-        right: 30,
-        left: 20,
-        bottom: 10,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dot={false}
-        dataKey="temperature"
-        name={'Temperature'}
-        stroke={DisplayConfig.temperature.hexColor}
-      />
-      <Line
-        type="monotone"
-        dot={false}
-        dataKey="humidity"
-        name={'Humidity'}
-        stroke={DisplayConfig.humidity.hexColor}
-        format={'h'}
-      />
-      <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
-    </LineChart>
+  isLoading: boolean;
+}
+
+export const LineChartSummary = ({ data, isResponsive = true, isLoading }: LineChartSummaryProps) => {
+  const chart = useMemo(
+    () =>
+      data && data.length !== 0 ? (
+        <LineChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 20,
+            right: 30,
+            left: 20,
+            bottom: 10,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dot={false}
+            dataKey="temperature"
+            name={'Temperature'}
+            stroke={DisplayConfig.temperature.hexColor}
+          />
+          <Line
+            type="monotone"
+            dot={false}
+            dataKey="humidity"
+            name={'Humidity'}
+            stroke={DisplayConfig.humidity.hexColor}
+            format={'h'}
+          />
+          <Line type="monotone" dot={false} dataKey="co2" name={'CO2'} stroke={DisplayConfig.co2.hexColor} />
+        </LineChart>
+      ) : (
+        <div className={'flex justify-center items-center h-full'}>No data</div>
+      ),
+    [data, DisplayConfig]
   );
 
-  return data ? (
+  return !isLoading ? (
     isResponsive ? (
       <ResponsiveContainer width={'100%'} height={'100%'}>
         {chart}

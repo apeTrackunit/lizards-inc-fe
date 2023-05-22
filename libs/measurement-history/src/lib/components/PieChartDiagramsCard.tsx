@@ -1,6 +1,6 @@
 import { IPieChartBoundariesData, PieChartBoundaries } from './PieChartBoundaries';
 import { Divider, Tabs } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export interface PieChartDataState {
   temperatureData: IPieChartBoundariesData[] | undefined;
@@ -8,10 +8,24 @@ export interface PieChartDataState {
   co2Data: IPieChartBoundariesData[] | undefined;
 }
 
-export const PieChartDiagramsCard = ({ diagramData }: { diagramData: PieChartDataState | undefined }) => {
-  const temperatureDiagram = <PieChartBoundaries data={diagramData?.temperatureData} title={'Temperature'} />;
-  const humidityDiagram = <PieChartBoundaries data={diagramData?.humidityData} title={'Humidity'} />;
-  const co2Diagram = <PieChartBoundaries data={diagramData?.co2Data} title={'CO2'} />;
+interface PieChartDiagramsCardProps {
+  diagramData: PieChartDataState | undefined;
+  isLoading: boolean;
+}
+
+export const PieChartDiagramsCard = ({ diagramData, isLoading }: PieChartDiagramsCardProps) => {
+  const temperatureDiagram = useMemo(
+    () => <PieChartBoundaries isLoading={isLoading} data={diagramData?.temperatureData} title={'Temperature'} />,
+    [isLoading, diagramData?.temperatureData]
+  );
+  const humidityDiagram = useMemo(
+    () => <PieChartBoundaries isLoading={isLoading} data={diagramData?.humidityData} title={'Humidity'} />,
+    [isLoading, diagramData?.humidityData]
+  );
+  const co2Diagram = useMemo(
+    () => <PieChartBoundaries isLoading={isLoading} data={diagramData?.co2Data} title={'CO2'} />,
+    [isLoading, diagramData?.co2Data]
+  );
 
   return (
     <>
