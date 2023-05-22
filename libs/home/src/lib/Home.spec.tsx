@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 import { Home } from './Home';
 import { AuthProvider } from '@lizards-inc-fe/auth';
 
+jest.mock('react-router-dom');
+
 describe('Home', () => {
   beforeAll(() => {
     Object.defineProperty(window, 'matchMedia', {
