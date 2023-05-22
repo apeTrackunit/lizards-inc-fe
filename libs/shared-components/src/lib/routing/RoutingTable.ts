@@ -3,6 +3,9 @@ export const RoutingTable = {
   home: {
     root: 'home',
   },
+  history: {
+    root: 'history',
+  },
   animals: {
     root: 'animals',
     detail: {

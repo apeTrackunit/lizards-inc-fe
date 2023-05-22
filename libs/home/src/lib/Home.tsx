@@ -4,16 +4,26 @@ import TemperatureIcon from './assets/temperature-icon.png';
 import Co2Icon from './assets/co2-icon.png';
 import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
-import { IMeasurement } from './IMeasurement';
-import { IBoundary } from './IBoundary';
 import { MeasurementContainer } from './components/MeasurementContainer';
+import {
+  DisplayConfig,
+  DisplayDateFormat,
+  filterData,
+  IBoundary,
+  IMeasurement,
+  roundValue,
+} from '@lizards-inc-fe/model';
+import dayjs from 'dayjs';
 
 export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
     url: '/Measurements/latest',
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({ url: '/Measurements/all' });
+  const { data: measurementRange } = useGetRequest<IMeasurement[]>({
+    url: `/Measurements?dateFrom=${dayjs().subtract(1, 'day').format('YYYY-MM-DD')}
+    &dateTo=${dayjs().format('YYYY-MM-DD')}`,
+  });
 
   return (
     <div>
@@ -26,7 +36,7 @@ export const Home = () => {
             {isLatestMeasurementLoading ? (
               <Skeleton active={true} paragraph={false} className={'max-w-md'} />
             ) : (
-              <span>Measured at {moment(latestMeasurement?.dateTime).format('hh:mm:ss DD.MM.YYYY')}</span>
+              <span>Measured at {moment(latestMeasurement?.dateTime).format(DisplayDateFormat)}</span>
             )}
           </span>
           <div className="flex gap-4 xl:justify-around items-center xl:flex-row flex-col flex-wrap">
@@ -37,20 +47,18 @@ export const Home = () => {
                 icon: TemperatureIcon,
               }}
               diagramConfig={{
-                hexColor: '#e30000',
+                hexColor: DisplayConfig.temperature.hexColor,
               }}
               userData={{
                 boundaries: boundaries
                   ? { min: boundaries.temperatureBoundaryMin, max: boundaries.temperatureBoundaryMax }
                   : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                      data: measurement.temperature,
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDateFormat),
+                  data: roundValue(measurement.temperature, 2),
+                })),
                 measurementData: latestMeasurement?.temperature,
-                measurementDisplayData: `${latestMeasurement?.temperature} °C`,
+                measurementDisplayData: DisplayConfig.temperature.format(latestMeasurement?.temperature ?? 0),
               }}
             />
             <Divider className={'xl:hidden'} />
@@ -61,20 +69,18 @@ export const Home = () => {
                 icon: HumidityIcon,
               }}
               diagramConfig={{
-                hexColor: '#00f',
+                hexColor: DisplayConfig.humidity.hexColor,
               }}
               userData={{
                 boundaries: boundaries
                   ? { min: boundaries.humidityBoundaryMin, max: boundaries.humidityBoundaryMax }
                   : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                      data: measurement.humidity,
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDateFormat),
+                  data: roundValue(measurement.humidity, 2),
+                })),
                 measurementData: latestMeasurement?.humidity,
-                measurementDisplayData: `${latestMeasurement?.humidity} %`,
+                measurementDisplayData: DisplayConfig.humidity.format(latestMeasurement?.humidity ?? 0),
               }}
             />
             <Divider className={'xl:hidden'} />
@@ -85,18 +91,16 @@ export const Home = () => {
                 icon: Co2Icon,
               }}
               diagramConfig={{
-                hexColor: '#00b700',
+                hexColor: DisplayConfig.co2.hexColor,
               }}
               userData={{
                 boundaries: boundaries ? { min: boundaries.cO2BoundaryMin, max: boundaries.cO2BoundaryMax } : undefined,
-                historyMeasurements: measurementRange
-                  ? measurementRange.map(measurement => ({
-                      name: moment(measurement.dateTime).format('yyyy.MM.DD'),
-                      data: measurement.co2,
-                    }))
-                  : undefined,
+                historyMeasurements: filterData(measurementRange, 100)?.map(measurement => ({
+                  name: moment(measurement.dateTime).format(DisplayDateFormat),
+                  data: roundValue(measurement.co2, 2),
+                })),
                 measurementData: latestMeasurement?.co2,
-                measurementDisplayData: `${latestMeasurement?.co2} ppm`,
+                measurementDisplayData: DisplayConfig.co2.format(latestMeasurement?.co2 ?? 0),
               }}
             />
           </div>

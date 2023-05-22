@@ -2,7 +2,7 @@ import { Button, Drawer, Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { SlidersOutlined, LogoutOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { SlidersOutlined, LogoutOutlined, TableOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {RoutingTable} from "@lizards-inc-fe/shared-components";
@@ -35,7 +35,12 @@ const App = () => {
       key: RoutingTable.limitsAndBoundaries.root,
       icon: <SlidersOutlined />,
       label: 'Limits and Boundaries'
-    }
+    },
+    {
+      key: 'history',
+      icon: <TableOutlined />,
+      label: 'History',
+    },
   ];
   const handleResize = () => {
     setPageWidth(window.innerWidth);

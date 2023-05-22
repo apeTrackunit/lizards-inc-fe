@@ -6,8 +6,9 @@ import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
+import { MeasurementHistory } from '@lizards-inc-fe/measurement-history';
 import { RequireAuth } from '@lizards-inc-fe/login';
-import { AuthProvider } from '@lizards-inc-fe/auth'
+import { AuthProvider } from '@lizards-inc-fe/auth';
 import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
 
 const router = createBrowserRouter(
@@ -31,6 +32,10 @@ const router = createBrowserRouter(
         <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
       </Route>
 
+      <Route path={RoutingTable.history.root}>
+        <Route index element={<MeasurementHistory />} />
+      </Route>
+
       <Route path={RoutingTable.limitsAndBoundaries.root}>
         <Route index element={<LimitsAndBoundaries />} />
       </Route>
@@ -41,10 +46,10 @@ const router = createBrowserRouter(
 );
 
 // Mock
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV == 'development' && process.env.NX_MOCK_WORKER === '1') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { worker } = require('./mocks/browser');
-  //worker.start();
+  worker.start();
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

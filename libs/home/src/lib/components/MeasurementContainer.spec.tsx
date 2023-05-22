@@ -140,7 +140,7 @@ describe('MeasurementContainer', () => {
       <MeasurementContainer title={title} cardConfig={cardConfig} diagramConfig={diagramConfig} userData={userData} />
     );
 
-    expect(getByText(`${title} minimum limit has been reached!`)).toBeTruthy();
+    expect(getByText(`${title} minimum boundary has been reached!`)).toBeTruthy();
   });
 
   it('should render the component with warning text - maximum', () => {
@@ -166,6 +166,6 @@ describe('MeasurementContainer', () => {
       <MeasurementContainer title={title} cardConfig={cardConfig} diagramConfig={diagramConfig} userData={userData} />
     );
 
-    expect(getByText(`${title} maximum limit has been reached!`)).toBeTruthy();
+    expect(getByText(`${title} maximum boundary has been reached!`)).toBeTruthy();
   });
 });
