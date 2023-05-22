@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import dayjs from 'dayjs';
-import { HistoryTable, DataType } from './HistoryTable';
+import { HistoryTable } from './HistoryTable';
 import { DisplayConfig, DisplayDateFormat } from '@lizards-inc-fe/model';
+import { DataType } from './useHistoricTableColumns';
 
 describe('HistoryTable', () => {
   beforeAll(() => {
@@ -45,7 +46,7 @@ describe('HistoryTable', () => {
   ];
 
   it('renders table with correct columns and data', async () => {
-    const { getByText } = render(<HistoryTable data={sampleData} />);
+    const { getByText } = render(<HistoryTable isLoading={false} data={sampleData} />);
 
     expect(getByText('Date')).toBeTruthy();
     expect(getByText('Temperature')).toBeTruthy();
@@ -60,14 +61,14 @@ describe('HistoryTable', () => {
   });
 
   it('renders loading state when data is undefined', () => {
-    const { container } = render(<HistoryTable data={undefined} />);
+    const { container } = render(<HistoryTable isLoading={true} data={undefined} />);
     const spinningAnimContainer = container.querySelector('.ant-spin');
 
     expect(spinningAnimContainer).toBeTruthy();
   });
 
   it('displays data correctly', () => {
-    const { getByText } = render(<HistoryTable data={sampleData} />);
+    const { getByText } = render(<HistoryTable isLoading={false} data={sampleData} />);
 
     expect(getByText(dayjs('2022-01-01').format(DisplayDateFormat))).toBeTruthy();
     expect(getByText(DisplayConfig.temperature.format(25))).toBeTruthy();

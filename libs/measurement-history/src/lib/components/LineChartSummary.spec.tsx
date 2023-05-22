@@ -30,7 +30,7 @@ describe('LineChartSummary', () => {
   ];
 
   it('renders skeleton when data is undefined', () => {
-    const { container } = render(<LineChartSummary data={undefined} />);
+    const { container } = render(<LineChartSummary isLoading={true} data={undefined} />);
 
     const skeleton = container.querySelector('.ant-skeleton');
 
@@ -38,7 +38,7 @@ describe('LineChartSummary', () => {
   });
 
   it('renders line chart with correct data', async () => {
-    const { getByText } = render(<LineChartSummary data={sampleData} isResponsive={false} />);
+    const { getByText } = render(<LineChartSummary isLoading={false} data={sampleData} isResponsive={false} />);
 
     expect(getByText('Temperature')).toBeTruthy();
     expect(getByText('Humidity')).toBeTruthy();
@@ -46,7 +46,7 @@ describe('LineChartSummary', () => {
   });
 
   it('renders line chart legends with correct colors', () => {
-    const { getByText } = render(<LineChartSummary data={sampleData} isResponsive={false} />);
+    const { getByText } = render(<LineChartSummary isLoading={false} data={sampleData} isResponsive={false} />);
 
     expect(getByText('Temperature')).toBeTruthy();
     expect(getByText('Humidity')).toBeTruthy();
@@ -54,7 +54,7 @@ describe('LineChartSummary', () => {
   });
 
   it('renders lines with correct colors', () => {
-    const { container } = render(<LineChartSummary data={sampleData} isResponsive={false} />);
+    const { container } = render(<LineChartSummary isLoading={false} data={sampleData} isResponsive={false} />);
 
     const tempPath = container.querySelector('path[name=Temperature]');
     const humiPath = container.querySelector('path[name=Humidity]');
@@ -68,12 +68,5 @@ describe('LineChartSummary', () => {
 
     expect(co2Path).toBeTruthy();
     expect((co2Path as HTMLElement).getAttribute('stroke')).toBe('#00ff00');
-  });
-
-  it('renders skeleton when data is undefined', () => {
-    const { container } = render(<LineChartSummary data={undefined} />);
-    const skeleton = container.querySelector('.ant-skeleton');
-
-    expect(skeleton).toBeTruthy();
   });
 });

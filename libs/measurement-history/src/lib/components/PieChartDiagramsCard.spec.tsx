@@ -22,7 +22,7 @@ describe('PieChartDiagramsCard', () => {
   };
 
   it('renders pie chart diagrams with correct data', () => {
-    const { getAllByText } = render(<PieChartDiagramsCard diagramData={sampleData} />);
+    const { getAllByText } = render(<PieChartDiagramsCard isLoading={false} diagramData={sampleData} />);
 
     expect(getAllByText('Temperature').length).toBeGreaterThan(0);
     expect(getAllByText('Humidity').length).toBeGreaterThan(0);
@@ -30,9 +30,15 @@ describe('PieChartDiagramsCard', () => {
   });
 
   it('renders skeleton loaders when data is undefined', () => {
-    const { baseElement } = render(<PieChartDiagramsCard diagramData={undefined} />);
+    const { baseElement } = render(<PieChartDiagramsCard isLoading={true} diagramData={undefined} />);
 
     expect(baseElement.querySelectorAll('.ant-skeleton-avatar').length).toBe(4);
     // 4 = 3 desktop skeletons + 1 mobile view tab skeleton
+  });
+
+  it('displays "no data" if the data is undefined', () => {
+    const { getAllByText } = render(<PieChartDiagramsCard isLoading={false} diagramData={undefined} />);
+
+    expect(getAllByText('No data').length).toBe(4);
   });
 });

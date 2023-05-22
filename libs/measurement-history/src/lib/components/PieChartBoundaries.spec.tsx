@@ -10,24 +10,24 @@ describe('PieChartBoundaries', () => {
   ];
 
   it('renders title correctly', () => {
-    const { getByText } = render(<PieChartBoundaries title="Sample Title" />);
+    const { getByText } = render(<PieChartBoundaries isLoading={false} title="Sample Title" />);
     expect(getByText('Sample Title')).toBeTruthy();
   });
 
   it('renders skeleton when data is undefined', () => {
-    const { container } = render(<PieChartBoundaries title="Sample Title" />);
+    const { container } = render(<PieChartBoundaries isLoading={true} title="Sample Title" />);
     expect(container.querySelector('.ant-skeleton')).toBeTruthy();
   });
 
   it('renders pie chart when data is provided', () => {
-    const { container } = render(<PieChartBoundaries title="Sample Title" data={sampleData} />);
+    const { container } = render(<PieChartBoundaries isLoading={false} title="Sample Title" data={sampleData} />);
 
     expect(container.querySelector('.recharts-wrapper')).toBeTruthy();
     expect(container.querySelectorAll('.recharts-pie-sector').length).toBe(sampleData.length);
   });
 
   it('applies correct fill colors to cells', () => {
-    const { container } = render(<PieChartBoundaries title="Sample Title" data={sampleData} />);
+    const { container } = render(<PieChartBoundaries isLoading={false} title="Sample Title" data={sampleData} />);
 
     const cells = container.querySelectorAll('.recharts-pie-sector');
     expect(cells[0].querySelector('path')?.getAttribute('fill')).toBe('#ff0000');
@@ -36,7 +36,7 @@ describe('PieChartBoundaries', () => {
   });
 
   it('renders legend aligned to the left', () => {
-    const { container } = render(<PieChartBoundaries title="Sample Title" data={sampleData} />);
+    const { container } = render(<PieChartBoundaries isLoading={false} title="Sample Title" data={sampleData} />);
     const legend = container.querySelector('.recharts-default-legend');
 
     expect(legend).toBeTruthy();
