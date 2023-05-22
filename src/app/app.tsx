@@ -2,13 +2,19 @@ import { Button, Drawer, Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { SlidersOutlined, LogoutOutlined, TableOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {
+  SlidersOutlined,
+  LogoutOutlined,
+  TableOutlined,
+  HomeOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 import { useAuthContext } from '@lizards-inc-fe/auth';
-
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,19 +33,27 @@ const App = () => {
       label: `Home`,
     },
     {
-      key: `animals`,
-      icon: <TwitterOutlined />,
-      label: `Animals`,
-    },
-    {
       key: RoutingTable.limitsAndBoundaries.root,
       icon: <SlidersOutlined />,
-      label: 'Limits and Boundaries'
+      label: 'Limits and Boundaries',
     },
     {
       key: 'history',
       icon: <TableOutlined />,
       label: 'History',
+    },
+    {
+      key: 'terrarium',
+      icon: (
+        <span
+          title={
+            'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&page=1&position=15&origin=tag&related_id=1067907'
+          }
+        >
+          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} />
+        </span>
+      ),
+      label: 'My Terrarium',
     },
   ];
   const handleResize = () => {

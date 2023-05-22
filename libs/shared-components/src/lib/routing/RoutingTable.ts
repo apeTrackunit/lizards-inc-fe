@@ -6,13 +6,10 @@ export const RoutingTable = {
   history: {
     root: 'history',
   },
-  animals: {
-    root: 'animals',
-    detail: {
-      edit: 'edit',
-    },
-  },
   limitsAndBoundaries: {
-    root: 'limits-and-boundaries'
-  }
+    root: 'limits-and-boundaries',
+  },
+  terrarium: {
+    root: 'terrarium',
+  },
 } as const;
