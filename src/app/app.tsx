@@ -5,7 +5,7 @@ import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import {
   SlidersOutlined,
   LogoutOutlined,
-  TableOutlined,
+  LineChartOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -39,7 +39,7 @@ const App = () => {
     },
     {
       key: 'history',
-      icon: <TableOutlined />,
+      icon: <LineChartOutlined />,
       label: 'History',
     },
     {
