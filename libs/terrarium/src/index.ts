@@ -1,1 +1,1 @@
-export * from './lib/terrarium';
+export * from './lib/Terrarium';
