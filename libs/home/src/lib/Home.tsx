@@ -21,8 +21,11 @@ export const Home = () => {
   });
   const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
   const { data: measurementRange } = useGetRequest<IMeasurement[]>({
-    url: `/Measurements?dateFrom=${dayjs().subtract(1, 'day').format('YYYY-MM-DD')}
-    &dateTo=${dayjs().format('YYYY-MM-DD')}`,
+    url: '/Measurements',
+    params: {
+      dateFrom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+      dateTo: dayjs().format('YYYY-MM-DD'),
+    },
   });
 
   return (
