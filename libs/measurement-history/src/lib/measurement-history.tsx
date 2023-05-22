@@ -69,7 +69,7 @@ export const MeasurementHistory = () => {
   }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
 
   const pieChartData = useMemo(() => {
-    return measurementRange && boundaries
+    return measurementRange && measurementRange.length > 0 && boundaries
       ? {
           temperatureData: calculatePieChartData(
             measurementRange.map(m => m.temperature),
@@ -104,6 +104,7 @@ export const MeasurementHistory = () => {
               mode={['date', 'date']}
               value={[dateStatus.from, dateStatus.to]}
               onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
+              disabledDate={date => date.isAfter(dayjs())}
             />
           </div>
         </div>
