@@ -14,19 +14,38 @@ import {
   roundValue,
 } from '@lizards-inc-fe/model';
 import dayjs from 'dayjs';
+import { useRedirectToError } from '@lizards-inc-fe/shared-components';
+import { useEffect } from 'react';
 
 export const Home = () => {
-  const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
+  const {
+    data: latestMeasurement,
+    isLoading: isLatestMeasurementLoading,
+    errorCode: latestMeasurementErrorCode,
+  } = useGetRequest<IMeasurement>({
     url: '/Measurements/latest',
   });
-  const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({
+  const { data: boundaries, errorCode: boundariesErrorCode } = useGetRequest<IBoundary>({
+    url: '/Terrarium/boundaries',
+  });
+  const { data: measurementRange, errorCode: measurementRangeErrorCode } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
       dateFrom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
       dateTo: dayjs().format('YYYY-MM-DD'),
     },
   });
+  const { triggerErrorRedirect } = useRedirectToError();
+
+  useEffect(() => {
+    if (measurementRangeErrorCode) {
+      triggerErrorRedirect(measurementRangeErrorCode);
+    } else if (boundariesErrorCode) {
+      triggerErrorRedirect(boundariesErrorCode);
+    } else if (latestMeasurementErrorCode) {
+      triggerErrorRedirect(latestMeasurementErrorCode);
+    }
+  }, [measurementRangeErrorCode, boundariesErrorCode, latestMeasurementErrorCode]);
 
   return (
     <div>
