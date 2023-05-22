@@ -14,11 +14,11 @@ interface IDisplayConfig {
 
 export const DisplayConfig: IDisplayConfig = {
   temperature: {
-    format: temperature => roundValue(temperature, 2) + ' °C',
+    format: temperature => roundValue(temperature, 2) + '°C',
     hexColor: '#e30000',
   },
   humidity: {
-    format: humidity => roundValue(humidity, 2) + ' %',
+    format: humidity => roundValue(humidity, 2) + '%',
     hexColor: '#00f',
   },
   co2: {
