@@ -27,11 +27,11 @@ export const useHistoricTableColumns = ({ data }: useHistoricTableColumnsProps) 
       onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
       sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
       render: (value: Dayjs) => value.format(DisplayDateFormat),
+      defaultSortOrder: 'descend',
     },
     {
       title: 'Temperature',
       dataIndex: 'temperature',
-      defaultSortOrder: 'descend',
       sorter: (a, b) => a.temperature - b.temperature,
       align: 'center',
       render: value => DisplayConfig.temperature.format(value),
@@ -39,7 +39,6 @@ export const useHistoricTableColumns = ({ data }: useHistoricTableColumnsProps) 
     {
       title: 'Humidity',
       dataIndex: 'humidity',
-      defaultSortOrder: 'descend',
       sorter: (a, b) => a.humidity - b.humidity,
       align: 'center',
       render: value => DisplayConfig.humidity.format(value),
@@ -47,7 +46,6 @@ export const useHistoricTableColumns = ({ data }: useHistoricTableColumnsProps) 
     {
       title: 'CO2',
       dataIndex: 'co2',
-      defaultSortOrder: 'descend',
       sorter: (a, b) => a.co2 - b.co2,
       align: 'center',
       render: value => DisplayConfig.co2.format(value),
