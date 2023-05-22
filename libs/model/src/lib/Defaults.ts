@@ -6,7 +6,13 @@ export interface ValueTypeConfig {
   hexColor: string;
 }
 
-export const DisplayConfig: { temperature: ValueTypeConfig; humidity: ValueTypeConfig; co2: ValueTypeConfig } = {
+interface IDisplayConfig {
+  temperature: ValueTypeConfig;
+  humidity: ValueTypeConfig;
+  co2: ValueTypeConfig;
+}
+
+export const DisplayConfig: IDisplayConfig = {
   temperature: {
     format: temperature => roundValue(temperature, 2) + ' °C',
     hexColor: '#e30000',
