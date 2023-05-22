@@ -17,7 +17,7 @@ interface TimeSpanState {
 
 export const MeasurementHistory = () => {
   const [dateStatus, setDateStatus] = useState<TimeSpanState>({
-    from: dayjs().subtract(1, 'day'),
+    from: dayjs().subtract(7, 'day'),
     to: dayjs(),
   });
   const {
