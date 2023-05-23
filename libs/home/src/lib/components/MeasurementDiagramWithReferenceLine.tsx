@@ -63,6 +63,6 @@ export const MeasurementDiagramWithReferenceLine = ({
       <ReferenceDot r={1} fill="blue" stroke="none" />
     </LineChart>
   ) : (
-    <div className={'flex justify-center items-center h-full'}>No data</div>
+    <div className={'flex justify-center items-center h-full translate-x-3'}>No data.</div>
   );
 };
