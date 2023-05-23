@@ -13,7 +13,7 @@ export const AnimalDeleteButton = ({ onClick }: AnimalDeleteButtonProps) => {
         danger
         onClick={onClick}
         data-testid={'animal-delete-button'}
-        icon={<DeleteOutlined />}
+        icon={<DeleteOutlined rev={undefined} />}
       ></Button>
     </div>
   );
