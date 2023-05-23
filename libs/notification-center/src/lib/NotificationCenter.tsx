@@ -36,7 +36,7 @@ export const NotificationCenter = () => {
           {!isLoading && (data?.length === 0 || !data) && <span>No data</span>}
 
           {!isLoading &&
-            data?.map((value, index) => {
+            data?.map(value => {
               return (
                 <Notification
                   key={value.id}
@@ -67,7 +67,7 @@ export const NotificationCenter = () => {
             className={'mb-1'}
             title={'Notifications'}
           >
-            <BellOutlined />
+            <BellOutlined rev={undefined} />
           </Badge>
         }
       />

@@ -1,6 +1,6 @@
 import { notification, Skeleton, Slider } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { style, marksTemp } from './MarksAndStyle';
+import { marksTemp } from './MarksAndStyle';
 import { ILimits } from './Interfaces';
 import { ExtractValues } from './ExtractValues';
 import { usePutRequest } from '@lizards-inc-fe/fetcher';
@@ -12,7 +12,7 @@ interface INotificationState {
   type: NotificationType;
 }
 
-const Limits = ({ limitsData }: { limitsData: ILimits | undefined; limitsLoading: boolean }) => {
+export const Limits = ({ limitsData }: { limitsData: ILimits | undefined; limitsLoading: boolean }) => {
   const [api, contextHolder] = notification.useNotification();
   const { trigger } = usePutRequest<unknown, ILimits>({
     url: '/Terrarium/limits',
@@ -61,9 +61,10 @@ const Limits = ({ limitsData }: { limitsData: ILimits | undefined; limitsLoading
 
   return (
     <div>
-      <p className="text-2xl text-zinc-500">Temperature</p>
+      <p className="text-lg text-zinc-500">Temperature</p>
       {contextHolder}
-      <div style={style}>
+
+      <div className={'w-full'}>
         {limitsData ? (
           <Slider
             range
@@ -81,5 +82,3 @@ const Limits = ({ limitsData }: { limitsData: ILimits | undefined; limitsLoading
     </div>
   );
 };
-
-export { Limits };

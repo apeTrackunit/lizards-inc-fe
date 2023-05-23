@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { IBoundaries, ICO2Data, IHumData, INotificationState, ITempData } from './Interfaces';
 import { usePutRequest } from '@lizards-inc-fe/fetcher';
 
-const BoundariesSlider = ({
+export const BoundariesSlider = ({
   title,
   marks,
   boundariesData,
@@ -102,22 +102,19 @@ const BoundariesSlider = ({
   }
 
   return (
-    <div className="basis-1/3">
-      <p className="text-2xl text-zinc-500">{title}</p>
+    <div>
+      <p className="text-lg text-zinc-500">{title}</p>
       {contextHolder}
-      <div>
-        <div className="w-5/6 pb-10">
-          {boundariesData ? (
-            <Slider range marks={marks} defaultValue={defaultValue} onAfterChange={onAfterChange} max={max} />
-          ) : (
-            <Skeleton active paragraph={false}>
-              Loading...
-            </Skeleton>
-          )}
-        </div>
+
+      <div className="w-full">
+        {boundariesData ? (
+          <Slider range marks={marks} defaultValue={defaultValue} onAfterChange={onAfterChange} max={max} />
+        ) : (
+          <Skeleton active paragraph={false}>
+            Loading...
+          </Skeleton>
+        )}
       </div>
     </div>
   );
 };
-
-export { BoundariesSlider };

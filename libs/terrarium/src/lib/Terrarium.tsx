@@ -1,6 +1,7 @@
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { IAnimal, ITerrarium } from '@lizards-inc-fe/model';
 import { Divider, Skeleton } from 'antd';
+import { NewAnimal } from './NewAnimal';
 
 export const Terrarium = () => {
   const { data: terrariumData, isLoading: isTerrariumDataLoading } = useGetRequest<ITerrarium>({ url: '/Terrarium' });
@@ -8,12 +9,14 @@ export const Terrarium = () => {
 
   return (
     <>
-      <div>
+      <div className={'flex flex-row justify-between'}>
         {!isTerrariumDataLoading ? (
           <h1 className={'text-3xl'}>{terrariumData?.name}</h1>
         ) : (
-          <Skeleton active={true} paragraph={false} />
+          <Skeleton active={true} paragraph={false} className={'w-24'} />
         )}
+
+        <NewAnimal />
       </div>
       <Divider></Divider>
     </>
