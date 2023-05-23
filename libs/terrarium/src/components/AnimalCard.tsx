@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 interface AnimalCardProps {
   animal: IAnimal;
-  triggerRefresh: () => any;
+  triggerRefresh: () => void;
 }
 
 export const AnimalCard = ({ animal, triggerRefresh }: AnimalCardProps) => {
