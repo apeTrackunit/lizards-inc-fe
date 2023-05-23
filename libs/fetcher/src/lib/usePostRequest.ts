@@ -2,7 +2,8 @@ import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useMutateRequest } from './useMutateRequest';
 import { useAuthContext } from '@lizards-inc-fe/auth';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useRedirectToError } from '@lizards-inc-fe/shared-components';
 
 interface IPostRequest<RequestBody, Params> {
   url: string;
@@ -15,6 +16,7 @@ export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = u
   params,
 }: IPostRequest<RequestBody, Params>) => {
   const { authenticated } = useAuthContext();
+  const { triggerErrorRedirect } = useRedirectToError();
 
   const postRequestConfig: AxiosRequestConfig<RequestBody> = {
     baseURL: ApiUrl,
@@ -34,5 +36,13 @@ export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = u
     return url === '/Authentication';
   }, [url]);
 
-  return useMutateRequest<Data, Error>(authenticated || isException ? postRequestConfig : null);
+  const response = useMutateRequest<Data, Error>(authenticated || isException ? postRequestConfig : null);
+
+  useEffect(() => {
+    if (response.error?.response?.status) {
+      triggerErrorRedirect(response.error?.response?.status);
+    }
+  }, [response]);
+
+  return response;
 };

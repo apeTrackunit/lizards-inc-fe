@@ -2,6 +2,8 @@ import { useRequest } from './useRequest';
 import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useAuthContext } from '@lizards-inc-fe/auth';
+import { useRedirectToError } from '@lizards-inc-fe/shared-components';
+import { useEffect } from 'react';
 
 interface IGetRequest<Params> {
   url: string;
@@ -13,6 +15,8 @@ export const useGetRequest = <Data = unknown, Error = unknown, Params = unknown>
   params,
 }: IGetRequest<Params>) => {
   const { authenticated } = useAuthContext();
+  const { triggerErrorRedirect } = useRedirectToError();
+
   const getRequestConfig: AxiosRequestConfig = {
     baseURL: ApiUrl,
     url: url,
@@ -23,5 +27,13 @@ export const useGetRequest = <Data = unknown, Error = unknown, Params = unknown>
     getRequestConfig.params = params;
   }
 
-  return useRequest<Data, Error>(authenticated ? getRequestConfig : null);
+  const response = useRequest<Data, Error>(authenticated ? getRequestConfig : null);
+
+  useEffect(() => {
+    if (response.error?.response?.status) {
+      triggerErrorRedirect(response.error?.response?.status);
+    }
+  }, [response]);
+
+  return response;
 };

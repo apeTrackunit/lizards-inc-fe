@@ -7,8 +7,6 @@ interface Return<Data, Error>
   extends Pick<SWRResponse<AxiosResponse<Data>, AxiosError<Error>>, 'isValidating' | 'error' | 'mutate' | 'isLoading'> {
   data: Data | undefined;
   response: AxiosResponse<Data> | undefined;
-  statusCode: number | undefined;
-  errorCode: number | undefined;
 }
 
 export interface Config<Data = unknown, Error = unknown>
@@ -56,7 +54,5 @@ export function useRequest<Data = unknown, Error = unknown>(
     isValidating,
     isLoading,
     mutate,
-    statusCode: response ? response.status : error?.response?.status,
-    errorCode: error?.response?.status,
   };
 }

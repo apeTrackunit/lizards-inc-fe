@@ -2,7 +2,7 @@ import { FilterFilled } from '@ant-design/icons';
 import { DatePicker, Divider } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { CardElement, useRedirectToError } from '@lizards-inc-fe/shared-components';
+import { CardElement } from '@lizards-inc-fe/shared-components';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
@@ -24,14 +24,12 @@ export const MeasurementHistory = () => {
     data: boundaries,
     isLoading: isBoundariesLoading,
     isValidating: isBoundariesValidating,
-    errorCode: boundariesErrorCode,
   } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
   const {
     data: measurementRange,
     mutate: measurementRangeTrigger,
     isLoading: isMeasurementRangeLoading,
     isValidating: isMeasurementRangeValidating,
-    errorCode: measurementRangeErrorCode,
   } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
@@ -39,16 +37,6 @@ export const MeasurementHistory = () => {
       dateTo: dateStatus.to?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
     },
   });
-
-  const { triggerErrorRedirect } = useRedirectToError();
-
-  useEffect(() => {
-    if (measurementRangeErrorCode) {
-      triggerErrorRedirect(measurementRangeErrorCode);
-    } else if (boundariesErrorCode) {
-      triggerErrorRedirect(boundariesErrorCode);
-    }
-  }, [measurementRangeErrorCode, boundariesErrorCode]);
 
   const calculatePieChartData = (values: number[], min: number, max: number): IPieChartBoundariesData[] => {
     const countInBoundary = values.filter(v => v < max && v > min).length;
