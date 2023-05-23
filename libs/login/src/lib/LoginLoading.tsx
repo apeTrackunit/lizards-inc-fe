@@ -1,9 +1,19 @@
 import LizardLoading from './assets/lizardload.gif';
 
-export const LoginLoading = () => {
+interface LoginLoadingProps {
+  endOfLoadingCallback: () => void;
+}
+
+export const LoginLoading = ({ endOfLoadingCallback }: LoginLoadingProps) => {
   return (
     <div className={'h-screen w-full flex items-center justify-center'}>
-      <img src={LizardLoading} alt={'Loading Lizard'} />
+      <img
+        src={LizardLoading}
+        onLoad={() => {
+          setTimeout(endOfLoadingCallback, 2500);
+        }}
+        alt={'Loading Lizard'}
+      />
     </div>
   );
 };
