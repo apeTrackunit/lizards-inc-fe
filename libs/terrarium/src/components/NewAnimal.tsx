@@ -1,4 +1,4 @@
-import { Button, Card, Form, Modal, notification, theme } from 'antd';
+import { Form, Modal, notification, theme } from 'antd';
 import { useEffect, useState } from 'react';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { NewAnimalForm } from './NewAnimalForm';
