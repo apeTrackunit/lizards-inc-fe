@@ -28,7 +28,7 @@ export const NewAnimal = () => {
       <button className="h-40 shadow-lg bg-slate-100 hover:bg-slate-200 p-4 rounded-lg" onClick={() => setOpen(true)}>
         <div className={'flex flex-row gap-3 justify-center items-center w-full h-full'}>
           <PlusOutlined className={'text-xl'} rev={undefined} />
-          <span className={'font-normal mt-1.5 text-lg'}>New</span>
+          <span className={'font-normal mt-1.5 text-lg'}>New Animal</span>
         </div>
       </button>
 
