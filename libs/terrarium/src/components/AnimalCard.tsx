@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import moment from 'moment';
 import { AnimalDeleteButton } from './AnimalDeleteButton';
 import { useDeleteRequest } from '@lizards-inc-fe/fetcher';
+import { useState } from 'react';
 
 interface AnimalCardProps {
   animal: IAnimal;
@@ -13,6 +14,8 @@ export const AnimalCard = ({ animal, triggerRefresh }: AnimalCardProps) => {
   const { trigger } = useDeleteRequest<unknown, unknown>({
     url: '/Animals/' + animal.id,
   });
+  const [isDeleteLoading, setDeleteLoading] = useState(false);
+
   const getGender = (gender: string) => {
     switch (gender) {
       case 'M':
@@ -30,15 +33,18 @@ export const AnimalCard = ({ animal, triggerRefresh }: AnimalCardProps) => {
   const bgColor = animal.color.length === 7 ? `${animal.color}41` : `${animal.color.substring(0, 7)}41`;
 
   const deleteOnClick = () => {
-    trigger();
-    triggerRefresh();
+    setDeleteLoading(true);
+    trigger().then(() => {
+      setDeleteLoading(false);
+      triggerRefresh();
+    });
   };
 
   return (
     <Card className="h-40 shadow-lg" bodyStyle={{ height: '100%', padding: 16 }} style={{ backgroundColor: bgColor }}>
       <div className="h-full flex flex-col justify-between">
         <div>
-          <AnimalDeleteButton onClick={deleteOnClick} />
+          <AnimalDeleteButton onClick={deleteOnClick} isLoading={isDeleteLoading} />
           <div className="text-2xl w-10/12 font-semibold" title={animal.name}>
             {concenatedAnimalName}
           </div>
