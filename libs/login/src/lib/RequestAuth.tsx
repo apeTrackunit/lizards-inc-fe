@@ -22,6 +22,7 @@ export const RequireAuth = ({ children }: RequireAuthProps): JSX.Element => {
     }
 
     sessionStorage['loading'] = 'played';
+    // waiting for the loading snake animation to end
     setTimeout(() => setDisplayedView(authenticated ? <div>{children}</div> : <Login />), 3000);
   }, [authenticated]);
 
