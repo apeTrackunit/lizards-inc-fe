@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
-import LoginChameleon from './assets/login-chameleon.png';
+import LoginChameleon from './assets/chamelion-min.png';
 import Vine from './assets/vine.png';
-import LoginLizard from './assets/lizard-resized.png';
+import LoginLizard from './assets/lizard-min.png';
 
 interface IAuthServerRequest {
   code: string;
