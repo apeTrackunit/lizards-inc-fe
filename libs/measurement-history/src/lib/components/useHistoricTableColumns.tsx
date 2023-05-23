@@ -24,7 +24,7 @@ export const useHistoricTableColumns = ({ data }: useHistoricTableColumnsProps) 
         data === undefined
           ? []
           : [...new Set(data.map(d => d.dayjs.format(DisplayDayFormat)))].map(d => ({ text: d, value: d })),
-      onFilter: (value, record) => record.dayjs.format('DD-MM-YYYY') === value,
+      onFilter: (value, record) => record.dayjs.format(DisplayDayFormat) === value,
       sorter: (a, b) => a.dayjs.unix() - b.dayjs.unix(),
       render: (value: Dayjs) => value.format(DisplayDateFormat),
       defaultSortOrder: 'descend',
