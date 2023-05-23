@@ -6,6 +6,16 @@ import { AuthProvider } from '@lizards-inc-fe/auth';
 jest.mock('react-router-dom');
 
 describe('Boundaries component', () => {
+  const boundariesData = {
+    id: '1',
+    temperatureBoundaryMax: 40,
+    temperatureBoundaryMin: 10,
+    humidityBoundaryMax: 30,
+    humidityBoundaryMin: 20,
+    cO2BoundaryMax: 48,
+    cO2BoundaryMin: 14,
+  };
+
   it('renders temperature slider with default values when loading', () => {
     const boundariesData = undefined;
 
@@ -26,16 +36,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders temperature slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider
@@ -50,8 +50,8 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    expect(sliderElement[0].style.left).toBe('10%');
-    expect(sliderElement[1].style.left).toBe('40%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('10');
+    expect(sliderElement[1].getAttribute('aria-valuenow')).toBe('40');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
 
@@ -75,16 +75,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders humidity slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider
@@ -99,8 +89,8 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    expect(sliderElement[0].style.left).toBe('20%');
-    expect(sliderElement[1].style.left).toBe('30%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('20');
+    expect(sliderElement[1].getAttribute('aria-valuenow')).toBe('30');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
   it('renders co2 slider with default values when loading', () => {
@@ -117,16 +107,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders co2 slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'} />
@@ -135,11 +115,7 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    //expect(sliderElement[0].style.left).toBe('14%');
-    const roundedReceivedPosition = Math.round(parseFloat(sliderElement[0].style.left)) + '%';
-    expect(roundedReceivedPosition).toBe('14%');
-
-    expect(sliderElement[1].style.left).toBe('48%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('14');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
 });

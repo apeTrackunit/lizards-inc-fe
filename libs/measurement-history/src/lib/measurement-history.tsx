@@ -9,6 +9,7 @@ import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, filterData, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
+import { ExportDataButton } from './components/ExportDataButton';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -92,22 +93,25 @@ export const MeasurementHistory = () => {
 
   return (
     <>
-      <div className={'flex gap-4 lg:gap-8'}>
-        <h1 className={'text-2xl font-bold'}>History</h1>
-        <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
-        <div className={'w-full bg-inherit z-10'}>
-          <div className={'flex items-center gap-2'}>
-            <FilterFilled />
-            <DatePicker.RangePicker
-              size={'large'}
-              use12Hours={false}
-              mode={['date', 'date']}
-              value={[dateStatus.from, dateStatus.to]}
-              onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
-              disabledDate={date => date.isAfter(dayjs())}
-            />
+      <div className={'flex gap-4 lg:gap-8 justify-between'}>
+        <div className={'flex flex-row'}>
+          <h1 className={'text-2xl font-bold'}>History</h1>
+          <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
+          <div className={'w-full bg-inherit z-10'}>
+            <div className={'flex items-center gap-10'}>
+              <FilterFilled />
+              <DatePicker.RangePicker
+                size={'large'}
+                use12Hours={false}
+                mode={['date', 'date']}
+                value={[dateStatus.from, dateStatus.to]}
+                onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
+                disabledDate={date => date.isAfter(dayjs())}
+              />
+            </div>
           </div>
         </div>
+        <ExportDataButton measuredData={measurementRange} />
       </div>
       <Divider />
       <div className={'grid gap-2 max-w-full'}>

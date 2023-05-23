@@ -42,7 +42,7 @@ const handlers = [
         temperature: randoms[0] + generateNextNumber(i + randoms[0]),
         humidity: randoms[1] + generateNextNumber(i + randoms[0]),
         co2: randoms[2] + generateNextNumber(i + randoms[0]),
-        dateTime: dayjs()
+        dateTime: dayjs(new Date(searchParams.get('dateTo')))
           .subtract((dataToGenerate - i) * 5, 'minute')
           .format('YYYY-MM-DD HH:mm:ss'),
       }));
