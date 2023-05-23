@@ -2,7 +2,6 @@ import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useMutateRequest } from './useMutateRequest';
 import { useAuthContext } from '@lizards-inc-fe/auth';
-import { useMemo } from 'react';
 
 interface IDeleteRequest<RequestBody, Params> {
   url: string;
@@ -30,9 +29,5 @@ export const useDeleteRequest = <Data = unknown, RequestBody = unknown, Params =
     deleteRequestConfig.params = params;
   }
 
-  const isException = useMemo(() => {
-    return url === '/Authentication';
-  }, [url]);
-
-  return useMutateRequest<Data, Error>(authenticated || isException ? deleteRequestConfig : null);
+  return useMutateRequest<Data, Error>(authenticated ? deleteRequestConfig : null);
 };
