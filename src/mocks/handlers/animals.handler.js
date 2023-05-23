@@ -52,12 +52,12 @@ const handlers = [
     return res(context.status(200));
   }),
 
-  rest.post(ApiUrl + '/Animals', (req, res, context) => {
+  rest.post(ApiUrl + '/Animals', async (req, res, context) => {
     if (!isLoggedIn(req)) {
       return res(context.status(401));
     }
 
-    req.json().then(animal => {
+    await req.json().then(animal => {
       animal.id = Math.floor(Math.random() * 100000000) + '';
       animals.push(animal);
     });
