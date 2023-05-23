@@ -12,7 +12,7 @@ export interface AuthServerResponse {
 }
 
 export interface IAuthContext {
-  authenticated: boolean;
+  authenticated?: boolean;
   login: (response: AuthServerResponse) => void;
   logout: () => void;
 }
@@ -23,13 +23,12 @@ interface Props {
   children: ReactNode;
 }
 export const AuthProvider = ({ children }: Props) => {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [authenticated, setAuthenticated] = useState<boolean>();
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem('auth-token') ?? '{}') as AuthServerResponse;
 
     if (auth.id_token) {
-      console.log('Token attached');
       setAuthenticated(true);
       axios.defaults.headers.common = {
         Authorization: `Bearer ${auth.id_token}`,
