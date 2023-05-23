@@ -5,6 +5,7 @@ import { IAnimal } from '@lizards-inc-fe/model';
 import dayjs from 'dayjs';
 import { NotificationInstance } from 'antd/es/notification/interface';
 import { AxiosResponse } from 'axios';
+import { useGetRequest } from '@lizards-inc-fe/fetcher';
 
 interface NewAnimalFormProps {
   form: FormInstance<IAnimal>;
@@ -15,11 +16,19 @@ interface NewAnimalFormProps {
 }
 
 export const NewAnimalForm = ({ form, onSave, onCancel, onColorChanged, notificationInstance }: NewAnimalFormProps) => {
-  const [submittable, setSubmittable] = useState(false);
-  const [color, setColor] = useState<Color | string>(form.getFieldValue('color'));
-
   const { token } = theme.useToken();
+
+  const [submittable, setSubmittable] = useState(false);
+  const [color, setColor] = useState<Color | string>();
+
   const values = Form.useWatch([], form);
+
+  const { mutate } = useGetRequest<IAnimal[]>({ url: '/Animals' });
+
+  useEffect(() => {
+    form.setFieldValue('color', token.colorPrimary);
+    setColor(token.colorPrimary);
+  }, []);
 
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
@@ -32,7 +41,10 @@ export const NewAnimalForm = ({ form, onSave, onCancel, onColorChanged, notifica
     );
   }, [form, values]);
 
-  const colorText = useMemo<string>(() => (typeof color === 'string' ? color : color.toHexString()), [color]);
+  const colorText = useMemo<string>(
+    () => (typeof color === 'string' ? color : color?.toHexString() ?? token.colorPrimary),
+    [color]
+  );
 
   useEffect(() => {
     onColorChanged(colorText.length === 7 ? `${colorText}41` : `${colorText.substring(0, 7)}41`);
@@ -48,8 +60,9 @@ export const NewAnimalForm = ({ form, onSave, onCancel, onColorChanged, notifica
         });
 
         form.resetFields();
-        form.setFieldValue('color', token.colorPrimary);
         setColor(token.colorPrimary);
+
+        mutate();
       })
       .catch(() => {
         notificationInstance.error({
@@ -93,7 +106,14 @@ export const NewAnimalForm = ({ form, onSave, onCancel, onColorChanged, notifica
 
         <Form.Item label="Color" name="color" rules={[{ required: true, message: "Please input the animal's color!" }]}>
           <div className={'flex gap-2 items-center'}>
-            <ColorPicker value={color} onChange={setColor} format={'hex'} />
+            <ColorPicker
+              value={color}
+              onChange={value => {
+                setColor(value.toHexString());
+                form.setFieldValue('color', value.toHexString());
+              }}
+              format={'hex'}
+            />
             {colorText}
           </div>
         </Form.Item>

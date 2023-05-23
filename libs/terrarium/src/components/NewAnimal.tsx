@@ -1,5 +1,5 @@
-import { Form, Modal, notification, theme } from 'antd';
-import { useEffect, useState } from 'react';
+import { Form, Modal, notification } from 'antd';
+import { useState } from 'react';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { NewAnimalForm } from './NewAnimalForm';
 import { IAnimal } from '@lizards-inc-fe/model';
@@ -9,19 +9,14 @@ type IAnimalInput = Omit<IAnimal, 'link'>;
 
 export const NewAnimal = () => {
   const [open, setOpen] = useState(false);
-  const [color, setColor] = useState<string>();
+  const [bgColor, setBgColor] = useState<string>();
 
   const [api, contextHolder] = notification.useNotification();
 
-  const { token } = theme.useToken();
   const [form] = Form.useForm<IAnimal>();
   const values = Form.useWatch([], form);
 
-  const { isMutating, trigger } = usePostRequest<IAnimal, IAnimalInput>({ url: '/animals', data: values });
-
-  useEffect(() => {
-    form.setFieldValue('color', token.colorPrimary);
-  }, [color]);
+  const { isMutating, trigger } = usePostRequest<IAnimal, IAnimalInput>({ url: '/Animals', data: values });
 
   const onCancel = () => {
     setOpen(false);
@@ -44,13 +39,13 @@ export const NewAnimal = () => {
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
         onCancel={onCancel}
-        maskStyle={{ background: color, backdropFilter: 'blur(2px)' }}
+        maskStyle={{ background: bgColor, backdropFilter: 'blur(2px)' }}
       >
         <NewAnimalForm
           form={form}
           onCancel={onCancel}
           onSave={trigger}
-          onColorChanged={setColor}
+          onColorChanged={setBgColor}
           notificationInstance={api}
         />
       </Modal>
