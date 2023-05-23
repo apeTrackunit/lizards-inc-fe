@@ -79,7 +79,7 @@ export const Login = () => {
           }}
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <UserOutlined id={'user-icon'} style={{ fontSize: '120px', backgroundColor: '#5DDE5D' }} />
+            <UserOutlined id={'user-icon'} style={{ fontSize: '120px', backgroundColor: '#5DDE5D' }} rev={undefined} />
           </div>
         </Card>
 

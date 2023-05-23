@@ -66,7 +66,7 @@ export const MeasurementHistory = () => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
     measurementRangeTrigger();
-  }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
+  }, [dateStatus, measurementRangeTrigger]);
 
   const pieChartData = useMemo(() => {
     return measurementRange && measurementRange.length > 0 && boundaries
@@ -97,7 +97,7 @@ export const MeasurementHistory = () => {
         <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
         <div className={'w-full bg-inherit z-10'}>
           <div className={'flex items-center gap-2'}>
-            <FilterFilled />
+            <FilterFilled rev={undefined} />
             <DatePicker.RangePicker
               size={'large'}
               use12Hours={false}
