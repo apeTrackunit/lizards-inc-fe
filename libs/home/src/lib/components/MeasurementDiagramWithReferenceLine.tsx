@@ -25,6 +25,7 @@ interface MeasurementDiagramWithReferenceLineProps {
 
 class CustomizedAxisTick extends PureComponent {
   render() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { x, y, payload } = this.props;
 
