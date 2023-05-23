@@ -4,6 +4,16 @@ import { marksCO2, marksHum, marksTemp } from './MarksAndStyle';
 import { AuthProvider } from '@lizards-inc-fe/auth';
 
 describe('Boundaries component', () => {
+  const boundariesData = {
+    id: '1',
+    temperatureBoundaryMax: 40,
+    temperatureBoundaryMin: 10,
+    humidityBoundaryMax: 30,
+    humidityBoundaryMin: 20,
+    cO2BoundaryMax: 48,
+    cO2BoundaryMin: 14,
+  };
+
   it('renders temperature slider with default values when loading', () => {
     const boundariesData = undefined;
 
@@ -24,16 +34,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders temperature slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider
@@ -73,16 +73,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders humidity slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider
@@ -115,16 +105,6 @@ describe('Boundaries component', () => {
   });
 
   it('renders co2 slider with provided values when loaded', () => {
-    const boundariesData = {
-      id: '1',
-      temperatureBoundaryMax: 40,
-      temperatureBoundaryMin: 10,
-      humidityBoundaryMax: 30,
-      humidityBoundaryMin: 20,
-      cO2BoundaryMax: 48,
-      cO2BoundaryMin: 14,
-    };
-
     const { baseElement } = render(
       <AuthProvider>
         <BoundariesSlider boundariesData={boundariesData} marks={marksCO2} max={100} title={'CO2'} type={'co2'} />
