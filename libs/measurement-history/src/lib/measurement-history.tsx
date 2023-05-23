@@ -9,6 +9,7 @@ import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, filterData, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
+import { ExportDataButton } from './components/ExportDataButton';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -66,7 +67,7 @@ export const MeasurementHistory = () => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
     measurementRangeTrigger();
-  }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
+  }, [dateStatus, measurementRangeTrigger]);
 
   const pieChartData = useMemo(() => {
     return measurementRange && measurementRange.length > 0 && boundaries
@@ -97,7 +98,7 @@ export const MeasurementHistory = () => {
         <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
         <div className={'w-full bg-inherit z-10'}>
           <div className={'flex items-center gap-2'}>
-            <FilterFilled />
+            <FilterFilled rev={undefined} />
             <DatePicker.RangePicker
               size={'large'}
               use12Hours={false}
@@ -108,6 +109,7 @@ export const MeasurementHistory = () => {
             />
           </div>
         </div>
+        <ExportDataButton measuredData={measurementRange} />
       </div>
       <Divider />
       <div className={'grid gap-2 max-w-full'}>

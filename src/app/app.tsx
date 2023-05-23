@@ -29,18 +29,8 @@ const App = () => {
   const items: ItemType[] = [
     {
       key: `home`,
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined rev={undefined} />,
       label: `Home`,
-    },
-    {
-      key: RoutingTable.limitsAndBoundaries.root,
-      icon: <SlidersOutlined />,
-      label: 'Limits and Boundaries',
-    },
-    {
-      key: 'history',
-      icon: <LineChartOutlined />,
-      label: 'History',
     },
     {
       key: 'terrarium',
@@ -50,10 +40,20 @@ const App = () => {
             'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&page=1&position=15&origin=tag&related_id=1067907'
           }
         >
-          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} />
+          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} className={'w-3.5'} />
         </span>
       ),
       label: 'My Terrarium',
+    },
+    {
+      key: 'history',
+      icon: <LineChartOutlined rev={undefined} />,
+      label: 'History',
+    },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <SlidersOutlined rev={undefined} />,
+      label: 'Settings',
     },
   ];
   const handleResize = () => {
@@ -79,7 +79,7 @@ const App = () => {
           <div className={'flex'}>
             {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
             <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>
-              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              {collapsed ? <MenuUnfoldOutlined rev={undefined} /> : <MenuFoldOutlined rev={undefined} />}
             </div>
           </div>
           <div className={'flex gap-3'}>
@@ -88,7 +88,7 @@ const App = () => {
               shape={'circle'}
               type={'text'}
               className={'flex flex-row justify-center items-center'}
-              icon={<LogoutOutlined />}
+              icon={<LogoutOutlined rev={undefined} />}
               title={'Logout'}
               onClick={logout}
             />

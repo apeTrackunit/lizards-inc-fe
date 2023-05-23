@@ -3,23 +3,26 @@ import { IAnimal, ITerrarium } from '@lizards-inc-fe/model';
 import { Divider, Skeleton } from 'antd';
 import { AnimalCard } from '../components/AnimalCard';
 import { AnimalSkeletonCard } from '../components/AnimalSkeletonCard';
+import { NewAnimal } from './NewAnimal';
 
 export const Terrarium = () => {
   const { data: terrariumData, isLoading: isTerrariumDataLoading } = useGetRequest<ITerrarium>({ url: '/Terrarium' });
-  const {
-    data: animalData,
-    isLoading: isAnimalsLoading,
-    mutate: refreshAnimals,
-  } = useGetRequest<IAnimal[]>({ url: '/Animals' });
+    const {
+        data: animalData,
+        isLoading: isAnimalsLoading,
+        mutate: refreshAnimals,
+    } = useGetRequest<IAnimal[]>({ url: '/Animals' });
 
   return (
     <>
-      <div>
+      <div className={'flex flex-row justify-between'}>
         {!isTerrariumDataLoading ? (
           <h1 className={'text-3xl'}>{terrariumData?.name}</h1>
         ) : (
-          <Skeleton active={true} paragraph={false} />
+          <Skeleton active={true} paragraph={false} className={'w-24'} />
         )}
+
+        <NewAnimal />
       </div>
       <Divider></Divider>
       {animalData && animalData.length === 0 && <div className={'text-xl mb-4 ml-2'}>Add a new animal!</div>}

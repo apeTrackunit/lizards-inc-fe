@@ -1,12 +1,5 @@
-import { CSSProperties } from 'react';
 import { SliderMarks } from 'antd/es/slider';
 import { DisplayConfig } from '@lizards-inc-fe/model';
-
-export const style: CSSProperties = {
-  marginLeft: 70,
-  marginRight: 70,
-  marginTop: 20,
-};
 
 export const marksTemp: SliderMarks = {
   0: {
@@ -36,7 +29,7 @@ export const marksCO2: SliderMarks = {
   0: {
     label: DisplayConfig.co2.format(0),
   },
-  100: {
-    label: DisplayConfig.co2.format(100),
+  10000: {
+    label: DisplayConfig.co2.format(10000),
   },
 };
