@@ -12,6 +12,7 @@ export const AnimalDeleteButton = ({ onClick }: AnimalDeleteButtonProps) => {
         className={'flex flex-row justify-center items-center'}
         danger
         onClick={onClick}
+        data-testid={'animal-delete-button'}
         icon={<DeleteOutlined />}
       ></Button>
     </div>
