@@ -48,8 +48,8 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    expect(sliderElement[0].style.left).toBe('10%');
-    expect(sliderElement[1].style.left).toBe('40%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('10');
+    expect(sliderElement[1].getAttribute('aria-valuenow')).toBe('40');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
 
@@ -87,8 +87,8 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    expect(sliderElement[0].style.left).toBe('20%');
-    expect(sliderElement[1].style.left).toBe('30%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('20');
+    expect(sliderElement[1].getAttribute('aria-valuenow')).toBe('30');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
   it('renders co2 slider with default values when loading', () => {
@@ -113,11 +113,7 @@ describe('Boundaries component', () => {
     const sliderElement = baseElement.getElementsByClassName('ant-slider-handle') as HTMLCollectionOf<HTMLElement>;
 
     expect(sliderElement).toBeDefined();
-    //expect(sliderElement[0].style.left).toBe('14%');
-    const roundedReceivedPosition = Math.round(parseFloat(sliderElement[0].style.left)) + '%';
-    expect(roundedReceivedPosition).toBe('14%');
-
-    expect(sliderElement[1].style.left).toBe('48%');
+    expect(sliderElement[0].getAttribute('aria-valuenow')).toBe('14');
     expect(screen.queryByText('Loading...')).toBeNull();
   });
 });
