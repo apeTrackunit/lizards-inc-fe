@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import moment from 'moment';
 import { AnimalDeleteButton } from './AnimalDeleteButton';
 import { useDeleteRequest } from '@lizards-inc-fe/fetcher';
+
 import { useState } from 'react';
 
 interface AnimalCardProps {
