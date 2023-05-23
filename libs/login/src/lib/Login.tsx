@@ -1,12 +1,13 @@
-import { Button, Card } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Typography } from 'antd';
+import { Card } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
+import LoginChameleon from './assets/chamelion-min.png';
+import Vine from './assets/vine.png';
+import LoginLizard from './assets/lizard-min.png';
 
 interface IAuthServerRequest {
   code: string;
@@ -49,67 +50,47 @@ export const Login = () => {
   }, [data, authLogin, navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-white relative m-8">
+    <div className="flex justify-center items-center min-h-screen bg-white">
       <Card
         id={'login-card'}
         bordered={false}
-        style={{
-          width: 400,
-          height: 400,
-          backgroundColor: '#84fa84',
-          boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.5)',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          position: 'relative',
-          filter: 'drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.5))',
-        }}
+        className={
+          'flex flex-col justify-center items-center w-96 h-[22rem] bg-white drop-shadow-md border border-black/30'
+        }
       >
-        <Card
-          bordered={false}
+        <div
           id={'icon-card'}
-          style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            top: '-120px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            overflow: 'hidden',
-            backgroundColor: '#5DDE5D',
-          }}
+          className={'absolute top-0 left-0 tra w-full -translate-y-1/2 bg-transparent flex justify-center'}
         >
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <UserOutlined id={'user-icon'} style={{ fontSize: '120px', backgroundColor: '#5DDE5D' }} rev={undefined} />
+          <div className="h-40 w-40 bg-lime-100 rounded-[100%] overflow-hidden border border-black/30">
+            <img src={LoginChameleon} alt={'lizard img'} className={'-translate-x-3 translate-y-3'} />
           </div>
-        </Card>
+        </div>
 
-        <Typography.Title
-          id={'card-title'}
-          level={1}
-          style={{ textAlign: 'center', marginBottom: '40px', marginTop: '-80px', color: '#000000' }}
-        >
-          ReptiMate
-        </Typography.Title>
-        <Button
+        <div className={'m-1 flex justify-center pb-8'}>
+          <div className={'text-4xl'}>ReptiMate</div>
+        </div>
+        <button
           id={'login-button'}
-          style={{
-            width: '100%',
-            height: '60px',
-            backgroundColor: '#2fbb2f',
-            color: '#FFFFFF',
-            transition: 'background-color 0.3s',
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#084908';
-            (e.currentTarget as HTMLButtonElement).style.border = 'none';
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2fbb2f';
-          }}
           onClick={login}
+          color={'black'}
+          className={'w-72 h-10 bg-lime-100 hover:bg-lime-200 hover:text-black rounded-md border border-black/20 z-10'}
         >
-          {!isMutating ? 'LOGIN WITH GOOGLE' : 'Loading...'}
-        </Button>
+          {!isMutating ? (
+            <div className={'flex justify-around'}>
+              <img src={LoginLizard} alt={'Small gecko'} className={'w-8 h-8'} />
+              <div className={'font-medium justify-self-center flex items-center'}>CONTINUE WITH GOOGLE</div>
+              <img src={LoginLizard} alt={'Small gecko'} className={'w-8 h-8 invisible'} />
+            </div>
+          ) : (
+            'Loading...'
+          )}
+        </button>
+        <div id={'vine-card'} className={'absolute top-[13rem] left-0 -z-10'}>
+          <div className={'z-0'}>
+            <img src={Vine} alt={'Vine img'} />
+          </div>
+        </div>
       </Card>
     </div>
   );

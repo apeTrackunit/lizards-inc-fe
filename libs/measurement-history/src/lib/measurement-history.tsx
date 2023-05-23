@@ -9,6 +9,7 @@ import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { DisplayDateFormat, filterData, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
+import { ExportDataButton } from './components/ExportDataButton';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -108,6 +109,7 @@ export const MeasurementHistory = () => {
             />
           </div>
         </div>
+        <ExportDataButton measuredData={measurementRange} />
       </div>
       <Divider />
       <div className={'grid gap-2 max-w-full'}>
