@@ -33,16 +33,6 @@ const App = () => {
       label: `Home`,
     },
     {
-      key: RoutingTable.limitsAndBoundaries.root,
-      icon: <SlidersOutlined rev={undefined} />,
-      label: 'Limits and Boundaries',
-    },
-    {
-      key: 'history',
-      icon: <LineChartOutlined rev={undefined} />,
-      label: 'History',
-    },
-    {
       key: 'terrarium',
       icon: (
         <span
@@ -50,10 +40,20 @@ const App = () => {
             'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&page=1&position=15&origin=tag&related_id=1067907'
           }
         >
-          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} />
+          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} className={'w-3.5'} />
         </span>
       ),
       label: 'My Terrarium',
+    },
+    {
+      key: 'history',
+      icon: <LineChartOutlined rev={undefined} />,
+      label: 'History',
+    },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <SlidersOutlined rev={undefined} />,
+      label: 'Settings',
     },
   ];
   const handleResize = () => {
