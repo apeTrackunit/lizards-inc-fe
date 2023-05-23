@@ -50,7 +50,7 @@ export const MeasurementDiagramWithReferenceLine = ({
   return isLoading ? (
     <Skeleton.Avatar active={true} size={Math.min(width, height)} shape={'square'} className={'translate-x-4'} />
   ) : data && data.length > 0 ? (
-    <LineChart width={width} height={height} data={data}>
+    <LineChart width={width} height={height} data={data} className={'-translate-x-4'}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
       <YAxis />
