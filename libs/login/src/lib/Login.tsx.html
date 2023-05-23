@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/18</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/18</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
@@ -163,25 +163,9 @@
 <a name='L98'></a><a href='#L98'>98</a>
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,28 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Card } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Card } from 'antd';
 import { Typography } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
@@ -308,6 +271,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
+import LoginChameleon from './assets/chamelion-min.png';
+import Vine from './assets/vine.png';
+import LoginLizard from './assets/lizard-min.png';
 &nbsp;
 interface IAuthServerRequest {
   code: string;
@@ -350,67 +316,47 @@ export const Login = () =&gt; {
   }, [data, authLogin, navigate]);
 &nbsp;
   return (
-    &lt;div className="flex justify-center items-center h-screen bg-white relative m-8"&gt;
+    &lt;div className="flex justify-center items-center min-h-screen bg-white"&gt;
       &lt;Card
         id={'login-card'}
         bordered={false}
-        style={{
-          width: 400,
-          height: 400,
-          backgroundColor: '#84fa84',
-          boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.5)',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          position: 'relative',
-          filter: 'drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.5))',
-        }}
+        className={
+          'flex flex-col justify-center items-center w-96 h-[22rem] bg-white drop-shadow-md border border-black/30'
+        }
       &gt;
-        &lt;Card
-          bordered={false}
+        &lt;div
           id={'icon-card'}
-          style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            top: '-120px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            overflow: 'hidden',
-            backgroundColor: '#5DDE5D',
-          }}
+          className={'absolute top-0 left-0 tra w-full -translate-y-1/2 bg-transparent flex justify-center'}
         &gt;
-          &lt;div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"&gt;
-            &lt;UserOutlined id={'user-icon'} style={{ fontSize: '120px', backgroundColor: '#5DDE5D' }} /&gt;
+          &lt;div className="h-40 w-40 bg-lime-100 rounded-[100%] overflow-hidden border border-black/30"&gt;
+            &lt;img src={LoginChameleon} alt={'lizard img'} className={'-translate-x-3 translate-y-3'} /&gt;
           &lt;/div&gt;
-        &lt;/Card&gt;
+        &lt;/div&gt;
 &nbsp;
-        &lt;Typography.Title
-          id={'card-title'}
-          level={1}
-          style={{ textAlign: 'center', marginBottom: '40px', marginTop: '-80px', color: '#000000' }}
-        &gt;
-          ReptiMate
-        &lt;/Typography.Title&gt;
-        &lt;Button
+        &lt;div className={'m-1 flex justify-center pb-8'}&gt;
+          &lt;div className={'text-4xl'}&gt;ReptiMate&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button
           id={'login-button'}
-          style={{
-            width: '100%',
-            height: '60px',
-            backgroundColor: '#2fbb2f',
-            color: '#FFFFFF',
-            transition: 'background-color 0.3s',
-          }}
-          onMouseEnter={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#084908';</span>
-<span class="cstat-no" title="statement not covered" >            (e.currentTarget as HTMLButtonElement).style.border = 'none';</span>
-          }}
-          onMouseLeave={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2fbb2f';</span>
-          }}
           onClick={login}
+          color={'black'}
+          className={'w-72 h-10 bg-lime-100 hover:bg-lime-200 hover:text-black rounded-md border border-black/20 z-10'}
         &gt;
-          {!isMutating ? 'LOGIN WITH GOOGLE' : <span class="branch-1 cbranch-no" title="branch not covered" >'Loading...'}</span>
-        &lt;/Button&gt;
+          {!isMutating ? (
+            &lt;div className={'flex justify-around'}&gt;
+              &lt;img src={LoginLizard} alt={'Small gecko'} className={'w-8 h-8'} /&gt;
+              &lt;div className={'font-medium justify-self-center flex items-center'}&gt;CONTINUE WITH GOOGLE&lt;/div&gt;
+              &lt;img src={LoginLizard} alt={'Small gecko'} className={'w-8 h-8 invisible'} /&gt;
+            &lt;/div&gt;
+          ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >            'Loading...'</span>
+          )}
+        &lt;/button&gt;
+        &lt;div id={'vine-card'} className={'absolute top-[13rem] left-0 -z-10'}&gt;
+          &lt;div className={'z-0'}&gt;
+            &lt;img src={Vine} alt={'Vine img'} /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
       &lt;/Card&gt;
     &lt;/div&gt;
   );
@@ -424,7 +370,7 @@ export default Login;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-23T11:39:09.675Z
+                at 2023-05-23T13:39:16.317Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
