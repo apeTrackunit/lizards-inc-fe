@@ -10,6 +10,7 @@ import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
 
 interface IAuthServerRequest {
   code: string;
+  isDevSource: boolean;
 }
 export const Login = () => {
   const [codeResponse, setCodeResponse] = useState<CodeResponse>();
@@ -28,7 +29,10 @@ export const Login = () => {
 
   const { data, isMutating, trigger } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
     url: '/Authentication',
-    data: { code: codeResponse?.code ?? '' },
+    data: {
+      code: codeResponse?.code ?? '',
+      isDevSource: process.env.NX_ENVIRONMENT === 'dev',
+    },
   });
 
   useEffect(() => {
