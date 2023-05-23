@@ -6,7 +6,7 @@ import { useDeleteRequest } from '@lizards-inc-fe/fetcher';
 
 interface AnimalCardProps {
   animal: IAnimal;
-  triggerRefresh: () => any;
+  triggerRefresh: () => void;
 }
 
 export const AnimalCard = ({ animal, triggerRefresh }: AnimalCardProps) => {
