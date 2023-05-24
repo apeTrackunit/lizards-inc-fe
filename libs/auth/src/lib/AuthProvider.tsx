@@ -12,7 +12,7 @@ export interface AuthServerResponse {
 }
 
 export interface IAuthContext {
-  authenticated: boolean;
+  authenticated: boolean | undefined;
   login: (response: AuthServerResponse) => void;
   logout: () => void;
 }
@@ -23,7 +23,7 @@ interface Props {
   children: ReactNode;
 }
 export const AuthProvider = ({ children }: Props) => {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [authenticated, setAuthenticated] = useState<boolean>();
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem('auth-token') ?? '{}') as AuthServerResponse;
