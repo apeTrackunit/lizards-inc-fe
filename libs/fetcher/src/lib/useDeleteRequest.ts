@@ -2,6 +2,8 @@ import { AxiosRequestConfig } from 'axios';
 import { ApiUrl } from './ApiUrl';
 import { useMutateRequest } from './useMutateRequest';
 import { useAuthContext } from '@lizards-inc-fe/auth';
+import { useRedirectToError } from '@lizards-inc-fe/shared-components';
+import { useEffect } from 'react';
 
 interface IDeleteRequest<RequestBody, Params> {
   url: string;
@@ -14,6 +16,7 @@ export const useDeleteRequest = <Data = unknown, RequestBody = unknown, Params =
   params,
 }: IDeleteRequest<RequestBody, Params>) => {
   const { authenticated } = useAuthContext();
+  const { triggerErrorRedirect } = useRedirectToError();
 
   const deleteRequestConfig: AxiosRequestConfig<RequestBody> = {
     baseURL: ApiUrl,
@@ -29,5 +32,13 @@ export const useDeleteRequest = <Data = unknown, RequestBody = unknown, Params =
     deleteRequestConfig.params = params;
   }
 
-  return useMutateRequest<Data, Error>(authenticated ? deleteRequestConfig : null);
+  const response = useMutateRequest<Data, Error>(authenticated ? deleteRequestConfig : null);
+
+  useEffect(() => {
+    if (response.error?.response?.status) {
+      triggerErrorRedirect(response.error?.response?.status);
+    }
+  }, [response]);
+
+  return response;
 };
