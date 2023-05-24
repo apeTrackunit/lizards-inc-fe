@@ -1,5 +1,5 @@
-export const DisplayDateFormat = 'YYYY-MM-DD HH:mm:ss';
-export const DisplayDayFormat = 'YYYY-MM-DD';
+export const DisplayDateFormat = 'DD/MM/YYYY HH:mm:ss';
+export const DisplayDayFormat = 'DD/MM/YYYY';
 
 export interface ValueTypeConfig {
   format: (value: number) => string;

@@ -67,7 +67,7 @@ export const MeasurementHistory = () => {
     if (dateStatus.from == null || dateStatus.to == null) return;
 
     measurementRangeTrigger();
-  }, [dateStatus.from?.unix(), dateStatus.to?.unix()]);
+  }, [dateStatus, measurementRangeTrigger]);
 
   const pieChartData = useMemo(() => {
     return measurementRange && measurementRange.length > 0 && boundaries
@@ -93,22 +93,20 @@ export const MeasurementHistory = () => {
 
   return (
     <>
-      <div className={'flex gap-4 lg:gap-8 justify-between'}>
-        <div className={'flex flex-row'}>
-          <h1 className={'text-2xl font-bold'}>History</h1>
-          <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
-          <div className={'w-full bg-inherit z-10'}>
-            <div className={'flex items-center gap-10'}>
-              <FilterFilled />
-              <DatePicker.RangePicker
-                size={'large'}
-                use12Hours={false}
-                mode={['date', 'date']}
-                value={[dateStatus.from, dateStatus.to]}
-                onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
-                disabledDate={date => date.isAfter(dayjs())}
-              />
-            </div>
+      <div className={'flex gap-4 lg:gap-8'}>
+        <h1 className={'text-2xl font-bold'}>History</h1>
+        <Divider type={'vertical'} className={'h-10 max-md:hidden'} />
+        <div className={'w-full bg-inherit z-10'}>
+          <div className={'flex items-center gap-2'}>
+            <FilterFilled rev={undefined} />
+            <DatePicker.RangePicker
+              size={'large'}
+              use12Hours={false}
+              mode={['date', 'date']}
+              value={[dateStatus.from, dateStatus.to]}
+              onCalendarChange={val => val != null && setDateStatus({ from: val[0], to: val[1] })}
+              disabledDate={date => date.isAfter(dayjs())}
+            />
           </div>
         </div>
         <ExportDataButton measuredData={measurementRange} />

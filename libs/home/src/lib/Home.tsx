@@ -32,7 +32,7 @@ export const Home = () => {
 
   return (
     <div>
-      <h1 className={'text-2xl'}>Home</h1>
+      <h1 className={'text-2xl font-bold'}>Home</h1>
       <Divider />
       <div className={'flex flex-col'}>
         <h1 className={'font-medium text-lg'}>Current status</h1>
