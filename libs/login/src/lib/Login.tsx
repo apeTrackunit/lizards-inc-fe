@@ -40,7 +40,6 @@ export const Login = () => {
 
   useEffect(() => {
     if (codeResponse?.code) {
-      console.log('trigger');
       trigger()
         .then(() => setError(false))
         .catch(() => setError(true));
@@ -63,7 +62,11 @@ export const Login = () => {
             'It looks like we have encountered an error during login. If the error persists after many attempts, ' +
             'then please contact the developer team.'
           }
-          extraElement={<Button onClick={() => setError(false)}>Back to login</Button>}
+          extraElement={
+            <Button onClick={() => setError(false)} data-testid={'back-to-login'}>
+              Back to login
+            </Button>
+          }
         />
       </div>
     );
