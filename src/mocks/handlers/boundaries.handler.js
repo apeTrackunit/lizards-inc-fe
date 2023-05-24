@@ -8,7 +8,7 @@ let serverBoundaries = {
   humidityBoundaryMax: 20,
   humidityBoundaryMin: 5,
   cO2BoundaryMax: 40,
-  cO2BoundaryMin: 25,
+  cO2BoundaryMin: 6,
 };
 
 const handlers = [

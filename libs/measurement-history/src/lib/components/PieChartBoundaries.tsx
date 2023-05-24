@@ -55,7 +55,7 @@ export const PieChartBoundaries = ({ data, title, isLoading }: IPieChartBoundari
     <div className={'xl:h-60 h-52'}>
       <div className={'text-lg hidden xl:inline'}>{title}</div>
       {!isLoading ? (
-        data && data.length !== 0 ? (
+        data && data.length > 0 ? (
           <PieChart width={220} height={220}>
             <Pie
               data={data}

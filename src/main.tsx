@@ -10,6 +10,7 @@ import { MeasurementHistory } from '@lizards-inc-fe/measurement-history';
 import { RequireAuth } from '@lizards-inc-fe/login';
 import { AuthProvider } from '@lizards-inc-fe/auth';
 import { LimitsAndBoundaries } from '@lizards-inc-fe/limits-and-boundaries';
+import { Terrarium } from '@lizards-inc-fe/terrarium';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,9 +28,8 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
       </Route>
 
-      <Route path={RoutingTable.animals.root}>
-        <Route index element={<h1>Animals</h1>} />
-        <Route path={RoutingTable.animals.detail.edit} element={<h1>Edit animal</h1>} />
+      <Route path={RoutingTable.terrarium.root}>
+        <Route index element={<Terrarium />} />
       </Route>
 
       <Route path={RoutingTable.history.root}>

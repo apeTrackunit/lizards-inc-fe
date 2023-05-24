@@ -2,13 +2,19 @@ import { Button, Drawer, Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { SlidersOutlined, LogoutOutlined, TableOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {
+  SlidersOutlined,
+  LogoutOutlined,
+  LineChartOutlined,
+  HomeOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 import { useAuthContext } from '@lizards-inc-fe/auth';
-
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,23 +29,31 @@ const App = () => {
   const items: ItemType[] = [
     {
       key: `home`,
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined rev={undefined} />,
       label: `Home`,
     },
     {
-      key: `animals`,
-      icon: <TwitterOutlined />,
-      label: `Animals`,
-    },
-    {
-      key: RoutingTable.limitsAndBoundaries.root,
-      icon: <SlidersOutlined />,
-      label: 'Limits and Boundaries'
+      key: 'terrarium',
+      icon: (
+        <span
+          title={
+            'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&page=1&position=15&origin=tag&related_id=1067907'
+          }
+        >
+          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} className={'w-3.5'} />
+        </span>
+      ),
+      label: 'My Terrarium',
     },
     {
       key: 'history',
-      icon: <TableOutlined />,
+      icon: <LineChartOutlined rev={undefined} />,
       label: 'History',
+    },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: <SlidersOutlined rev={undefined} />,
+      label: 'Settings',
     },
   ];
   const handleResize = () => {
@@ -65,7 +79,7 @@ const App = () => {
           <div className={'flex'}>
             {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
             <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>
-              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              {collapsed ? <MenuUnfoldOutlined rev={undefined} /> : <MenuFoldOutlined rev={undefined} />}
             </div>
           </div>
           <div className={'flex gap-3'}>
@@ -74,7 +88,7 @@ const App = () => {
               shape={'circle'}
               type={'text'}
               className={'flex flex-row justify-center items-center'}
-              icon={<LogoutOutlined />}
+              icon={<LogoutOutlined rev={undefined} />}
               title={'Logout'}
               onClick={logout}
             />

@@ -1,5 +1,5 @@
-export const DisplayDateFormat = 'YYYY-MM-DD HH:mm:ss';
-export const DisplayDayFormat = 'YYYY-MM-DD';
+export const DisplayDateFormat = 'DD/MM/YYYY HH:mm:ss';
+export const DisplayDayFormat = 'DD/MM/YYYY';
 
 export interface ValueTypeConfig {
   format: (value: number) => string;
@@ -14,11 +14,11 @@ interface IDisplayConfig {
 
 export const DisplayConfig: IDisplayConfig = {
   temperature: {
-    format: temperature => roundValue(temperature, 2) + ' °C',
+    format: temperature => roundValue(temperature, 2) + '°C',
     hexColor: '#e30000',
   },
   humidity: {
-    format: humidity => roundValue(humidity, 2) + ' %',
+    format: humidity => roundValue(humidity, 2) + '%',
     hexColor: '#00f',
   },
   co2: {

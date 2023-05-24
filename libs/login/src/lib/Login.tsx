@@ -1,5 +1,4 @@
 import { Card } from 'antd';
-import { Typography } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { useEffect, useState } from 'react';

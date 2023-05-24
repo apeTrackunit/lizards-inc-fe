@@ -25,6 +25,7 @@ interface MeasurementDiagramWithReferenceLineProps {
 
 class CustomizedAxisTick extends PureComponent {
   render() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { x, y, payload } = this.props;
 
@@ -49,7 +50,7 @@ export const MeasurementDiagramWithReferenceLine = ({
 }: MeasurementDiagramWithReferenceLineProps) => {
   return isLoading ? (
     <Skeleton.Avatar active={true} size={Math.min(width, height)} shape={'square'} className={'translate-x-4'} />
-  ) : (
+  ) : data && data.length > 0 ? (
     <LineChart width={width} height={height} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
@@ -62,5 +63,7 @@ export const MeasurementDiagramWithReferenceLine = ({
       <Line type="monotone" dataKey="data" dot={false} stroke={dataColor} name={dataName} />
       <ReferenceDot r={1} fill="blue" stroke="none" />
     </LineChart>
+  ) : (
+    <div className={'flex justify-center items-center h-full translate-x-3'}>No data</div>
   );
 };
