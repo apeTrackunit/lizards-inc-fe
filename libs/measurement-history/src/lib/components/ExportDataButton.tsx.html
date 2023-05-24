@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/20</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/18</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,36 +118,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,32 +164,32 @@ interface exportDataButtonProps {
 }
 export const ExportDataButton = ({ measuredData }: exportDataButtonProps) =&gt; {
   const [exporting, setExporting] = useState(false);
-  const exportData = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (measuredData === undefined || measuredData.length === 0) {</span>
+  const exportData = () =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (measuredData === undefined || measuredData.length === 0) {
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
-<span class="cstat-no" title="statement not covered" >    setExporting(true);</span>
-    const csvData = <span class="cstat-no" title="statement not covered" >convertToCSV(measuredData);</span>
-<span class="cstat-no" title="statement not covered" >    downloadCSV(csvData);</span>
-<span class="cstat-no" title="statement not covered" >    setExporting(false);</span>
+    setExporting(true);
+    const csvData = convertToCSV(measuredData);
+    downloadCSV(csvData);
+    setExporting(false);
   };
 &nbsp;
-  const convertToCSV = <span class="fstat-no" title="function not covered" >(d</span>ata: IMeasurement[]) =&gt; {
-    const headers = <span class="cstat-no" title="statement not covered" >['Date', 'Temperature', 'Humidity', 'CO2'];</span>
-    const rows = <span class="cstat-no" title="statement not covered" >data.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+  const convertToCSV = (data: IMeasurement[]) =&gt; {
+    const headers = ['Date', 'Temperature', 'Humidity', 'CO2'];
+    const rows = data.map(d =&gt; [
       moment(d.dateTime).format('HH:mm:ss YYYY-MM-DD'),
       roundValue(d.temperature, 2),
       roundValue(d.humidity, 2),
       roundValue(d.co2, 2),
     ]);
 &nbsp;
-    const csvContent = <span class="cstat-no" title="statement not covered" >headers.join(',') + '\n' + rows.map(<span class="fstat-no" title="function not covered" >ro</span>w =&gt; <span class="cstat-no" title="statement not covered" >row.join(','))</span>.join('\n');</span>
-<span class="cstat-no" title="statement not covered" >    return csvContent;</span>
+    const csvContent = headers.join(',') + '\n' + rows.map(row =&gt; row.join(',')).join('\n');
+    return csvContent;
   };
 &nbsp;
-  const downloadCSV = <span class="fstat-no" title="function not covered" >(c</span>svData: string) =&gt; {
-    const blob = <span class="cstat-no" title="statement not covered" >new Blob([csvData], { type: 'text/csv;charset=utf-8;' });</span>
-<span class="cstat-no" title="statement not covered" >    saveAs(blob, 'History of measured data.csv');</span>
+  const downloadCSV = (csvData: string) =&gt; {
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'History of measured data.csv');
   };
 &nbsp;
   return (
@@ -205,7 +205,7 @@ export const ExportDataButton = ({ measuredData }: exportDataButtonProps) =&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-23T13:39:16.317Z
+                at 2023-05-24T08:22:58.720Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

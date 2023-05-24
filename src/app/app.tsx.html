@@ -200,7 +200,27 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,6 +243,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,13 +369,19 @@
 import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { SlidersOutlined, LogoutOutlined, TableOutlined, HomeOutlined, TwitterOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {
+  SlidersOutlined,
+  LogoutOutlined,
+  LineChartOutlined,
+  HomeOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {RoutingTable} from "@lizards-inc-fe/shared-components";
+import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 import { useAuthContext } from '@lizards-inc-fe/auth';
-&nbsp;
 &nbsp;
 const App = () =&gt; {
   const [collapsed, setCollapsed] = useState(false);
@@ -362,23 +396,31 @@ const App = () =&gt; {
   const items: ItemType[] = [
     {
       key: `home`,
-      icon: &lt;HomeOutlined /&gt;,
+      icon: &lt;HomeOutlined rev={undefined} /&gt;,
       label: `Home`,
     },
     {
-      key: `animals`,
-      icon: &lt;TwitterOutlined /&gt;,
-      label: `Animals`,
-    },
-    {
-      key: RoutingTable.limitsAndBoundaries.root,
-      icon: &lt;SlidersOutlined /&gt;,
-      label: 'Limits and Boundaries'
+      key: 'terrarium',
+      icon: (
+        &lt;span
+          title={
+            'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&amp;page=1&amp;position=15&amp;origin=tag&amp;related_id=1067907'
+          }
+        &gt;
+          &lt;img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} className={'w-3.5'} /&gt;
+        &lt;/span&gt;
+      ),
+      label: 'My Terrarium',
     },
     {
       key: 'history',
-      icon: &lt;TableOutlined /&gt;,
+      icon: &lt;LineChartOutlined rev={undefined} /&gt;,
       label: 'History',
+    },
+    {
+      key: RoutingTable.limitsAndBoundaries.root,
+      icon: &lt;SlidersOutlined rev={undefined} /&gt;,
+      label: 'Settings',
     },
   ];
   const handleResize = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
@@ -404,7 +446,7 @@ const App = () =&gt; {
           &lt;div className={'flex'}&gt;
             {pageWidth &gt; 576 &amp;&amp; &lt;div className={'font-bold text-lg mr-4'}&gt;ReptiMate&lt;/div&gt;}
             &lt;div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}&gt;
-              {collapsed ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;MenuUnfoldOutlined /&gt; </span>: &lt;MenuFoldOutlined /&gt;}
+              {collapsed ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;MenuUnfoldOutlined rev={undefined} /&gt; </span>: &lt;MenuFoldOutlined rev={undefined} /&gt;}
             &lt;/div&gt;
           &lt;/div&gt;
           &lt;div className={'flex gap-3'}&gt;
@@ -413,7 +455,7 @@ const App = () =&gt; {
               shape={'circle'}
               type={'text'}
               className={'flex flex-row justify-center items-center'}
-              icon={&lt;LogoutOutlined /&gt;}
+              icon={&lt;LogoutOutlined rev={undefined} /&gt;}
               title={'Logout'}
               onClick={logout}
             /&gt;
@@ -481,7 +523,7 @@ export default App;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-23T13:39:16.317Z
+                at 2023-05-24T08:22:58.720Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

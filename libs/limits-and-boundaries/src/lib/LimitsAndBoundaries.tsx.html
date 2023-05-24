@@ -160,20 +160,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,82 +244,82 @@ import { useGetRequest } from '@lizards-inc-fe/fetcher';
 import { Limits } from './components/Limits';
 import { marksHum, marksTemp, marksCO2 } from './components/MarksAndStyle';
 import { IBoundaries, ILimits } from './components/Interfaces';
-import {BoundariesSlider} from "./components/BoundariesSlider";
+import { BoundariesSlider } from './components/BoundariesSlider';
 &nbsp;
 const LimitsAndBoundaries = () =&gt; {
-  const {
-    data: boundariesData,
-    isLoading: boundariesLoading,
-    mutate: mutateBoundaries,
-  } = useGetRequest&lt;IBoundaries&gt;({
+  const { data: boundariesData } = useGetRequest&lt;IBoundaries&gt;({
     url: 'Terrarium/boundaries',
   });
-  const {
-    data: limitsData,
-    isLoading: limitsLoading,
-    mutate: mutateLimits,
-  } = useGetRequest&lt;ILimits&gt;({ url: 'Terrarium/limits' });
+  const { data: limitsData, isLoading: limitsLoading } = useGetRequest&lt;ILimits&gt;({ url: 'Terrarium/limits' });
 &nbsp;
   return (
-    &lt;div&gt;
-      &lt;div&gt;
-        &lt;div className="flex"&gt;
-          &lt;p className="text-4xl"&gt;Limits&lt;/p&gt;
-          &lt;div className="pl-2"&gt;
-            &lt;Tooltip
-              title={
-                &lt;div className="text-black"&gt;
-                  Used for selecting the temperature at which the cooling and heating should start working.
-                &lt;/div&gt;
-              }
-              placement="right"
-              color="white"
-            &gt;
-              &lt;InfoCircleOutlined /&gt;
-            &lt;/Tooltip&gt;
+    &lt;&gt;
+      &lt;h1 className={'text-2xl font-bold'}&gt;Settings&lt;/h1&gt;
+      &lt;Divider /&gt;
+&nbsp;
+      &lt;div className={'flex flex-col gap-12'}&gt;
+        &lt;div className={'flex flex-col gap-6'}&gt;
+          &lt;div className="flex flex-row"&gt;
+            &lt;p className="text-xl"&gt;Limits&lt;/p&gt;
+            &lt;div className="pl-2"&gt;
+              &lt;Tooltip
+                title={
+                  &lt;div className="text-black"&gt;
+                    Used for selecting the temperature at which the cooling and heating should start working.
+                  &lt;/div&gt;
+                }
+                placement="right"
+                color="white"
+              &gt;
+                &lt;InfoCircleOutlined rev={undefined} /&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+&nbsp;
+          &lt;div className={'px-6'}&gt;
+            &lt;Limits limitsData={limitsData} limitsLoading={limitsLoading} /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
-        &lt;Divider /&gt;
-        &lt;Limits limitsData={limitsData} limitsLoading={limitsLoading} /&gt;
-      &lt;/div&gt;
-      &lt;div&gt;
-        &lt;div className="flex pt-7"&gt;
-          &lt;p className="text-4xl"&gt;Boundaries&lt;/p&gt;
-          &lt;div className="pl-2"&gt;
-            &lt;Tooltip
-              title={
-                &lt;div className="text-black"&gt;
-                  Used for selecting the temperature, humidity, or levels of CO at which you want to receive
-                  notifications.
-                &lt;/div&gt;
-              }
-              placement="right"
-              color="white"
-            &gt;
-              &lt;InfoCircleOutlined /&gt;
-            &lt;/Tooltip&gt;
+&nbsp;
+        &lt;div className={'flex flex-col gap-6'}&gt;
+          &lt;div className="flex flex-row"&gt;
+            &lt;p className="text-xl"&gt;Boundaries&lt;/p&gt;
+            &lt;div className="pl-2"&gt;
+              &lt;Tooltip
+                title={
+                  &lt;div className="text-black"&gt;
+                    Used for selecting the temperature, humidity, or levels of CO at which you want to receive
+                    notifications.
+                  &lt;/div&gt;
+                }
+                placement="right"
+                color="white"
+              &gt;
+                &lt;InfoCircleOutlined rev={undefined} /&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+&nbsp;
+          &lt;div className="flex flex-col px-6 gap-4"&gt;
+            &lt;BoundariesSlider
+              title="Temperature"
+              marks={marksTemp}
+              boundariesData={boundariesData}
+              max={150}
+              type="temperature"
+            /&gt;
+            &lt;BoundariesSlider
+              title="Humidity"
+              marks={marksHum}
+              boundariesData={boundariesData}
+              max={100}
+              type="humidity"
+            /&gt;
+            &lt;BoundariesSlider title="CO2" marks={marksCO2} boundariesData={boundariesData} max={10000} type="co2" /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
-        &lt;Divider /&gt;
-        &lt;div className="flex flex-col md:ml-4 lg:flex-col lg:mt-4"&gt;
-          &lt;BoundariesSlider
-            title="Temperature"
-            marks={marksTemp}
-            boundariesData={boundariesData}
-            max={150}
-            type="temperature"
-          /&gt;
-          &lt;BoundariesSlider
-            title="Humidity"
-            marks={marksHum}
-            boundariesData={boundariesData}
-            max={100}
-            type="humidity"
-          /&gt;
-          &lt;BoundariesSlider title="CO2" marks={marksCO2} boundariesData={boundariesData} max={100} type="co2" /&gt;
-        &lt;/div&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
+    &lt;/&gt;
   );
 };
 &nbsp;
@@ -331,7 +331,7 @@ export { LimitsAndBoundaries };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-23T13:39:16.317Z
+                at 2023-05-24T08:22:58.720Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
