@@ -9,11 +9,13 @@ interface IPostRequest<RequestBody, Params> {
   url: string;
   data?: RequestBody;
   params?: Params;
+  autoErrorRedirect?: boolean;
 }
 export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = unknown, Error = unknown>({
   url,
   data,
   params,
+  autoErrorRedirect = true,
 }: IPostRequest<RequestBody, Params>) => {
   const { authenticated } = useAuthContext();
   const { triggerErrorRedirect } = useRedirectToError();
@@ -39,10 +41,10 @@ export const usePostRequest = <Data = unknown, RequestBody = unknown, Params = u
   const response = useMutateRequest<Data, Error>(authenticated || isException ? postRequestConfig : null);
 
   useEffect(() => {
-    if (response.error?.response?.status) {
+    if (response.error?.response?.status && autoErrorRedirect) {
       triggerErrorRedirect(response.error?.response?.status);
     }
-  }, [response]);
+  }, [response, autoErrorRedirect]);
 
   return response;
 };
