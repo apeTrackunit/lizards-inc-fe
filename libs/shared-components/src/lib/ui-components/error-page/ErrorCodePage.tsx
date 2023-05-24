@@ -28,9 +28,9 @@ export const ErrorCodePage = ({ errorCode }: ErrorCodePageProps) => {
       description: 'There was a problem processing the request. Please reload the page and try again!',
     },
     '401': {
-      title: "Error 401 - We don't know who you are",
+      title: 'Error 401 - Login Expired',
       description:
-        "It looks like you are not appropriately logged in. Try to sign out and sign in again. If that doesn't help, press this button for a hard reset: ",
+        'It looks like your log-in session has expired. Please log out and log in again. If you are experiencing the same issue, press teh button below for a hard reset.',
       extraElement: (
         <Button danger={true} type={'primary'} onClick={() => localStorage.clear()}>
           Hard Reset

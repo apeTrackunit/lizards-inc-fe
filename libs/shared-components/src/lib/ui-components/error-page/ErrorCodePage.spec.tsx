@@ -41,10 +41,10 @@ describe('ErrorCodePage', () => {
   it('renders correct error page for error code 401', () => {
     render(<ErrorCodePage errorCode={401} />);
 
-    expect(screen.getByText("Error 401 - We don't know who you are")).toBeTruthy();
+    expect(screen.getByText('Error 401 - Login Expired')).toBeTruthy();
     expect(
       screen.getByText(
-        "It looks like you are not appropriately logged in. Try to sign out and sign in again. If that doesn't help, press this button for a hard reset:"
+        'It looks like your log-in session has expired. Please log out and log in again. If you are experiencing the same issue, press teh button below for a hard reset.'
       )
     ).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Hard Reset' })).toBeTruthy();
