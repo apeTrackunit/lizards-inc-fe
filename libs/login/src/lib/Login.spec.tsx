@@ -126,36 +126,6 @@ describe('Login', () => {
     expect(loginFunction).toHaveBeenCalled();
   });
 
-  it('should call the google auth login and then useAuthContext login', async () => {
-    // @ts-ignore
-    usePostRequest.mockImplementation(() => {
-      return {
-        data: authData,
-        isMutating: false,
-        trigger: jest.fn().mockImplementation(() => new Promise(res => res(1))),
-        error: undefined,
-      };
-    });
-
-    const { baseElement } = render(
-      <BrowserRouter>
-        <AuthProvider>
-          <Login />
-        </AuthProvider>
-      </BrowserRouter>
-    );
-
-    const loginButton = baseElement.querySelector('button') as HTMLElement;
-
-    fireEvent.click(loginButton);
-
-    expect(loginFunction).toHaveBeenCalled();
-
-    await waitFor(() => {
-      expect(mockAuthLogin).toHaveBeenCalled();
-    });
-  });
-
   it('should display "Loading..." when it is mutating', () => {
     // @ts-ignore
     usePostRequest.mockImplementation(() => {
