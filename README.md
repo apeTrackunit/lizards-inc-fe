@@ -1,8 +1,8 @@
-# LizardsIncFe
+# ReptiMate
 
 [![Master workflow](https://github.com/apeTrackunit/lizards-inc-fe/actions/workflows/master-push.yaml/badge.svg?branch=master)](https://github.com/apeTrackunit/lizards-inc-fe/actions/workflows/master-push.yaml)
 
-The project is about SEP4 where we create an app for lizards management.
+The project is for course SEP4 where we create an app for moitoring the environment inside terrariums.
 
 ## Links
 - Website available on: https://reptimate.netlify.app/
@@ -14,7 +14,7 @@ Always use the name of the story (eg: "SFE-6/redesign-login-button").
 
 ## Development server
 
-Run `nx serve LizardsIncFe` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `nx serve ` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Understand this workspace
 
