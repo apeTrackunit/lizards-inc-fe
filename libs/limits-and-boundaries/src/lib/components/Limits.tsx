@@ -61,7 +61,9 @@ export const Limits = ({ limitsData }: { limitsData: ILimits | undefined; limits
 
   return (
     <div>
-      <p className="text-lg text-zinc-500">Temperature</p>
+      <p className="text-lg text-zinc-500">
+        Temperature ({limitsData?.temperatureLimitMin} - {limitsData?.temperatureLimitMax})
+      </p>
       {contextHolder}
 
       <div className={'w-full'}>
