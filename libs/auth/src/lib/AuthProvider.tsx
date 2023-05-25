@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }: Props) => {
     const auth = JSON.parse(localStorage.getItem('auth-token') ?? '{}') as AuthServerResponse;
 
     if (auth.id_token) {
-      console.log('Token attached');
       setAuthenticated(true);
       axios.defaults.headers.common = {
         Authorization: `Bearer ${auth.id_token}`,
