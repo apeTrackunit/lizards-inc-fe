@@ -6,6 +6,7 @@ import HumidityIcon from './assets/humidity-icon.png';
 import moment from 'moment';
 import { MeasurementContainer } from './components/MeasurementContainer';
 import {
+  ApiDateFormat,
   DisplayConfig,
   DisplayDateFormat,
   filterData,
@@ -14,6 +15,7 @@ import {
   roundValue,
 } from '@lizards-inc-fe/model';
 import dayjs from 'dayjs';
+import { useMemo } from 'react';
 
 export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
@@ -22,13 +24,21 @@ export const Home = () => {
   const { data: boundaries } = useGetRequest<IBoundary>({
     url: '/Terrarium/boundaries',
   });
-  const { data: measurementRange } = useGetRequest<IMeasurement[]>({
+  const { data: measurementRangeResponseData } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
-      dateFrom: dayjs().subtract(7, 'day').format('YYYY-MM-DD HH:mm:ss'),
-      dateTo: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      dateFrom: dayjs().subtract(7, 'day').format(ApiDateFormat),
+      dateTo: dayjs().format(ApiDateFormat),
     },
   });
+
+  const measurementRange = useMemo(() => {
+    if (measurementRangeResponseData)
+      measurementRangeResponseData.sort(
+        (a, b) => moment(a.dateTime, ApiDateFormat).unix() - moment(b.dateTime, ApiDateFormat).unix()
+      );
+    return measurementRangeResponseData;
+  }, [measurementRangeResponseData]);
 
   return (
     <div>
