@@ -78,7 +78,7 @@ const App = () => {
         <div className={'flex justify-between w-full md:mr-2'}>
           <div className={'flex'}>
             {pageWidth > 576 && <div className={'font-bold text-lg mr-4'}>ReptiMate</div>}
-            <div className={'sm:mb-1 mt-0.5'} onClick={handleSideBarCollapseClick}>
+            <div className={'sm:mb-1 mt-0.5 cursor-pointer'} onClick={handleSideBarCollapseClick}>
               {collapsed ? <MenuUnfoldOutlined rev={undefined} /> : <MenuFoldOutlined rev={undefined} />}
             </div>
           </div>

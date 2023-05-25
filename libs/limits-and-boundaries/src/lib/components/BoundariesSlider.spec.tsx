@@ -3,6 +3,8 @@ import { BoundariesSlider } from './BoundariesSlider';
 import { marksCO2, marksHum, marksTemp } from './MarksAndStyle';
 import { AuthProvider } from '@lizards-inc-fe/auth';
 
+jest.mock('react-router-dom');
+
 describe('Boundaries component', () => {
   const boundariesData = {
     id: '1',

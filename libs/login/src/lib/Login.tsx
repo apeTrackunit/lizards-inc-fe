@@ -1,9 +1,9 @@
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RoutingTable } from '@lizards-inc-fe/shared-components';
+import { ErrorPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
 import LoginChameleon from './assets/chamelion-min.png';
 import Vine from './assets/vine.png';
@@ -15,6 +15,7 @@ interface IAuthServerRequest {
 }
 export const Login = () => {
   const [codeResponse, setCodeResponse] = useState<CodeResponse>();
+  const [isError, setError] = useState(false);
 
   const { login: authLogin } = useAuthContext();
   const navigate = useNavigate();
@@ -28,17 +29,18 @@ export const Login = () => {
     ux_mode: 'popup',
   });
 
-  const { data, isMutating, trigger } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
+  const { data, isMutating, trigger, error } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
     url: '/Authentication',
     data: {
       code: codeResponse?.code ?? '',
       isDevSource: process.env.NX_ENVIRONMENT === 'dev',
     },
+    autoErrorRedirect: false,
   });
 
   useEffect(() => {
     if (codeResponse?.code) {
-      trigger();
+      trigger().catch(() => setError(true));
     }
   }, [codeResponse, trigger]);
 
@@ -48,6 +50,25 @@ export const Login = () => {
       navigate(RoutingTable.root);
     }
   }, [data, authLogin, navigate]);
+
+  if (isError) {
+    return (
+      <div className={'h-screen flex items-center justify-center'}>
+        <ErrorPage
+          title={`Error ${error?.response?.status} - Login Error`}
+          description={
+            'It looks like we have encountered an error during login. If the error persists after many attempts, ' +
+            'then please contact the developer team.'
+          }
+          extraElement={
+            <Button onClick={() => setError(false)} data-testid={'back-to-login'}>
+              Back to login
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">

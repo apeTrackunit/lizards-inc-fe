@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
 import { SWRConfig } from 'swr';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import { NotFoundPage, RoutingTable } from '@lizards-inc-fe/shared-components';
+import { ErrorCodePage, ErrorParamsPage, RoutingTable } from '@lizards-inc-fe/shared-components';
 import { Home } from '@lizards-inc-fe/home';
 import { MeasurementHistory } from '@lizards-inc-fe/measurement-history';
 import { RequireAuth } from '@lizards-inc-fe/login';
@@ -40,7 +40,8 @@ const router = createBrowserRouter(
         <Route index element={<LimitsAndBoundaries />} />
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/error/:code" element={<ErrorParamsPage />} />
+      <Route path="*" element={<ErrorCodePage errorCode={404} />} />
     </Route>
   )
 );

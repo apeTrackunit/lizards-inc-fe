@@ -9,6 +9,8 @@ jest.mock('@lizards-inc-fe/fetcher', () => ({
   usePutRequest: jest.fn(() => ({ trigger: jest.fn() })),
 }));
 
+jest.mock('react-router-dom');
+
 describe('NotificationCenter', () => {
   beforeEach(() => {
     jest.clearAllMocks();

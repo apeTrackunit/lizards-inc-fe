@@ -12,7 +12,7 @@ export interface AuthServerResponse {
 }
 
 export interface IAuthContext {
-  authenticated?: boolean;
+  authenticated: boolean | undefined;
   login: (response: AuthServerResponse) => void;
   logout: () => void;
 }
