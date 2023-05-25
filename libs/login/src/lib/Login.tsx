@@ -29,7 +29,7 @@ export const Login = () => {
     ux_mode: 'popup',
   });
 
-  const { isMutating, trigger, error } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
+  const { data, isMutating, trigger, error } = usePostRequest<AuthServerResponse, IAuthServerRequest>({
     url: '/Authentication',
     data: {
       code: codeResponse?.code ?? '',
@@ -37,18 +37,12 @@ export const Login = () => {
     },
     autoErrorRedirect: false,
   });
-  const [data, setData] = useState<AuthServerResponse>();
 
   useEffect(() => {
     if (codeResponse?.code) {
-      trigger()
-        .then(res => {
-          setError(false);
-          setData(res?.data);
-        })
-        .catch(() => setError(true));
+      trigger().catch(() => setError(true));
     }
-  }, [codeResponse, trigger, data]);
+  }, [codeResponse, trigger]);
 
   useEffect(() => {
     if (data) {
