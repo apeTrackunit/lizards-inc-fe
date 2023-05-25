@@ -10,5 +10,5 @@ interface HistoryTableProps {
 export const HistoryTable = ({ data, isLoading }: HistoryTableProps) => {
   const { columns } = useHistoricTableColumns({ data });
 
-  return <Table scroll={{ y: 250, x: 500 }} columns={columns} dataSource={data} loading={isLoading} />;
+  return <Table scroll={{ y: 250, x: 400 }} columns={columns} dataSource={data} loading={isLoading} />;
 };
