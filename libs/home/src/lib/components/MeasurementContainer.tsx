@@ -1,6 +1,6 @@
 import { MeasurementCard } from './MeasurementCard';
 import { DiagramData, DiagramLine, MeasurementDiagramWithReferenceLine } from './MeasurementDiagramWithReferenceLine';
-import { Button, Card } from 'antd';
+import { Button } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { CardElement } from '@lizards-inc-fe/shared-components';
 
@@ -97,10 +97,7 @@ export const MeasurementContainer = ({ title, cardConfig, diagramConfig, userDat
         <Button onClick={toggleDiagram} className={'xl:hidden'}>
           History Diagram
         </Button>
-        <div
-          data-testid={'measurement-diagram'}
-          className={'xl:block -translate-x-4' + (diagramVisible ? ' block' : ' hidden')}
-        >
+        <div data-testid={'measurement-diagram'} className={'xl:block' + (diagramVisible ? ' block' : ' hidden')}>
           <MeasurementDiagramWithReferenceLine
             height={250}
             width={350}

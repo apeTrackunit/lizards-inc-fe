@@ -2,6 +2,8 @@ import { AuthProvider } from '@lizards-inc-fe/auth';
 import { render } from '@testing-library/react';
 import { Limits } from './Limits';
 
+jest.mock('react-router-dom');
+
 describe('Limits component', () => {
   it('renders temperature slider with default values when loading', () => {
     const limitsData = undefined;

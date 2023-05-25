@@ -9,5 +9,9 @@ interface RequireAuthProps {
 export const RequireAuth = ({ children }: RequireAuthProps): JSX.Element => {
   const { authenticated } = useAuthContext();
 
+  if (authenticated === undefined) {
+    return <div></div>;
+  }
+
   return authenticated ? <div>{children}</div> : <Login />;
 };

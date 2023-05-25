@@ -19,11 +19,13 @@ export const Home = () => {
   const { data: latestMeasurement, isLoading: isLatestMeasurementLoading } = useGetRequest<IMeasurement>({
     url: '/Measurements/latest',
   });
-  const { data: boundaries } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
+  const { data: boundaries } = useGetRequest<IBoundary>({
+    url: '/Terrarium/boundaries',
+  });
   const { data: measurementRange } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
-      dateFrom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+      dateFrom: dayjs().subtract(7, 'day').format('YYYY-MM-DD'),
       dateTo: dayjs().format('YYYY-MM-DD'),
     },
   });
