@@ -47,7 +47,7 @@ export const NewAnimalForm = ({ form, onSave, onCancel, onColorChanged, notifica
   );
 
   useEffect(() => {
-    onColorChanged(colorText.length === 7 ? `${colorText}41` : `${colorText.substring(0, 7)}41`);
+    onColorChanged(colorText.length === 7 ? `${colorText}20` : `${colorText.substring(0, 7)}20`);
   }, [onColorChanged, colorText]);
 
   const onSaveForm = () => {
