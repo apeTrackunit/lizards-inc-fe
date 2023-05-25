@@ -11,7 +11,7 @@ Technologies used:
 
 ## Links
 - Website available on: https://reptimate.netlify.app/
-- Test coverage available on: https://apetrackunit.github.io/lizards-inc-fe/2
+- Test coverage available on: https://apetrackunit.github.io/lizards-inc-fe/
 
 Note: 
 To use the deployed page, go to site settings, and set the 'Insecure content' to allow.
