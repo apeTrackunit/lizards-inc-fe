@@ -49,7 +49,7 @@ const LimitsAndBoundaries = () => {
               <Tooltip
                 title={
                   <div className="text-black">
-                    Used for selecting the temperature, humidity, or levels of CO at which you want to receive
+                    Used for selecting the temperature, humidity, or levels of CO2 at which you want to receive.
                     notifications.
                   </div>
                 }
