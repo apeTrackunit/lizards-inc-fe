@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { RoutingTable } from '@lizards-inc-fe/shared-components';
 import { NotificationCenter } from '@lizards-inc-fe/notifcation-center';
 import { useAuthContext } from '@lizards-inc-fe/auth';
+import TerrariumOutlined from './TerrariumOutlined';
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -40,7 +41,7 @@ const App = () => {
             'Got it from https://www.flaticon.com/free-icon/terrarium_1067907?term=terrarium&page=1&position=15&origin=tag&related_id=1067907'
           }
         >
-          <img src={'/assets/terrarium.png'} alt={'Terrarium Icon'} className={'w-3.5'} />
+          <TerrariumOutlined />
         </span>
       ),
       label: 'My Terrarium',
