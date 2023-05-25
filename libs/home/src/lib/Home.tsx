@@ -25,8 +25,8 @@ export const Home = () => {
   const { data: measurementRange } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
-      dateFrom: dayjs().subtract(7, 'day').format('YYYY-MM-DD'),
-      dateTo: dayjs().format('YYYY-MM-DD'),
+      dateFrom: dayjs().subtract(7, 'day').format('YYYY-MM-DD HH:mm:ss'),
+      dateTo: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     },
   });
 
