@@ -6,10 +6,18 @@ import { CardElement } from '@lizards-inc-fe/shared-components';
 import { HistoryTable } from './components/HistoryTable';
 import { IPieChartBoundariesData } from './components/PieChartBoundaries';
 import { useGetRequest } from '@lizards-inc-fe/fetcher';
-import { DisplayDateFormat, filterData, IBoundary, IMeasurement, roundValue } from '@lizards-inc-fe/model';
+import {
+  ApiDateFormat,
+  DisplayDateFormat,
+  filterData,
+  IBoundary,
+  IMeasurement,
+  roundValue,
+} from '@lizards-inc-fe/model';
 import { PieChartDiagramsCard } from './components/PieChartDiagramsCard';
 import { LineChartSummary, LineChartSummaryData } from './components/LineChartSummary';
 import { ExportDataButton } from './components/ExportDataButton';
+import moment from 'moment';
 
 interface TimeSpanState {
   from: Dayjs | null;
@@ -27,17 +35,25 @@ export const MeasurementHistory = () => {
     isValidating: isBoundariesValidating,
   } = useGetRequest<IBoundary>({ url: '/Terrarium/boundaries' });
   const {
-    data: measurementRange,
+    data: measurementRangeResponseData,
     mutate: measurementRangeTrigger,
     isLoading: isMeasurementRangeLoading,
     isValidating: isMeasurementRangeValidating,
   } = useGetRequest<IMeasurement[]>({
     url: '/Measurements',
     params: {
-      dateFrom: dateStatus.from?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
-      dateTo: dateStatus.to?.format('YYYY-MM-DD HH:mm:ss').replace(' ', 'T'),
+      dateFrom: dateStatus.from?.format(ApiDateFormat).replace(' ', 'T'),
+      dateTo: dateStatus.to?.format(ApiDateFormat).replace(' ', 'T'),
     },
   });
+
+  const measurementRange = useMemo(() => {
+    if (measurementRangeResponseData)
+      measurementRangeResponseData.sort(
+        (a, b) => moment(a.dateTime, ApiDateFormat).unix() - moment(b.dateTime, ApiDateFormat).unix()
+      );
+    return measurementRangeResponseData;
+  }, [measurementRangeResponseData]);
 
   const calculatePieChartData = (values: number[], min: number, max: number): IPieChartBoundariesData[] => {
     const countInBoundary = values.filter(v => v < max && v > min).length;

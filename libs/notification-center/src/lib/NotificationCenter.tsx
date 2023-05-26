@@ -51,6 +51,7 @@ export const NotificationCenter = () => {
         type={'text'}
         ghost
         className={'flex flex-col justify-center items-center'}
+        title={'Notifications'}
         icon={
           <Badge
             offset={[notificationCount > 9 ? 10 : 2, 0]}

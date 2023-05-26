@@ -103,7 +103,9 @@ export const BoundariesSlider = ({
 
   return (
     <div>
-      <p className="text-lg text-zinc-500">{title}</p>
+      <p className="text-lg text-zinc-500">
+        {title} ({defaultValue[0]} - {defaultValue[1]})
+      </p>
       {contextHolder}
 
       <div className="w-full">
