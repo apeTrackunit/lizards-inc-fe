@@ -1,0 +1,244 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/app/TerrariumOutlined.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/app</a> TerrariumOutlined.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const TerrariumOutlined = () =&gt; (
+  &lt;svg
+    version="1.0"
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 896 896"
+    preserveAspectRatio="xMidYMid meet"
+    fill="currentColor"
+    transform="translate(6, 5) scale(2)"
+  &gt;
+    &lt;g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"&gt;
+      &lt;path
+        d="M78 4769 c-23 -12 -46 -35 -58 -59 -19 -37 -20 -58 -20 -390 0 -332
+1 -353 20 -390 22 -43 80 -80 125 -80 l25 0 0 -1290 0 -1290 -25 0 c-45 0
+-103 -37 -125 -80 -19 -37 -20 -58 -20 -390 0 -332 1 -353 20 -390 13 -26 34
+-47 60 -60 39 -20 53 -20 2480 -20 2427 0 2441 0 2480 20 26 13 47 34 60 60
+19 37 20 58 20 390 0 332 -1 353 -20 390 -22 43 -80 80 -125 80 l-25 0 0 1290
+0 1290 25 0 c45 0 103 37 125 80 19 37 20 58 20 390 0 332 -1 353 -20 390 -13
+26 -34 47 -60 60 -39 20 -53 20 -2482 20 -2413 -1 -2443 -1 -2480 -21z m4742
+-449 l0 -170 -2260 0 -2260 0 0 170 0 170 2260 0 2260 0 0 -170z m-170 -1760
+l0 -1290 -412 1 -413 0 -43 52 c-24 29 -75 89 -114 135 l-71 83 60 62 c84 86
+93 106 93 224 l1 98 261 185 c222 157 263 191 279 225 23 48 99 352 99 392 -1
+69 -76 143 -148 143 -42 0 -104 -32 -125 -64 -9 -13 -33 -90 -53 -170 l-36
+-146 -133 -95 c-73 -52 -135 -95 -139 -95 -3 0 -6 138 -6 308 l0 307 61 90
+c108 161 118 196 76 269 -40 70 -119 94 -193 59 -29 -14 -58 -49 -138 -168
+l-101 -150 -3 -152 c-2 -84 -4 -153 -6 -153 -7 0 -262 113 -268 119 -5 4 -22
+76 -38 161 -37 189 -55 232 -109 260 -51 25 -91 25 -141 0 -42 -21 -80 -80
+-80 -123 0 -50 90 -468 106 -492 22 -33 33 -39 304 -155 l225 -97 3 -279 2
+-278 -46 -47 -46 -47 -55 24 c-30 14 -85 33 -121 43 l-67 18 -5 74 c-6 90 -27
+132 -80 159 -50 25 -90 25 -140 0 -53 -27 -80 -80 -80 -160 l0 -60 -200 0
+c-110 0 -200 4 -200 9 0 4 16 43 36 86 54 117 84 262 90 440 5 140 4 152 -15
+183 -12 18 -35 41 -53 53 -31 19 -44 20 -183 15 -82 -3 -178 -11 -212 -19
+l-62 -13 -98 185 c-109 205 -164 276 -264 338 l-59 36 0 84 c0 64 -5 93 -20
+123 -23 45 -80 80 -130 80 -89 0 -150 -74 -150 -180 l0 -60 -130 0 -130 0 0
+140 c0 121 -3 146 -20 180 -23 45 -80 80 -130 80 -50 0 -107 -35 -130 -80 -17
+-34 -20 -59 -20 -180 l0 -140 -130 0 -130 0 0 330 0 330 2090 0 2090 0 0
+-1290z m-3205 314 c73 -25 113 -74 204 -247 l82 -156 -66 -65 -65 -66 -63 64
+c-132 134 -385 216 -670 216 -84 0 -108 -4 -135 -20 -57 -35 -72 -72 -72 -180
+0 -192 35 -368 100 -507 l39 -83 -165 0 -164 0 0 530 0 530 463 0 c404 0 470
+-2 512 -16z m-303 -589 c112 -28 191 -82 228 -155 27 -54 58 -161 66 -231 l7
+-62 -54 6 c-126 15 -253 62 -303 113 -15 16 -39 50 -52 76 -32 63 -72 237 -65
+279 1 7 98 -7 173 -26z m1086 -32 c-30 -191 -84 -295 -178 -343 -54 -27 -161
+-58 -231 -66 l-62 -7 7 62 c8 70 39 177 66 231 40 79 118 128 253 160 84 19
+137 28 148 23 3 -1 2 -28 -3 -60z m906 -751 c107 -40 198 -106 266 -192 l32
+-40 -1481 0 -1481 0 0 130 0 130 1303 -2 1302 -3 59 -23z m1686 -702 l0 -170
+-2260 0 -2260 0 0 170 0 170 2260 0 2260 0 0 -170z"
+      /&gt;
+    &lt;/g&gt;
+  &lt;/svg&gt;
+);
+&nbsp;
+export default TerrariumOutlined;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-05-27T17:01:47.779Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
