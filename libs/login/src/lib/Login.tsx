@@ -1,4 +1,4 @@
-import { Button, Card } from 'antd';
+import { Button, Card, Popover } from 'antd';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import { usePostRequest } from '@lizards-inc-fe/fetcher';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ import { AuthServerResponse, useAuthContext } from '@lizards-inc-fe/auth';
 import LoginChameleon from './assets/chamelion-min.png';
 import Vine from './assets/vine.png';
 import LoginLizard from './assets/lizard-min.png';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface IAuthServerRequest {
   code: string;
@@ -70,6 +71,21 @@ export const Login = () => {
     );
   }
 
+  const mockDisclaimer = (
+      <span>
+        ReptiMate was created for a <b>Semester Project by Adam Petříček, Gabriel Horžić, Gergő Nádor and Sofia Augustínová</b>.
+        <br/>
+        The Backend was hosted on Google Cloud with Google Credits provided by the school.
+        <br/>
+        We mocked the backend in order to help the implementation during the development phase.
+        <br/>
+        Since we have run out of Credits, we have decided to <b>toggle the Backend Mocking on in the published
+        website as well, therefore some of the data might not make sense.</b>
+        <br/>
+        Have a nice day!
+      </span>
+  )
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">
       <Card
@@ -89,8 +105,15 @@ export const Login = () => {
         </div>
 
         <div className={'m-1 flex justify-center pb-8'}>
-          <div className={'text-4xl'}>ReptiMate</div>
+          <div className={'text-4xl flex justify-center items-center gap-2'}>
+            ReptiMate
+            <Popover content={mockDisclaimer} title="Disclaimer" trigger="hover">
+              <ExclamationCircleOutlined rev={undefined} height={60} width={60} className={'text-red-500'} />
+            </Popover>
+
+          </div>
         </div>
+
         <button
           id={'login-button'}
           onClick={login}
